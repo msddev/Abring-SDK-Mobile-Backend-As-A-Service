@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AbringLibrary</string>
+
+    <!-- common text for public class-->
+    <string name="share_with_title">اشتراک برنامه با:</string>
+    <string name="back_again_to_exit">برای خروج لطفا کلید بازگشت را دوباره بزنید!</string>
+    <string name="loading">در حال بارگزاری</string>
+
+    <!--RetrofitErrorHelper -->
+    <string name="error">خطا</string>
+    <string name="SERVER_TIMEOUT">پاسخی از سرور دریافت نشد!</string>
+    <string name="SERVER_ERROR">خطایی در سرور رخ داده است</string>
+    <string name="NETWORK_ERROR">شبکه امکان برقراری ارتباط را ندارد!</string>
+    <string name="ERROR_AUTOROZATION">مجددا وارد حساب کاربری خود شوید!</string>
+    <string name="ERROR_PAGE_NOT_FOUND">صفحه موردنظر یافت نشد!</string>
+    <string name="no_connect_to_server">دسترسی به سرور امکان پذیر نمی باشد!</string>
+    <string name="no_connect_to_internet">دسترسی به اینترنت امکان پذیر نمی باشد!</string>
+    <string name="no_server_valid_response">پاسخ سرور نامفهوم می باشد!</string>
+</resources>

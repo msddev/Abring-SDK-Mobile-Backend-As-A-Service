@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+### Android ###
+# Built application files
+*.apk
+
+## Directory-based project format:
+.idea/
