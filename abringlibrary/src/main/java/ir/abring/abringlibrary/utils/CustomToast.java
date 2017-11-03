@@ -60,7 +60,7 @@ public class CustomToast {
         tv.setTextSize(14);
 
         tv.setGravity(Gravity.CENTER);
-        tv.setTypeface(CommonUtils.getTypeFace(context));
+        //tv.setTypeface(CommonUtils.getTypeFace(context));
 
         // set the text you want to show in  Toast
         tv.setText(msg);

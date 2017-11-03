@@ -15,13 +15,6 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="StandardText">
-        <item name="fontPath">fonts/IRANSansMobile.ttf</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:textColor">#000000</item>
-    </style>
-
     <style name="AppTheme.FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
