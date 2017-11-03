@@ -1,10 +1,8 @@
 package ir.abring.abringlibrary.interfaces;
 
 
-public interface AbringCallBack {
-    /**Successful response**/
-    void onSuccessful();
+public interface AbringCallBack<A,B> {
+    void onSuccessful(A response);
 
-    /**Failure response**/
-    void onFailure();
+    void onFailure(B response);
 }

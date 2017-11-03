@@ -2,8 +2,8 @@ package ir.abring.abringlibrary.abringclass;
 
 import android.util.Log;
 
-import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.services.UserServices;
 
 public class AbringUser {
     private String username;    //required
@@ -76,24 +76,17 @@ public class AbringUser {
 
 
     public void register(final AbringCallBack abringCallBack) {
-
-        Log.e("mmmmmm", username);
-        Log.e("mmmmmm", password);
-        Log.e("mmmmmm", Abring.getPackageName());
-
-        abringCallBack.onSuccessful();
-
-        new AbringCallBack() {
+        UserServices.register(username, password, new AbringCallBack<Object, Object>() {
             @Override
-            public void onSuccessful() {
-
+            public void onSuccessful(Object response) {
+                Log.d("register", "onSuccessful: ");
             }
 
             @Override
-            public void onFailure() {
-
+            public void onFailure(Object response) {
+                Log.d("register", "onFailure: ");
             }
-        };
+        });
 
     }
 }

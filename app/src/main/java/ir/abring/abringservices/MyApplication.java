@@ -11,7 +11,7 @@ public class MyApplication extends Application {
         super.onCreate();
 
         new Abring.Builder(this)
-                .setPackageName("com.test.test")
+                .setPackageName("com.masoud.test1")
                 .build();
     }
 }

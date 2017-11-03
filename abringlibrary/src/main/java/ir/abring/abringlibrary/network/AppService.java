@@ -31,7 +31,7 @@ public class AppService {
     private static final int MAX_AGE = 60 * 10; //with network 10min
     private static final int MAX_STALE = 60 * 60 * 24; //1 day ,no network
 
-    private static final String WEB_SERVICE_BASE_URL = "http://ws.asemanapps.ir/";
+    private static final String WEB_SERVICE_BASE_URL = "http://ws.v3.abring.ir/";
 
     private volatile static AppService sAppClient;
     private Map<String, Object> serviceByType = new HashMap<>();

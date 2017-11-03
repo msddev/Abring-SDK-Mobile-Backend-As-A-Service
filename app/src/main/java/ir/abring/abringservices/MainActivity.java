@@ -16,24 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
         AbringUser abringUser = new AbringUser
                 .RegisterBuilder()
-                .setUsername("test")
+                .setUsername("SdkTest")
                 .setPassword("123456")
                 .build();
 
         abringUser.register(new AbringCallBack() {
-            /**
-             * Successful response
-             **/
             @Override
-            public void onSuccessful() {
-                Toast.makeText(MainActivity.this, "تست موفق", Toast.LENGTH_LONG).show();
+            public void onSuccessful(Object response) {
+
             }
 
-            /**
-             * Failure response
-             **/
             @Override
-            public void onFailure() {
+            public void onFailure(Object response) {
 
             }
         });
