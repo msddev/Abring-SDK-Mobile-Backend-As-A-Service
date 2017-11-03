@@ -1,7 +1,9 @@
 package ir.abring.abringlibrary.abringclass;
 
+import android.app.Activity;
 import android.util.Log;
 
+import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.services.UserServices;
 
@@ -75,18 +77,46 @@ public class AbringUser {
     }
 
 
-    public void register(final AbringCallBack abringCallBack) {
-        UserServices.register(username, password, new AbringCallBack<Object, Object>() {
+    public void register(final Activity mActivity, final AbringCallBack abringCallBack) {
+        new Thread(new Runnable() {
             @Override
-            public void onSuccessful(Object response) {
-                Log.d("register", "onSuccessful: ");
-            }
+            public void run() {
 
-            @Override
-            public void onFailure(Object response) {
-                Log.d("register", "onFailure: ");
-            }
-        });
+                //Run in new thread
+                UserServices.register(username,
+                        password,
+                        name,
+                        avatar,
+                        email,
+                        phone,
+                        reg_idgcm,
+                        new AbringCallBack<Object, Object>() {
+                            @Override
+                            public void onSuccessful(final Object response) {
+                                Log.d("Tag", "onSuccessful: " + response.toString());
 
+                                mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        abringCallBack.onSuccessful(response);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailure(final Object response) {
+                                Log.d("Tag", "onFailure: " + response.toString());
+
+                                mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        abringCallBack.onFailure(response);
+                                    }
+                                });
+                            }
+                        });
+
+            }
+        }).start();
     }
 }

@@ -4,8 +4,7 @@ import android.util.Log;
 import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.Ping;
-import ir.abring.abringlibrary.models.Register;
+import ir.abring.abringlibrary.models.register.Register;
 import ir.abring.abringlibrary.network.AppAPI;
 import ir.abring.abringlibrary.network.AppService;
 import ir.abring.abringlibrary.network.RetrofitErrorHelper;
@@ -18,6 +17,11 @@ public class UserServices {
 
     public static void register(String username,
                                 String password,
+                                String name,
+                                String avatar,
+                                String email,
+                                String phone,
+                                String reg_idgcm,
                                 final AbringCallBack<Object, Object> abringCallBack) {
 
         if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
@@ -26,9 +30,12 @@ public class UserServices {
             Call<Register> mEntityCall = mApiService.RegisterAPI(
                     username,
                     password,
+                    name,
+                    avatar,
+                    email,
+                    phone,
+                    reg_idgcm,
                     Abring.getPackageName());
-
-            /*Call<Ping> mEntityCall = mApiService.PingAPI(Abring.getPackageName());*/
 
             Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
 
