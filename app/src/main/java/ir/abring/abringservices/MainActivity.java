@@ -58,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Object response) {
-                        Log.d("fdg", "onSuccessful: ");
+                        Log.d("fdg", "onFailure: ");
                         Toast.makeText(MainActivity.this, "رخداد خطا", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -79,11 +80,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccessful(Object response) {
                         Log.d("dfds", "onSuccessful: ");
+                        Toast.makeText(MainActivity.this, "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(Object response) {
                         Log.d("dfds", "onFailure: ");
+                        Toast.makeText(MainActivity.this, "رخداد خطا", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
