@@ -130,6 +130,8 @@ public class AbringUserRegister {
     private boolean isEmail;
     private boolean isPhone;
 
+    RegisterDialog mFragment;
+
     AbringUserRegister(DialogBuilder dialogBuilder) {
         this.isName = dialogBuilder.isName;
         this.isAvatar = dialogBuilder.isAvatar;
@@ -177,7 +179,7 @@ public class AbringUserRegister {
         if (frag != null)
             fragmentManager.beginTransaction().remove(frag).commit();
 
-        RegisterDialog mFragment = RegisterDialog.getInstance(isName, isAvatar, isEmail, isPhone,
+        mFragment = RegisterDialog.getInstance(isName, isAvatar, isEmail, isPhone,
                 new RegisterDialog.OnFinishListener() {
                     @Override
                     public void onFinishDialog(String userName,
@@ -202,6 +204,7 @@ public class AbringUserRegister {
                             public void onSuccessful(Object response) {
                                 Log.d("fdg", "onSuccessful: ");
                                 abringCallBack.onSuccessful(response);
+                                mFragment.dismiss();
                             }
 
                             @Override

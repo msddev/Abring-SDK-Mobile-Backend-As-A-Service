@@ -1,6 +1,5 @@
 package ir.abring.abringlibrary.utils;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,8 +12,18 @@ import android.support.v4.content.ContextCompat;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 public class UIUtil {
+
+    public static void closeKeyBoard(Activity mActivity) {
+        // Check if no view has focus:
+        View view = mActivity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
 
     public static int getColor(Context context, int colorId) {
         return ContextCompat.getColor(context, colorId);

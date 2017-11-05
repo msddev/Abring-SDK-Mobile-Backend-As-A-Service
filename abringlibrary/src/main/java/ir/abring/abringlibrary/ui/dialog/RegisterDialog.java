@@ -1,14 +1,19 @@
 package ir.abring.abringlibrary.ui.dialog;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.BaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
+import ir.abring.abringlibrary.utils.UIUtil;
 
 public class RegisterDialog extends BaseDialogFragment
         implements View.OnClickListener {
@@ -20,6 +25,15 @@ public class RegisterDialog extends BaseDialogFragment
     private static boolean avatar;
     private static OnFinishListener mListener;
 
+    private TextInputLayout inputlayoutUsername;
+    private TextInputLayout inputlayoutPassword;
+    private TextInputLayout inputlayoutName;
+    private TextInputLayout inputlayoutEmail;
+    private TextInputLayout inputlayoutPhone;
+    private TextInputLayout inputlayoutAvatar;
+
+    private ProgressBar progressBar;
+
     private EditText etUsername;
     private EditText etPassword;
     private EditText etName;
@@ -28,13 +42,6 @@ public class RegisterDialog extends BaseDialogFragment
     private EditText etAvatar;
     private Button btnOK;
     private Button btnCancel;
-
-    private String mUsername;
-    private String mPassword;
-    private String mName;
-    private String mEmail;
-    private String mPhone;
-    private String mAvatar;
 
     public RegisterDialog() {
     }
@@ -75,23 +82,33 @@ public class RegisterDialog extends BaseDialogFragment
         etPhone = (EditText) view.findViewById(R.id.etPhone);
         etAvatar = (EditText) view.findViewById(R.id.etAvatar);
 
+        inputlayoutUsername = (TextInputLayout) view.findViewById(R.id.inputlayoutUsername);
+        inputlayoutPassword = (TextInputLayout) view.findViewById(R.id.inputlayoutPassword);
+        inputlayoutName = (TextInputLayout) view.findViewById(R.id.inputlayoutName);
+        inputlayoutEmail = (TextInputLayout) view.findViewById(R.id.inputlayoutEmail);
+        inputlayoutPhone = (TextInputLayout) view.findViewById(R.id.inputlayoutPhone);
+        inputlayoutAvatar = (TextInputLayout) view.findViewById(R.id.inputlayoutAvatar);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
         btnOK = (Button) view.findViewById(R.id.btnOK);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
 
         btnOK.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
-        if (!name) etName.setVisibility(View.GONE);
-        if (!email) etEmail.setVisibility(View.GONE);
-        if (!phone) etPhone.setVisibility(View.GONE);
-        if (!avatar) etAvatar.setVisibility(View.GONE);
+        if (!name) inputlayoutName.setVisibility(View.GONE);
+        if (!email) inputlayoutEmail.setVisibility(View.GONE);
+        if (!phone) inputlayoutPhone.setVisibility(View.GONE);
+        if (!avatar) inputlayoutAvatar.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent();
         int i = view.getId();
         if (i == R.id.btnOK) {
+
+            progressBar.setVisibility(View.VISIBLE);
 
             if (checkValidation()) {
                 mListener.onFinishDialog(etUsername.getText().toString().trim(),
@@ -100,46 +117,55 @@ public class RegisterDialog extends BaseDialogFragment
                         etPhone.getText().toString().trim(),
                         etEmail.getText().toString().trim(),
                         etAvatar.getText().toString().trim()
-                        );
-            }
+                );
+            } else
+                progressBar.setVisibility(View.GONE);
+
 
         } else if (i == R.id.btnCancel) {
             dismiss();
         }
-        startActivity(intent);
-        dismiss();
     }
 
     private boolean checkValidation() {
         boolean isValid = true;
 
         if (Check.isEmpty(etUsername.getText().toString().trim())) {
-            etUsername.setError("نام کاربری نامعتبر است!");
-            etUsername.setFocusable(true);
+            setupView(etUsername, "نام کاربری نامعتبر است!");
             isValid = false;
         } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
-            etPassword.setError("کلمه عبور نامعتبر است!");
-            etPassword.setFocusable(true);
+            setupView(etPassword, "کلمه عبور نامعتبر است!");
             isValid = false;
         } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
-            etName.setError("نام و نام خانوادگی نامعتبر است!");
-            etName.setFocusable(true);
+            setupView(etName, "نام و نام خانوادگی نامعتبر است!");
             isValid = false;
         } else if (phone) {
-            if (!CheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
-                etPhone.setError("شماره تلفن نامعتبر است!");
-                etPhone.setFocusable(true);
+            if (etPhone.getText().toString().trim().length() != 11 ||
+                    !CheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
+                setupView(etPhone, "شماره تلفن نامعتبر است!");
                 isValid = false;
             }
         } else if (email) {
             if (!CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
-                etEmail.setError("آدرس ایمیل نامعتبر است!");
-                etEmail.setFocusable(true);
+                setupView(etEmail, "آدرس ایمیل نامعتبر است!");
                 isValid = false;
             }
         }
 
         return isValid;
+    }
+
+    private void setupView(final EditText view, String msg) {
+        view.setError(msg);
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+            }
+        }, 100);
     }
 
     public interface OnFinishListener {
