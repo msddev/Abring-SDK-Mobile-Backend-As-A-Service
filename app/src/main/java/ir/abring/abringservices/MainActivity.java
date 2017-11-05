@@ -1,5 +1,7 @@
 package ir.abring.abringservices;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,7 +12,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ir.abring.abringlibrary.abringclass.AbringUser;
+import ir.abring.abringlibrary.abringclass.AbringUserRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     EditText etAdatar;
     @BindView(R.id.btnSave)
     Button btnSave;
+    @BindView(R.id.openDialog)
+    Button openDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AbringUser abringUser = new AbringUser
+                AbringUserRegister abringUser = new AbringUserRegister
                         .RegisterBuilder()
                         .setUsername(etUsername.getText().toString())
                         .setPassword(etPassword.getText().toString())
@@ -56,6 +60,30 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Object response) {
                         Log.d("fdg", "onSuccessful: ");
                         Toast.makeText(MainActivity.this, "رخداد خطا", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+
+        openDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AbringUserRegister abringUser = new AbringUserRegister
+                        .DialogBuilder()
+                        .setName(true)
+                        .setPhone(true)
+                        .build();
+
+                abringUser.showDialog(getSupportFragmentManager(), MainActivity.this, new AbringCallBack() {
+                    @Override
+                    public void onSuccessful(Object response) {
+                        Log.d("dfds", "onSuccessful: ");
+                    }
+
+                    @Override
+                    public void onFailure(Object response) {
+                        Log.d("dfds", "onFailure: ");
                     }
                 });
             }
