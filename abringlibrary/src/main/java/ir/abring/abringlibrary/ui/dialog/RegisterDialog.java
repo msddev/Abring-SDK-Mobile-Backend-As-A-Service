@@ -146,7 +146,8 @@ public class RegisterDialog extends BaseDialogFragment
                 isValid = false;
             }
         } else if (email) {
-            if (!CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
+            if (Check.isEmpty(etEmail.getText().toString().trim()) ||
+                    !CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
                 setupView(etEmail, "آدرس ایمیل نامعتبر است!");
                 isValid = false;
             }

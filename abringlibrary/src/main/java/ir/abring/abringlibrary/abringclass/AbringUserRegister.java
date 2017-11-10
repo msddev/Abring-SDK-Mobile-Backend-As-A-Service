@@ -6,7 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.orhanobut.hawk.Hawk;
+
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.models.register.Register;
+import ir.abring.abringlibrary.models.register.Result;
+import ir.abring.abringlibrary.network.ApiError;
 import ir.abring.abringlibrary.services.UserServices;
 import ir.abring.abringlibrary.ui.dialog.RegisterDialog;
 
@@ -18,6 +23,8 @@ public class AbringUserRegister {
     private String email;       //optional
     private String phone;       //optional
     private String reg_idgcm;   //optional
+
+    private final static String ABRING_USER_INFO = "ABRING_USER_INFO";
 
     AbringUserRegister(RegisterBuilder registerBuilder) {
         this.username = registerBuilder.username;
@@ -95,11 +102,11 @@ public class AbringUserRegister {
                         new AbringCallBack<Object, Object>() {
                             @Override
                             public void onSuccessful(final Object response) {
-                                Log.d("Tag", "onSuccessful: " + response.toString());
-
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        Register register = (Register) response;
+                                        setUser(register.getResult());
                                         abringCallBack.onSuccessful(response);
                                     }
                                 });
@@ -107,8 +114,6 @@ public class AbringUserRegister {
 
                             @Override
                             public void onFailure(final Object response) {
-                                Log.d("Tag", "onFailure: " + response.toString());
-
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -202,14 +207,14 @@ public class AbringUserRegister {
                         abringUser.register(activity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                Log.d("fdg", "onSuccessful: ");
+                                Register register = (Register) response;
+                                setUser(register.getResult());
                                 abringCallBack.onSuccessful(response);
                                 mFragment.dismiss();
                             }
 
                             @Override
                             public void onFailure(Object response) {
-                                Log.d("fdg", "onSuccessful: ");
                                 abringCallBack.onFailure(response);
                             }
                         });
@@ -218,5 +223,17 @@ public class AbringUserRegister {
                 });
 
         mFragment.show(fragmentManager, "RegisterDialogFragment");
+    }
+
+    private void setUser(Result result) {
+        Hawk.put(ABRING_USER_INFO, result);
+    }
+
+
+    public static Object getUser() {
+        Object user = null;
+        if (Hawk.contains(ABRING_USER_INFO))
+            user = Hawk.get(ABRING_USER_INFO, null);
+        return user;
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AbringServices</string>
+    <string name="successful_responce">با موفقیت ثبت شد</string>
+    <string name="failure_responce">رخداد خطا</string>
 </resources>

@@ -14,6 +14,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.abring.abringlibrary.abringclass.AbringUserRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.models.register.Register;
+import ir.abring.abringlibrary.models.register.Result;
+import ir.abring.abringlibrary.network.ApiError;
+import ir.abring.abringlibrary.utils.Check;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        Result result = (Result) AbringUserRegister.getUser();
+        Log.d("USER", Check.isEmpty(result.getToken()) ? "null" : result.getToken());
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,15 +59,18 @@ public class MainActivity extends AppCompatActivity {
                 abringUser.register(MainActivity.this, new AbringCallBack() {
                     @Override
                     public void onSuccessful(Object response) {
-                        Log.d("fdg", "onSuccessful: ");
-                        Toast.makeText(MainActivity.this, "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
+                        Register register = (Register) response;
+                        Toast.makeText(MainActivity.this, R.string.successful_responce, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Object response) {
-                        Log.d("fdg", "onFailure: ");
-                        Toast.makeText(MainActivity.this, "رخداد خطا", Toast.LENGTH_LONG).show();
-                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                        ApiError apiError = null;
+                        if (response instanceof ApiError)
+                            apiError = (ApiError) response;
+                        Toast.makeText(MainActivity.this,
+                                Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -79,15 +89,16 @@ public class MainActivity extends AppCompatActivity {
                 abringUser.showDialog(getSupportFragmentManager(), MainActivity.this, new AbringCallBack() {
                     @Override
                     public void onSuccessful(Object response) {
-                        Log.d("dfds", "onSuccessful: ");
-                        Toast.makeText(MainActivity.this, "با موفقیت ثبت شد", Toast.LENGTH_LONG).show();
+                        Register register = (Register) response;
+                        Toast.makeText(MainActivity.this, R.string.successful_responce, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Object response) {
-                        Log.d("dfds", "onFailure: ");
-                        Toast.makeText(MainActivity.this, "رخداد خطا", Toast.LENGTH_LONG).show();
-                        Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                        ApiError apiError = (ApiError) response;
+                        Toast.makeText(MainActivity.this,
+                                Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
             }
