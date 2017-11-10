@@ -1,7 +1,6 @@
 package ir.abring.abringlibrary.ui.dialog;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -10,15 +9,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import ir.abring.abringlibrary.R;
-import ir.abring.abringlibrary.base.BaseDialogFragment;
+import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
-import ir.abring.abringlibrary.utils.UIUtil;
 
-public class RegisterDialog extends BaseDialogFragment
+public class AbringRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
 
-    private static RegisterDialog instance = null;
+    private static AbringRegisterDialog instance = null;
     private static boolean name;
     private static boolean email;
     private static boolean phone;
@@ -43,14 +41,14 @@ public class RegisterDialog extends BaseDialogFragment
     private Button btnOK;
     private Button btnCancel;
 
-    public RegisterDialog() {
+    public AbringRegisterDialog() {
     }
 
-    public static synchronized RegisterDialog getInstance(boolean isName,
-                                                          boolean isAvatar,
-                                                          boolean isEmail,
-                                                          boolean isPhone,
-                                                          OnFinishListener onFinishListener) {
+    public static synchronized AbringRegisterDialog getInstance(boolean isName,
+                                                                boolean isAvatar,
+                                                                boolean isEmail,
+                                                                boolean isPhone,
+                                                                OnFinishListener onFinishListener) {
         name = isName;
         avatar = isAvatar;
         email = isEmail;
@@ -58,7 +56,7 @@ public class RegisterDialog extends BaseDialogFragment
         mListener = onFinishListener;
 
         if (instance == null) {
-            instance = new RegisterDialog();
+            instance = new AbringRegisterDialog();
         }
         return instance;
     }

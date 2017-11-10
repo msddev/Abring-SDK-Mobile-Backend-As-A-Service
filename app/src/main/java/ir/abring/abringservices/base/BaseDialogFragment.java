@@ -1,4 +1,4 @@
-package ir.abring.abringlibrary.base;
+package ir.abring.abringservices.base;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -7,9 +7,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.ViewGroup;
-import ir.abring.abringlibrary.R;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import ir.abring.abringservices.R;
 
 public abstract class BaseDialogFragment extends DialogFragment {
+
+    protected Unbinder unbinder;
+
+    @Override
+    public void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
+    }
 
     @Override
     public void onStart() {
@@ -31,6 +41,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
         dialog.setCanceledOnTouchOutside(true);
         dialog.setContentView(view);
 
+        unbinder = ButterKnife.bind(this, view);
         initViews(view);
         return dialog;
     }

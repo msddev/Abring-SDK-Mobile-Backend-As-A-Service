@@ -25,7 +25,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AppService {
+public class AbringAppService {
 
     private static final int HTTP_RESPONSE_DISK_CACHE_MAX_SIZE = 10 * 1024 * 1024;
     private static final int MAX_AGE = 60 * 10; //with network 10min
@@ -33,11 +33,11 @@ public class AppService {
 
     private static final String WEB_SERVICE_BASE_URL = "http://ws.v3.abring.ir/";
 
-    private volatile static AppService sAppClient;
+    private volatile static AbringAppService sAppClient;
     private Map<String, Object> serviceByType = new HashMap<>();
     private Retrofit mRetrofit;
 
-    private AppService() {
+    private AbringAppService() {
 
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
@@ -107,10 +107,10 @@ public class AppService {
         };
     }
 
-    public static AppService getInstance() {
-        synchronized (AppService.class) {
+    public static AbringAppService getInstance() {
+        synchronized (AbringAppService.class) {
             if (sAppClient == null) {
-                sAppClient = new AppService();
+                sAppClient = new AbringAppService();
             }
         }
         return sAppClient;

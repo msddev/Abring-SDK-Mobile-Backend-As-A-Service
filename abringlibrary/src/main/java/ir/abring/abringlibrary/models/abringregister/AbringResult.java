@@ -1,14 +1,14 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Result{
+public class AbringResult {
 
 	@SerializedName("player_id")
 	private String playerId;
 
 	@SerializedName("player_info")
-	private PlayerInfo playerInfo;
+	private AbringPlayerInfo playerInfo;
 
 	@SerializedName("token")
 	private String token;
@@ -21,11 +21,11 @@ public class Result{
 		return playerId;
 	}
 
-	public void setPlayerInfo(PlayerInfo playerInfo){
+	public void setPlayerInfo(AbringPlayerInfo playerInfo){
 		this.playerInfo = playerInfo;
 	}
 
-	public PlayerInfo getPlayerInfo(){
+	public AbringPlayerInfo getPlayerInfo(){
 		return playerInfo;
 	}
 

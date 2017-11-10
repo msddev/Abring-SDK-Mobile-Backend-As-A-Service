@@ -1,11 +1,11 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Register {
+public class AbringRegister {
 
 	@SerializedName("result")
-	private Result result;
+	private AbringResult result;
 
 	@SerializedName("code")
 	private String code;
@@ -16,11 +16,11 @@ public class Register {
 	@SerializedName("timestamp")
 	private String timestamp;
 
-	public void setResult(Result result){
+	public void setResult(AbringResult result){
 		this.result = result;
 	}
 
-	public Result getResult(){
+	public AbringResult getResult(){
 		return result;
 	}
 

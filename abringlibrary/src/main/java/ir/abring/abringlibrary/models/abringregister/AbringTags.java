@@ -1,8 +1,8 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Tags{
+public class AbringTags {
 
 	@SerializedName("twst22222")
 	private int twst22222;

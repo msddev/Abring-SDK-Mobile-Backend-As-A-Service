@@ -2,4 +2,18 @@
     <string name="app_name">AbringServices</string>
     <string name="successful_responce">با موفقیت ثبت شد</string>
     <string name="failure_responce">رخداد خطا</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_ui">User UI</string>
+    <string name="abring_ui">Abring UI</string>
+    <string name="result">Result</string>
+    <string name="register">ثبت نام</string>
+    <string name="register_new_user">ثبت نام کاربر جدید</string>
+    <string name="username">نام کاربری</string>
+    <string name="password">کلمه عبور</string>
+    <string name="name">نام</string>
+    <string name="email">ایمیل</string>
+    <string name="phone">تلفن</string>
+    <string name="register_mobile">ثبت نام با موبایل</string>
 </resources>

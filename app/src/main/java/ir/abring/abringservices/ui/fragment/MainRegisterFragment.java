@@ -1,0 +1,99 @@
+package ir.abring.abringservices.ui.fragment;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.Unbinder;
+import ir.abring.abringlibrary.abringclass.AbringUserRegister;
+import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.models.abringregister.AbringRegister;
+import ir.abring.abringlibrary.network.AbringApiError;
+import ir.abring.abringlibrary.utils.ActivityUtils;
+import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringservices.R;
+import ir.abring.abringservices.base.BaseFragment;
+
+public class MainRegisterFragment extends BaseFragment implements View.OnClickListener {
+
+    private static MainRegisterFragment mInstance = null;
+
+    @BindView(R.id.btnUserUI)
+    Button btnUserUI;
+    @BindView(R.id.btnAbringUI)
+    Button btnAbringUI;
+    @BindView(R.id.tvResult)
+    TextView tvResult;
+
+    public MainRegisterFragment() {
+    }
+
+    public static synchronized MainRegisterFragment getInstance() {
+        if (mInstance == null) {
+            mInstance = new MainRegisterFragment();
+        }
+        return mInstance;
+    }
+
+    @Override
+    protected void initBeforeView() {
+
+    }
+
+    @Override
+    protected int getContentViewId() {
+        return R.layout.fragment_main_register;
+    }
+
+    @Override
+    protected void initViews(View rootView) {
+        btnUserUI.setOnClickListener(this);
+        btnAbringUI.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnUserUI:
+
+                RegisterFragment fragment = RegisterFragment.getInstance();
+
+                ActivityUtils.replaceFragmentToActivity(getFragmentManager(),
+                        fragment,
+                        R.id.mainframe,
+                        "RegisterFragment",
+                        "MainRegisterFragment");
+                break;
+
+            case R.id.btnAbringUI:
+                showDialog();
+                break;
+        }
+    }
+
+    private void showDialog() {
+        AbringUserRegister abringUser = new AbringUserRegister
+                .DialogBuilder()
+                .setName(true)
+                .setPhone(true)
+                .build();
+
+        abringUser.showDialog(mActivity.getSupportFragmentManager(), mActivity, new AbringCallBack() {
+            @Override
+            public void onSuccessful(Object response) {
+                AbringRegister register = (AbringRegister) response;
+                Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Object response) {
+                AbringApiError apiError = (AbringApiError) response;
+                Toast.makeText(mActivity,
+                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

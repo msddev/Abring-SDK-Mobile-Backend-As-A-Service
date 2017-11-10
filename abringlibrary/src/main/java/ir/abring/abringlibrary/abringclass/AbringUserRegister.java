@@ -3,17 +3,14 @@ package ir.abring.abringlibrary.abringclass;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.register.Register;
-import ir.abring.abringlibrary.models.register.Result;
-import ir.abring.abringlibrary.network.ApiError;
-import ir.abring.abringlibrary.services.UserServices;
-import ir.abring.abringlibrary.ui.dialog.RegisterDialog;
+import ir.abring.abringlibrary.models.abringregister.AbringRegister;
+import ir.abring.abringlibrary.models.abringregister.AbringResult;
+import ir.abring.abringlibrary.services.AbringUserServices;
+import ir.abring.abringlibrary.ui.dialog.AbringRegisterDialog;
 
 public class AbringUserRegister {
     private String username;    //required
@@ -92,7 +89,7 @@ public class AbringUserRegister {
             public void run() {
 
                 //Run in new thread
-                UserServices.register(username,
+                AbringUserServices.register(username,
                         password,
                         name,
                         avatar,
@@ -105,7 +102,7 @@ public class AbringUserRegister {
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Register register = (Register) response;
+                                        AbringRegister register = (AbringRegister) response;
                                         setUser(register.getResult());
                                         abringCallBack.onSuccessful(response);
                                     }
@@ -135,7 +132,7 @@ public class AbringUserRegister {
     private boolean isEmail;
     private boolean isPhone;
 
-    RegisterDialog mFragment;
+    AbringRegisterDialog mFragment;
 
     AbringUserRegister(DialogBuilder dialogBuilder) {
         this.isName = dialogBuilder.isName;
@@ -184,8 +181,8 @@ public class AbringUserRegister {
         if (frag != null)
             fragmentManager.beginTransaction().remove(frag).commit();
 
-        mFragment = RegisterDialog.getInstance(isName, isAvatar, isEmail, isPhone,
-                new RegisterDialog.OnFinishListener() {
+        mFragment = AbringRegisterDialog.getInstance(isName, isAvatar, isEmail, isPhone,
+                new AbringRegisterDialog.OnFinishListener() {
                     @Override
                     public void onFinishDialog(String userName,
                                                String password,
@@ -207,7 +204,7 @@ public class AbringUserRegister {
                         abringUser.register(activity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                Register register = (Register) response;
+                                AbringRegister register = (AbringRegister) response;
                                 setUser(register.getResult());
                                 abringCallBack.onSuccessful(response);
                                 mFragment.dismiss();
@@ -225,7 +222,7 @@ public class AbringUserRegister {
         mFragment.show(fragmentManager, "RegisterDialogFragment");
     }
 
-    private void setUser(Result result) {
+    private void setUser(AbringResult result) {
         Hawk.put(ABRING_USER_INFO, result);
     }
 

@@ -8,10 +8,10 @@ import com.google.gson.Gson;
 import ir.abring.abringlibrary.R;
 import retrofit2.Response;
 
-public class RetrofitErrorResponce {
+public class AbringRetrofitErrorResponce {
 
     private Context mContext;
-    private ApiError errorResponse;
+    private AbringApiError errorResponse;
 
     public Object getMessage(Object error, Context context) {
 
@@ -32,7 +32,7 @@ public class RetrofitErrorResponce {
             Gson gson = new Gson();
             errorResponse = gson.fromJson(
                     response.errorBody().string(),
-                    ApiError.class);
+                    AbringApiError.class);
 
         } catch (Exception ex) {
             ex.printStackTrace();

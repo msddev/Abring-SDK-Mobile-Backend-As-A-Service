@@ -1,8 +1,8 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class JsonMemberPublic{
+public class AbringJsonMemberPublic {
 
 	@SerializedName("leaderboard_profile")
 	private String leaderboardProfile;

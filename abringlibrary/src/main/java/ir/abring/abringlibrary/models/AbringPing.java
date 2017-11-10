@@ -1,6 +1,6 @@
 package ir.abring.abringlibrary.models;
 
-public class Ping {
+public class AbringPing {
 
     /**
      * code : 200

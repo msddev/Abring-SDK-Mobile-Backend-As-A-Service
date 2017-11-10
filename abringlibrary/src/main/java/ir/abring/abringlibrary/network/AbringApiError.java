@@ -1,6 +1,6 @@
 package ir.abring.abringlibrary.network;
 
-public class ApiError {
+public class AbringApiError {
 
     /**
      * name : Internal Server Error

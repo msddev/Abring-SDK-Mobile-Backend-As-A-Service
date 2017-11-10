@@ -1,9 +1,9 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
-public class Friends{
+public class AbringFriends {
 
 	@SerializedName("invitations")
 	private List<Object> invitations;

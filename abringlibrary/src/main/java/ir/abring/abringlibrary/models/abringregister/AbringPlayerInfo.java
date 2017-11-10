@@ -1,14 +1,14 @@
-package ir.abring.abringlibrary.models.register;
+package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PlayerInfo{
+public class AbringPlayerInfo {
 
 	@SerializedName("player_id")
 	private String playerId;
 
 	@SerializedName("public")
-	private JsonMemberPublic jsonMemberPublic;
+	private AbringJsonMemberPublic jsonMemberPublic;
 
 	@SerializedName("create_time")
 	private String createTime;
@@ -32,13 +32,13 @@ public class PlayerInfo{
 	private String email;
 
 	@SerializedName("friends")
-	private Friends friends;
+	private AbringFriends friends;
 
 	@SerializedName("username")
 	private String username;
 
 	@SerializedName("tags")
-	private Tags tags;
+	private AbringTags tags;
 
 	public void setPlayerId(String playerId){
 		this.playerId = playerId;
@@ -48,11 +48,11 @@ public class PlayerInfo{
 		return playerId;
 	}
 
-	public void setJsonMemberPublic(JsonMemberPublic jsonMemberPublic){
+	public void setJsonMemberPublic(AbringJsonMemberPublic jsonMemberPublic){
 		this.jsonMemberPublic = jsonMemberPublic;
 	}
 
-	public JsonMemberPublic getJsonMemberPublic(){
+	public AbringJsonMemberPublic getJsonMemberPublic(){
 		return jsonMemberPublic;
 	}
 
@@ -112,11 +112,11 @@ public class PlayerInfo{
 		return email;
 	}
 
-	public void setFriends(Friends friends){
+	public void setFriends(AbringFriends friends){
 		this.friends = friends;
 	}
 
-	public Friends getFriends(){
+	public AbringFriends getFriends(){
 		return friends;
 	}
 
@@ -128,11 +128,11 @@ public class PlayerInfo{
 		return username;
 	}
 
-	public void setTags(Tags tags){
+	public void setTags(AbringTags tags){
 		this.tags = tags;
 	}
 
-	public Tags getTags(){
+	public AbringTags getTags(){
 		return tags;
 	}
 }

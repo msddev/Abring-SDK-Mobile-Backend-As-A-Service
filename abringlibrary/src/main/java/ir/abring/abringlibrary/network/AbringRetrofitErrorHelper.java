@@ -11,10 +11,10 @@ import java.net.SocketTimeoutException;
 import ir.abring.abringlibrary.R;
 import retrofit2.Response;
 
-public class RetrofitErrorHelper {
+public class AbringRetrofitErrorHelper {
 
     private Context mContext;
-    private ApiError errorResponse;
+    private AbringApiError errorResponse;
 
     public String getMessage(Object error, Context context) {
 
@@ -53,7 +53,7 @@ public class RetrofitErrorHelper {
             Gson gson = new Gson();
             errorResponse = gson.fromJson(
                     response.errorBody().string(),
-                    ApiError.class);
+                    AbringApiError.class);
 
         } catch (Exception ex) {
             ex.printStackTrace();
