@@ -28,6 +28,4 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.1.0'
-    compile 'com.auron:permission-manage:1.1.7'
-    compile 'com.github.Mariovc:ImagePicker:1.2.0'
 }

@@ -1,17 +1,35 @@
 package ir.abring.abringlibrary.ui.dialog;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.mvc.imagepicker.ImagePicker;
+
+import java.io.File;
 
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
+import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
 
 public class AbringRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
@@ -28,7 +46,6 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private TextInputLayout inputlayoutName;
     private TextInputLayout inputlayoutEmail;
     private TextInputLayout inputlayoutPhone;
-    private TextInputLayout inputlayoutAvatar;
 
     private ProgressBar progressBar;
 
@@ -37,9 +54,11 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private EditText etName;
     private EditText etEmail;
     private EditText etPhone;
-    private EditText etAvatar;
+    private ImageView imgAvatar;
     private Button btnOK;
     private Button btnCancel;
+
+    private File file;
 
     public AbringRegisterDialog() {
     }
@@ -78,14 +97,13 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         etName = (EditText) view.findViewById(R.id.etName);
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etPhone = (EditText) view.findViewById(R.id.etPhone);
-        etAvatar = (EditText) view.findViewById(R.id.etAvatar);
+        imgAvatar = (ImageView) view.findViewById(R.id.imgAvatar);
 
         inputlayoutUsername = (TextInputLayout) view.findViewById(R.id.inputlayoutUsername);
         inputlayoutPassword = (TextInputLayout) view.findViewById(R.id.inputlayoutPassword);
         inputlayoutName = (TextInputLayout) view.findViewById(R.id.inputlayoutName);
         inputlayoutEmail = (TextInputLayout) view.findViewById(R.id.inputlayoutEmail);
         inputlayoutPhone = (TextInputLayout) view.findViewById(R.id.inputlayoutPhone);
-        inputlayoutAvatar = (TextInputLayout) view.findViewById(R.id.inputlayoutAvatar);
 
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
@@ -94,17 +112,19 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
 
         btnOK.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        imgAvatar.setOnClickListener(this);
 
         if (!name) inputlayoutName.setVisibility(View.GONE);
         if (!email) inputlayoutEmail.setVisibility(View.GONE);
         if (!phone) inputlayoutPhone.setVisibility(View.GONE);
-        if (!avatar) inputlayoutAvatar.setVisibility(View.GONE);
+        if (!avatar) imgAvatar.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.btnOK) {
+
 
             progressBar.setVisibility(View.VISIBLE);
 
@@ -114,7 +134,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                         etName.getText().toString().trim(),
                         etPhone.getText().toString().trim(),
                         etEmail.getText().toString().trim(),
-                        etAvatar.getText().toString().trim()
+                        file
                 );
             } else
                 progressBar.setVisibility(View.GONE);
@@ -122,6 +142,9 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
 
         } else if (i == R.id.btnCancel) {
             dismiss();
+        } else if (i == R.id.imgAvatar) {
+            file = null;
+            ImagePicker.pickImage(this, "Select your image:", 100, false);
         }
     }
 
@@ -149,7 +172,13 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                 setupView(etEmail, "آدرس ایمیل نامعتبر است!");
                 isValid = false;
             }
+        } else if (avatar) {
+            if (file == null) {
+                setupView(etEmail, "تصویر انتخاب نشده است!");
+                isValid = false;
+            }
         }
+
 
         return isValid;
     }
@@ -173,6 +202,46 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                             String name,
                             String phone,
                             String email,
-                            String avatar);
+                            File avatar);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        try {
+            // When an Image is picked
+            if (requestCode == 100 && resultCode == Activity.RESULT_OK && null != data) {
+
+                Bitmap bitmap = ImagePicker.getImageFromResult(getActivity(), requestCode, resultCode, data);
+                if (bitmap != null) {
+                    imgAvatar.setImageBitmap(bitmap);
+                }
+
+                // Get the Image from data
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                        filePathColumn,
+                        null,
+                        null,
+                        null);
+
+                assert cursor != null;
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String mediaPath = cursor.getString(columnIndex);
+                file = new File(mediaPath);
+                /*// Set the Image in ImageView for Previewing the Media
+                imgView.setImageBitmap(BitmapFactory.decodeFile(mediaPath));*/
+                cursor.close();
+
+            } else {
+                Toast.makeText(getActivity(), "You haven't picked Image/Video", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+        }
     }
 }

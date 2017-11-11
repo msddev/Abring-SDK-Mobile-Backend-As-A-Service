@@ -17,6 +17,12 @@ android {
     buildToolsVersion '27.0.0'
 }
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:27.0.0'
@@ -27,4 +33,6 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
     compile 'com.orhanobut:hawk:2.0.1'
+    compile 'com.github.Mariovc:ImagePicker:1.2.0'
+    compile 'com.auron:permission-manage:1.1.7'
 }

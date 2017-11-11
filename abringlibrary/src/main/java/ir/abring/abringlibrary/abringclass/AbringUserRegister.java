@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentManager;
 
 import com.orhanobut.hawk.Hawk;
 
+import java.io.File;
+
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegister;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
@@ -16,7 +18,7 @@ public class AbringUserRegister {
     private String username;    //required
     private String password;    //required
     private String name;        //optional
-    private String avatar;      //optional
+    private File avatar;      //optional
     private String email;       //optional
     private String phone;       //optional
     private String reg_idgcm;   //optional
@@ -37,7 +39,7 @@ public class AbringUserRegister {
         private String username;    //required
         private String password;    //required
         private String name;        //optional
-        private String avatar;      //optional
+        private File avatar;      //optional
         private String email;       //optional
         private String phone;       //optional
         private String reg_idgcm;   //optional
@@ -57,7 +59,7 @@ public class AbringUserRegister {
             return this;
         }
 
-        public RegisterBuilder setAvatar(String avatar) {
+        public RegisterBuilder setAvatar(File avatar) {
             this.avatar = avatar;
             return this;
         }
@@ -189,7 +191,7 @@ public class AbringUserRegister {
                                                String name,
                                                String phone,
                                                String email,
-                                               String avatar) {
+                                               File avatar) {
 
                         AbringUserRegister abringUser = new AbringUserRegister
                                 .RegisterBuilder()

@@ -39,6 +39,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="8dp">
 
@@ -161,27 +162,12 @@
 
                     </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/inputlayoutAvatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp">
-
-                        <EditText
-                            android:id="@+id/etAvatar"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/edittext_underline"
-                            android:gravity="center"
-                            android:hint="تصویر"
-                            android:inputType="text"
-                            android:paddingBottom="5dp"
-                            android:paddingTop="5dp"
-                            android:textColor="@color/primary_text"
-                            android:textSize="@dimen/text_size_Small" />
-
-                    </android.support.design.widget.TextInputLayout>
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/img_abring_avatar" />
 
                 </LinearLayout>
 
@@ -192,13 +178,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:gravity="left">
+                android:gravity="left"
+                android:padding="5dp">
 
                 <Button
                     android:id="@+id/btnOK"

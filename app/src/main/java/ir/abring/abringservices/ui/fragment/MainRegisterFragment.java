@@ -78,6 +78,7 @@ public class MainRegisterFragment extends BaseFragment implements View.OnClickLi
                 .DialogBuilder()
                 .setName(true)
                 .setPhone(true)
+                .setAvatar(true)
                 .build();
 
         abringUser.showDialog(mActivity.getSupportFragmentManager(), mActivity, new AbringCallBack() {
