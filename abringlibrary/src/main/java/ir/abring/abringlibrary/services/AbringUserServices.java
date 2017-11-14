@@ -36,8 +36,11 @@ public class AbringUserServices {
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
 
             // Parsing any Media type file
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), avatar);
-            MultipartBody.Part avatarToUpload = MultipartBody.Part.createFormData("avatar", avatar.getName(), requestBody);
+            MultipartBody.Part avatarToUpload = null;
+            if(avatar != null) {
+                RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), avatar);
+                avatarToUpload = MultipartBody.Part.createFormData("avatar", avatar.getName(), requestBody);
+            }
 
             RequestBody usernameRequest = Check.isEmpty(username) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), username);

@@ -59,6 +59,19 @@
         <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
+    <style name="Theme.MatrialDialog" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/Indigo</item>
+        <item name="colorPrimaryDark">@color/Indigo</item>
+        <item name="colorAccent">@color/Indigo</item>
+        <item name="md_positive_color">@color/primary_text</item>
+        <item name="md_neutral_color">@color/Indigo</item>
+        <item name="md_negative_color">@color/FireBrick</item>
+        <item name="md_buttons_gravity">end</item>
+        <item name="md_items_gravity">start</item>
+        <item name="md_content_gravity">end</item>
+        <item name="md_title_gravity">end</item>
+    </style>
+
     <!--style for change activity transaction-->
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>

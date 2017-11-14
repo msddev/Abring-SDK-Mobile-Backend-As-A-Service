@@ -3,16 +3,17 @@ package ir.abring.abringlibrary.ui.dialog;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -21,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.mvc.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -29,7 +32,7 @@ import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
-import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
+import ir.abring.abringlibrary.utils.CommonUtils;
 
 public class AbringRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
@@ -59,6 +62,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private Button btnCancel;
 
     private File file;
+    private int REQUEST_EXTERNAL_STORAGE = 100;
 
     public AbringRegisterDialog() {
     }
@@ -125,20 +129,34 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         int i = view.getId();
         if (i == R.id.btnOK) {
 
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-            progressBar.setVisibility(View.VISIBLE);
+                new MaterialDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.Theme_MatrialDialog))
+                        .title(R.string.permission)
+                        .content(R.string.read_external_storage_permission_content)
+                        .positiveText(R.string.accept_permission)
+                        .negativeText(R.string.cancle)
+                        .cancelable(false)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                ActivityCompat.requestPermissions(getActivity(),
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        REQUEST_EXTERNAL_STORAGE);
+                            }
+                        })
+                        .onNegative(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
 
-            if (checkValidation()) {
-                mListener.onFinishDialog(etUsername.getText().toString().trim(),
-                        etPassword.getText().toString().trim(),
-                        etName.getText().toString().trim(),
-                        etPhone.getText().toString().trim(),
-                        etEmail.getText().toString().trim(),
-                        file
-                );
-            } else
-                progressBar.setVisibility(View.GONE);
-
+            } else {
+                okAction();
+            }
 
         } else if (i == R.id.btnCancel) {
             dismiss();
@@ -146,6 +164,27 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
             file = null;
             ImagePicker.pickImage(this, "Select your image:", 100, false);
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_EXTERNAL_STORAGE)
+            okAction();
+    }
+
+    private void okAction() {
+        progressBar.setVisibility(View.VISIBLE);
+
+        if (checkValidation()) {
+            mListener.onFinishDialog(etUsername.getText().toString().trim(),
+                    etPassword.getText().toString().trim(),
+                    etName.getText().toString().trim(),
+                    etPhone.getText().toString().trim(),
+                    etEmail.getText().toString().trim(),
+                    file
+            );
+        } else
+            progressBar.setVisibility(View.GONE);
     }
 
     private boolean checkValidation() {

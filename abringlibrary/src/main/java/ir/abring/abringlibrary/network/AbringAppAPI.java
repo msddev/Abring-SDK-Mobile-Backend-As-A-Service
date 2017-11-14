@@ -23,13 +23,13 @@ public interface AbringAppAPI {
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("reg_idgcm") RequestBody reg_idgcm,
-            @Part("app_id") RequestBody app_id
+            @Part("app") RequestBody app_id
     );
 
     @FormUrlEncoded
     @POST("index.php?r=site/ping")
     Call<AbringPing> PingAPI(
-            @Field("app_id") String app_id
+            @Field("app") String app_id
     );
 
 }
