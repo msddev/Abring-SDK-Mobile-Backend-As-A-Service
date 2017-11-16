@@ -1,4 +1,4 @@
-package ir.abring.abringlibrary.abringclass;
+package ir.abring.abringlibrary.abringclass.user;
 
 import android.Manifest;
 import android.app.Activity;
@@ -6,87 +6,69 @@ import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
-
 import com.orhanobut.hawk.Hawk;
-
 import java.io.File;
-
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.abringregister.AbringRegister;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringRegisterDialog;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
-public class AbringUserRegister {
-    private String username;    //required
-    private String password;    //required
+public class AbringMobileRegister {
+    private String mobile;    //required
+    private String username;    //optional
+    private String password;    //optional
+    private String deviceId;       //optional
     private String name;        //optional
     private File avatar;      //optional
-    private String email;       //optional
-    private String phone;       //optional
-    private String reg_idgcm;   //optional
 
     private final static String ABRING_USER_INFO = "ABRING_USER_INFO";
 
-    AbringUserRegister(RegisterBuilder registerBuilder) {
+    AbringMobileRegister(MobileRegisterBuilder registerBuilder) {
+        this.mobile = registerBuilder.mobile;
         this.username = registerBuilder.username;
         this.password = registerBuilder.password;
+        this.deviceId = registerBuilder.deviceId;
         this.name = registerBuilder.name;
         this.avatar = registerBuilder.avatar;
-        this.email = registerBuilder.email;
-        this.phone = registerBuilder.phone;
-        this.reg_idgcm = registerBuilder.reg_idgcm;
     }
 
-    public static class RegisterBuilder {
-        private String username;    //required
-        private String password;    //required
+    public static class MobileRegisterBuilder {
+        private String mobile;    //required
+        private String username;    //optional
+        private String password;    //optional
+        private String deviceId;       //optional
         private String name;        //optional
         private File avatar;      //optional
-        private String email;       //optional
-        private String phone;       //optional
-        private String reg_idgcm;   //optional
 
-        public RegisterBuilder setUsername(String username) {
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
+
+        public void setUsername(String username) {
             this.username = username;
-            return this;
         }
 
-        public RegisterBuilder setPassword(String password) {
+        public void setPassword(String password) {
             this.password = password;
-            return this;
         }
 
-        public RegisterBuilder setName(String name) {
+        public void setDeviceId(String deviceId) {
+            this.deviceId = deviceId;
+        }
+
+        public void setName(String name) {
             this.name = name;
-            return this;
         }
 
-        public RegisterBuilder setAvatar(File avatar) {
+        public void setAvatar(File avatar) {
             this.avatar = avatar;
-            return this;
         }
 
-        public RegisterBuilder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public RegisterBuilder setPhone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public RegisterBuilder setReg_idgcm(String reg_idgcm) {
-            this.reg_idgcm = reg_idgcm;
-            return this;
-        }
-
-        public AbringUserRegister build() {
-            return new AbringUserRegister(this);
+        public AbringMobileRegister build() {
+            return new AbringMobileRegister(this);
         }
 
     }
@@ -101,20 +83,19 @@ public class AbringUserRegister {
                 public void run() {
 
                     //Run in new thread
-                    AbringUserServices.register(username,
+                    AbringUserServices.mobileRegister(mobile,
+                            username,
                             password,
+                            deviceId,
                             name,
                             avatar,
-                            email,
-                            phone,
-                            reg_idgcm,
                             new AbringCallBack<Object, Object>() {
                                 @Override
                                 public void onSuccessful(final Object response) {
                                     mActivity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            AbringRegister register = (AbringRegister) response;
+                                            abringregister.AbringRegister register = (ir.abring.abringlibrary.models.abringregister.AbringRegister) response;
                                             setUser(register.getResult());
                                             abringCallBack.onSuccessful(response);
                                         }
@@ -149,7 +130,7 @@ public class AbringUserRegister {
 
     AbringRegisterDialog mFragment;
 
-    AbringUserRegister(DialogBuilder dialogBuilder) {
+    AbringMobileRegister(DialogBuilder dialogBuilder) {
         this.isName = dialogBuilder.isName;
         this.isAvatar = dialogBuilder.isAvatar;
         this.isEmail = dialogBuilder.isEmail;
@@ -182,8 +163,8 @@ public class AbringUserRegister {
             return this;
         }
 
-        public AbringUserRegister build() {
-            return new AbringUserRegister(this);
+        public AbringMobileRegister build() {
+            return new AbringMobileRegister(this);
         }
 
     }
@@ -206,7 +187,7 @@ public class AbringUserRegister {
                                                String email,
                                                File avatar) {
 
-                        AbringUserRegister abringUser = new AbringUserRegister
+                        AbringMobileRegister abringUser = new AbringMobileRegister
                                 .RegisterBuilder()
                                 .setUsername(userName)
                                 .setPassword(password)
@@ -219,7 +200,7 @@ public class AbringUserRegister {
                         abringUser.register(activity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                AbringRegister register = (AbringRegister) response;
+                                ir.abring.abringlibrary.models.abringregister.AbringRegister register = (ir.abring.abringlibrary.models.abringregister.AbringRegister) response;
                                 setUser(register.getResult());
                                 abringCallBack.onSuccessful(response);
                                 mFragment.dismiss();

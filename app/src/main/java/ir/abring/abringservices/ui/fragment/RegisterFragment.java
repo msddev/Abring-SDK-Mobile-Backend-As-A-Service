@@ -13,16 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.mvc.imagepicker.ImagePicker;
-
 import java.io.File;
-import java.util.regex.Matcher;
-
 import butterknife.BindView;
-import ir.abring.abringlibrary.abringclass.AbringUserRegister;
+import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.abringregister.AbringRegister;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringservices.R;
@@ -100,7 +95,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
 
     private void saveAction() {
 
-        AbringUserRegister abringUser = new AbringUserRegister
+        AbringRegister abringUser = new AbringRegister
                 .RegisterBuilder()
                 .setUsername(etUsername.getText().toString())
                 .setPassword(etPassword.getText().toString())
@@ -111,7 +106,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         abringUser.register(mActivity, new AbringCallBack() {
             @Override
             public void onSuccessful(Object response) {
-                AbringRegister register = (AbringRegister) response;
+                ir.abring.abringlibrary.models.abringregister.AbringRegister register = (ir.abring.abringlibrary.models.abringregister.AbringRegister) response;
                 Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
             }
 
