@@ -11,8 +11,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,18 +19,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.mvc.imagepicker.ImagePicker;
-
 import java.io.File;
-
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
-import ir.abring.abringlibrary.utils.CommonUtils;
+
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class AbringRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
@@ -62,7 +58,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private Button btnCancel;
 
     private File file;
-    private int REQUEST_EXTERNAL_STORAGE = 100;
+    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     public AbringRegisterDialog() {
     }
@@ -129,7 +125,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         int i = view.getId();
         if (i == R.id.btnOK) {
 
-            if (ActivityCompat.checkSelfPermission(getContext(),
+            if (avatar && checkSelfPermission(getContext(),
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
                 new MaterialDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.Theme_MatrialDialog))
@@ -141,8 +137,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                ActivityCompat.requestPermissions(getActivity(),
-                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                         REQUEST_EXTERNAL_STORAGE);
                             }
                         })
@@ -154,20 +149,22 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                         })
                         .show();
 
-            } else {
+            } else
                 okAction();
-            }
+
 
         } else if (i == R.id.btnCancel) {
             dismiss();
         } else if (i == R.id.imgAvatar) {
             file = null;
-            ImagePicker.pickImage(this, "Select your image:", 100, false);
+            ImagePicker.pickImage(this, "تصویر خود را انتخاب کنید:", 100, false);
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == REQUEST_EXTERNAL_STORAGE)
             okAction();
     }

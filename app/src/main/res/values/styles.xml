@@ -1,14 +1,3 @@
 <resources>
-    <style name="Theme.MatrialDialog" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/Indigo</item>
-        <item name="colorPrimaryDark">@color/Indigo</item>
-        <item name="colorAccent">@color/Indigo</item>
-        <item name="md_positive_color">@color/appGray800</item>
-        <item name="md_neutral_color">@color/Indigo</item>
-        <item name="md_negative_color">@color/FireBrick</item>
-        <item name="md_buttons_gravity">start</item>
-        <item name="md_items_gravity">start</item>
-        <item name="md_content_gravity">start</item>
-        <item name="md_title_gravity">start</item>
-    </style>
+
 </resources>

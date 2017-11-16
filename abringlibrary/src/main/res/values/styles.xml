@@ -63,7 +63,7 @@
         <item name="colorPrimary">@color/Indigo</item>
         <item name="colorPrimaryDark">@color/Indigo</item>
         <item name="colorAccent">@color/Indigo</item>
-        <item name="md_positive_color">@color/primary_text</item>
+        <item name="md_positive_color">@color/appGray800</item>
         <item name="md_neutral_color">@color/Indigo</item>
         <item name="md_negative_color">@color/FireBrick</item>
         <item name="md_buttons_gravity">end</item>

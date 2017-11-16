@@ -1,18 +1,24 @@
 package ir.abring.abringlibrary.abringclass;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.widget.Toast;
 
 import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 
+import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegister;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringRegisterDialog;
+
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class AbringUserRegister {
     private String username;    //required
@@ -86,44 +92,51 @@ public class AbringUserRegister {
     }
 
     public void register(final Activity mActivity, final AbringCallBack abringCallBack) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+        if (avatar != null &&
+                checkSelfPermission(mActivity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-                //Run in new thread
-                AbringUserServices.register(username,
-                        password,
-                        name,
-                        avatar,
-                        email,
-                        phone,
-                        reg_idgcm,
-                        new AbringCallBack<Object, Object>() {
-                            @Override
-                            public void onSuccessful(final Object response) {
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        AbringRegister register = (AbringRegister) response;
-                                        setUser(register.getResult());
-                                        abringCallBack.onSuccessful(response);
-                                    }
-                                });
-                            }
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-                            @Override
-                            public void onFailure(final Object response) {
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        abringCallBack.onFailure(response);
-                                    }
-                                });
-                            }
-                        });
+                    //Run in new thread
+                    AbringUserServices.register(username,
+                            password,
+                            name,
+                            avatar,
+                            email,
+                            phone,
+                            reg_idgcm,
+                            new AbringCallBack<Object, Object>() {
+                                @Override
+                                public void onSuccessful(final Object response) {
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AbringRegister register = (AbringRegister) response;
+                                            setUser(register.getResult());
+                                            abringCallBack.onSuccessful(response);
+                                        }
+                                    });
+                                }
 
-            }
-        }).start();
+                                @Override
+                                public void onFailure(final Object response) {
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            abringCallBack.onFailure(response);
+                                        }
+                                    });
+                                }
+                            });
+
+                }
+            }).start();
+        } else
+            Toast.makeText(mActivity, mActivity.getString(R.string.read_external_storage_permission), Toast.LENGTH_LONG).show();
+
     }
 
     /**

@@ -17,6 +17,7 @@
     <string name="no_connect_to_internet">دسترسی به اینترنت امکان پذیر نمی باشد!</string>
     <string name="no_server_valid_response">پاسخ سرور نامفهوم می باشد!</string>
     <string name="read_external_storage_permission_content">انتخاب تصویر نیاز به دسترسی حافظه دارد. دسترسی می دهید؟</string>
+    <string name="read_external_storage_permission">برای انتخاب تصویر مجوز دسترسی به حافظه داده نشده است!</string>
     <string name="accept_permission">اعمال دسترسی</string>
     <string name="cancle">الان نه</string>
     <string name="permission">مجوزدهی</string>

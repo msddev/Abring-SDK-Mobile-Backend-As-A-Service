@@ -1,7 +1,9 @@
 package ir.abring.abringservices.ui.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -26,6 +28,8 @@ import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
+
 public class RegisterFragment extends BaseFragment implements View.OnClickListener {
 
     private static RegisterFragment mInstance = null;
@@ -46,6 +50,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     Button btnSave;
 
     private File file = null;
+    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -78,7 +83,12 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSave:
-                saveAction();
+                if (file != null && checkSelfPermission(mActivity,
+                        Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                    saveAction();
+                else
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            REQUEST_EXTERNAL_STORAGE);
                 break;
 
             case R.id.imgAvatar:
@@ -96,6 +106,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
                 .setPassword(etPassword.getText().toString())
                 .setAvatar(file)
                 .build();
+
 
         abringUser.register(mActivity, new AbringCallBack() {
             @Override
@@ -149,6 +160,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             }
         } catch (Exception e) {
             Toast.makeText(mActivity, "Something went wrong", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_EXTERNAL_STORAGE){
+            saveAction();
         }
     }
 }
