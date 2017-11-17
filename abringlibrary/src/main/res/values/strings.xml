@@ -32,7 +32,7 @@
     <string name="register">ثبت نام</string>
     <string name="email">ایمیل</string>
     <string name="phone">تلفن</string>
-    <string name="send_accept_code">کد فعالسازی ارسال شد…</string>
+    <string name="send_accept_code">کد فعالسازی ارسال شد</string>
     <string name="select_image">تصویر خود را انتخاب کنید:</string>
     <string name="mobile_not_valid">شماره موبایل نامعتبر است!</string>
     <string name="username_not_valid">نام کاربری نامعتبر است!</string>
@@ -45,4 +45,6 @@
     <string name="email_not_valid">آدرس ایمیل نامعتبر است!</string>
     <string name="successful_responce">اطلاعات با موفقیت ثبت شد</string>
     <string name="failure_responce">متاسفانه خطایی رخ داده است</string>
+    <string name="resend_active_code">دریافت مجدد کد فعال سازی</string>
+    <string name="send_new_code">منتظر دریافت کد جدید باشید</string>
 </resources>

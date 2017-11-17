@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mvc.imagepicker.ImagePicker;
@@ -19,6 +23,8 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.File;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
@@ -56,6 +62,8 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
     TextInputLayout inputlayoutCode;
     @BindView(R.id.linActiveHolder)
     LinearLayout linActiveHolder;
+    @BindView(R.id.tvResendActiveCode)
+    TextView tvResendActiveCode;
 
     private File file = null;
     private boolean isActive = false;
@@ -78,6 +86,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
     protected void initViews(View rootView) {
         btnSave.setOnClickListener(this);
         imgAvatar.setOnClickListener(this);
+        tvResendActiveCode.setOnClickListener(this);
     }
 
     @Override
@@ -85,26 +94,30 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
         switch (view.getId()) {
             case R.id.btnSave:
                 if (!isActive)
-                    newUserAction();
+                    mobileRegister();
                 else
-                    verifyMobile();
+                    mobileVerify();
                 break;
 
             case R.id.imgAvatar:
                 file = null;
                 ImagePicker.pickImage(this, "Select your image:", 100, false);
                 break;
+
+            case R.id.tvResendActiveCode:
+                mobileResendCode();
+                break;
         }
     }
 
-    private void newUserAction() {
+    private void mobileRegister() {
 
         final AbringMobileRegister abringUser = new AbringMobileRegister
                 .MobileRegisterBuilder()
                 .setMobile(etMobile.getText().toString())
                 .build();
 
-        abringUser.register(mActivity, new AbringCallBack() {
+        abringUser.mobileRegister(mActivity, new AbringCallBack() {
             @Override
             public void onSuccessful(Object response) {
                 Toast.makeText(getActivity(), "کد فعالسازی ارسال شد...", Toast.LENGTH_LONG).show();
@@ -114,8 +127,6 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
             @Override
             public void onFailure(Object response) {
                 AbringApiError apiError = null;
-                if (response instanceof AbringApiError)
-                    apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
                         Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
@@ -123,8 +134,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
         });
     }
 
-
-    private void verifyMobile() {
+    private void mobileVerify() {
         AbringMobileRegister.mobileVerify(etCode.getText().toString(), new AbringCallBack<Object, Object>() {
             @Override
             public void onSuccessful(Object response) {
@@ -133,7 +143,27 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
 
             @Override
             public void onFailure(Object response) {
+                AbringApiError apiError = null;
+                Toast.makeText(mActivity,
+                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
+    private void mobileResendCode() {
+        AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
+            @Override
+            public void onSuccessful(Object response) {
+                Toast.makeText(getActivity(), "منتظر دریافت کد جدید باشید", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Object response) {
+                AbringApiError apiError = null;
+                Toast.makeText(mActivity,
+                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

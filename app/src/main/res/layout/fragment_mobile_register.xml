@@ -164,7 +164,17 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
+                <TextView
+                    android:id="@+id/tvResendActiveCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:text="@string/resend_active_code"
+                    android:textColor="@drawable/textview_selector"
+                    android:textSize="@dimen/text_size_Small"
+                    android:focusable="true" />
 
             </LinearLayout>
 

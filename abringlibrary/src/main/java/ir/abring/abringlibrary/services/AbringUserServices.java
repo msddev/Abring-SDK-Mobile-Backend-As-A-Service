@@ -187,6 +187,36 @@ public class AbringUserServices {
         }
     }
 
+    public static void mobileResendCode(String mobile, final AbringCallBack<Object, Object> abringCallBack) {
+
+        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+            AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
+
+            Call<Void> mEntityCall = mApiService.MobileResendCodeAPI(mobile,
+                    Abring.getPackageName());
+
+            Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
+
+            mEntityCall.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, final Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        abringCallBack.onSuccessful(response.body());
+                    } else {
+                        handleError(response, Abring.getContext(), abringCallBack);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    handleError(t, Abring.getContext(), abringCallBack);
+                }
+            });
+
+        } else {
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+        }
+    }
 
     private static void handleError(Object response, Context context, AbringCallBack<Object, Object> abringCallBack) {
         Object msg = new AbringRetrofitErrorResponce().getMessage(response, context);

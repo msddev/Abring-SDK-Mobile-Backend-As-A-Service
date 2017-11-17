@@ -15,16 +15,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
 import com.mvc.imagepicker.ImagePicker;
+
 import java.io.File;
+
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
+import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
 
-public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
-        implements View.OnClickListener {
+public class AbringMobileRegisterDialog extends AbringBaseDialogFragment implements
+        View.OnClickListener {
 
     private static boolean username;
     private static boolean password;
@@ -52,12 +59,12 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
     private EditText etPassword;
     private EditText etName;
     private EditText etCode;
+    private TextView tvResendActiveCode;
     private ImageView imgAvatar;
     private Button btnOK;
     private Button btnCancel;
 
     private File file;
-    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     public AbringMobileRegisterDialog() {
     }
@@ -99,6 +106,10 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
     @Override
     protected void initViews(View view) {
 
+        //close keyboard
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         btnOK = (Button) view.findViewById(R.id.btnOK);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
@@ -126,8 +137,11 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
 
         } else {
             etCode = (EditText) view.findViewById(R.id.etCode);
+            tvResendActiveCode = (TextView) view.findViewById(R.id.tvResendActiveCode);
             linRegisterHolder.setVisibility(View.GONE);
             linActiveHolder.setVisibility(View.VISIBLE);
+
+            tvResendActiveCode.setOnClickListener(this);
         }
 
         btnOK.setOnClickListener(this);
@@ -137,6 +151,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
     @Override
     public void onClick(View view) {
         int i = view.getId();
+
         if (i == R.id.btnOK) {
 
             progressBar.setVisibility(View.VISIBLE);
@@ -166,6 +181,25 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
         } else if (i == R.id.imgAvatar) {
             file = null;
             ImagePicker.pickImage(this, getString(R.string.select_image), 100, false);
+        } else if (i == R.id.tvResendActiveCode) {
+            progressBar.setVisibility(View.VISIBLE);
+            AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
+                @Override
+                public void onSuccessful(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), getString(R.string.send_new_code), Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    AbringApiError apiError = (AbringApiError) response;
+
+                    Toast.makeText(getActivity(),
+                            Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) :
+                                    apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -186,7 +220,6 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
             setupView(etName, getString(R.string.name_not_valid));
             isValid = false;
         }
-
 
         return isValid;
     }

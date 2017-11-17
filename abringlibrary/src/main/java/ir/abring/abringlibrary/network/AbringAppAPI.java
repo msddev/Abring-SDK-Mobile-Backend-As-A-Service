@@ -47,6 +47,13 @@ public interface AbringAppAPI {
     );
 
     @FormUrlEncoded
+    @POST("index.php?r=player/mobile-resend-code")
+    Call<Void> MobileResendCodeAPI(
+            @Field("mobile") String mobile,
+            @Field("app") String app_id
+    );
+
+    @FormUrlEncoded
     @POST("index.php?r=site/ping")
     Call<AbringPing> PingAPI(
             @Field("app") String app_id

@@ -94,7 +94,7 @@ public class AbringMobileRegister {
 
     }
 
-    public void register(Activity mActivity, AbringCallBack abringCallBack) {
+    public void mobileRegister(Activity mActivity, AbringCallBack abringCallBack) {
         myActivity = mActivity;
 
         if (avatar != null) {
@@ -265,7 +265,7 @@ public class AbringMobileRegister {
                                 .setAvatar(avatar)
                                 .build();
 
-                        abringUser.register(mActivity, new AbringCallBack() {
+                        abringUser.mobileRegister(mActivity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
                                 Toast.makeText(mActivity, R.string.send_accept_code, Toast.LENGTH_LONG).show();
@@ -321,7 +321,6 @@ public class AbringMobileRegister {
     /**
      * verify mobile number
      */
-
     public static void mobileVerify(String code,
                                     final AbringCallBack<Object, Object> abringCallBack) {
 
@@ -351,10 +350,36 @@ public class AbringMobileRegister {
 
     }
 
+    /**
+     * resend actice code
+     */
+    public static void mobileResendCode(final AbringCallBack<Object, Object> abringCallBack) {
+        AbringUserServices.mobileResendCode(mobile, new AbringCallBack<Object, Object>() {
+            @Override
+            public void onSuccessful(final Object response) {
+                myActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        abringCallBack.onSuccessful(response);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(final Object response) {
+                myActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        abringCallBack.onFailure(response);
+                    }
+                });
+            }
+        });
+    }
+
     private static void setUser(AbringResult result) {
         Hawk.put(ABRING_USER_INFO, result);
     }
-
 
     public static Object getUser() {
         Object user = null;

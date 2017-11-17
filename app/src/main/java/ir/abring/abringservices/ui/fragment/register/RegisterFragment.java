@@ -75,7 +75,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSave:
-                newUserAction();
+                register();
                 break;
 
             case R.id.imgAvatar:
@@ -85,7 +85,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
         }
     }
 
-    private void newUserAction() {
+    private void register() {
 
         AbringRegister abringUser = new AbringRegister
                 .RegisterBuilder()
