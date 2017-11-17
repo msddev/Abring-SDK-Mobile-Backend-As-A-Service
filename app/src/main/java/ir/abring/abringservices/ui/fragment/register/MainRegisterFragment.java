@@ -1,4 +1,4 @@
-package ir.abring.abringservices.ui.fragment;
+package ir.abring.abringservices.ui.fragment.register;
 
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.ActivityUtils;
 import ir.abring.abringlibrary.utils.Check;
@@ -82,7 +83,7 @@ public class MainRegisterFragment extends BaseFragment implements View.OnClickLi
         abringUser.showDialog(mActivity.getSupportFragmentManager(), mActivity, new AbringCallBack() {
             @Override
             public void onSuccessful(Object response) {
-                ir.abring.abringlibrary.models.abringregister.AbringRegister register = (ir.abring.abringlibrary.models.abringregister.AbringRegister) response;
+                AbringRegisterModel register = (AbringRegisterModel) response;
                 Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
             }
 

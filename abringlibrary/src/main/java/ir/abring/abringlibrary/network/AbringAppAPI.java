@@ -1,7 +1,7 @@
 package ir.abring.abringlibrary.network;
 
 import ir.abring.abringlibrary.models.AbringPing;
-import ir.abring.abringlibrary.models.abringregister.AbringRegister;
+import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -15,7 +15,7 @@ public interface AbringAppAPI {
 
     @Multipart
     @POST("index.php?r=player/register")
-    Call<AbringRegister> RegisterAPI(
+    Call<AbringRegisterModel> RegisterAPI(
             @Part("username") RequestBody username,
             @Part("password") RequestBody password,
             @Part("name") RequestBody name,
@@ -24,6 +24,26 @@ public interface AbringAppAPI {
             @Part("phone") RequestBody phone,
             @Part("reg_idgcm") RequestBody reg_idgcm,
             @Part("app") RequestBody app_id
+    );
+
+    @Multipart
+    @POST("index.php?r=player/mobile-register")
+    Call<Void> MobileRegisterAPI(
+            @Part("mobile") RequestBody mobile,
+            @Part("username") RequestBody username,
+            @Part("password") RequestBody password,
+            @Part("device_id") RequestBody deviceId,
+            @Part("name") RequestBody name,
+            @Part MultipartBody.Part avatar,
+            @Part("app") RequestBody app_id
+    );
+
+    @FormUrlEncoded
+    @POST("index.php?r=player/mobile-verify")
+    Call<AbringRegisterModel> MobileVerifyAPI(
+            @Field("mobile") String mobile,
+            @Field("code") String code,
+            @Field("app") String app_id
     );
 
     @FormUrlEncoded

@@ -184,20 +184,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:padding="5dp">
-
-                <Button
-                    android:id="@+id/btnOK"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="تایید" />
+                android:padding="8dp">
 
                 <Button
                     android:id="@+id/btnCancel"
-                    android:layout_width="wrap_content"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
-                    android:text="انصراف" />
+                    android:text="انصراف"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_Micro" />
+
+                <Button
+                    android:id="@+id/btnOK"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:padding="0dp"
+                    android:text="تایید"
+                    android:textColor="@color/primary_text"
+                    android:textSize="@dimen/text_size_Micro" />
 
             </LinearLayout>
 

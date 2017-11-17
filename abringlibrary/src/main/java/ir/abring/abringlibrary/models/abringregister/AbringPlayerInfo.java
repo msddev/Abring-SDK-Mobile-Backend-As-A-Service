@@ -7,8 +7,8 @@ public class AbringPlayerInfo {
 	@SerializedName("player_id")
 	private String playerId;
 
-	@SerializedName("public")
-	private AbringJsonMemberPublic jsonMemberPublic;
+/*	@SerializedName("public")
+	private AbringJsonMemberPublic jsonMemberPublic;*/
 
 	@SerializedName("create_time")
 	private String createTime;
@@ -31,8 +31,8 @@ public class AbringPlayerInfo {
 	@SerializedName("email")
 	private String email;
 
-	@SerializedName("friends")
-	private AbringFriends friends;
+	/*@SerializedName("friends")
+	private AbringFriends friends;*/
 
 	@SerializedName("username")
 	private String username;
@@ -48,13 +48,13 @@ public class AbringPlayerInfo {
 		return playerId;
 	}
 
-	public void setJsonMemberPublic(AbringJsonMemberPublic jsonMemberPublic){
+	/*public void setJsonMemberPublic(AbringJsonMemberPublic jsonMemberPublic){
 		this.jsonMemberPublic = jsonMemberPublic;
 	}
 
 	public AbringJsonMemberPublic getJsonMemberPublic(){
 		return jsonMemberPublic;
-	}
+	}*/
 
 	public void setCreateTime(String createTime){
 		this.createTime = createTime;
@@ -112,13 +112,13 @@ public class AbringPlayerInfo {
 		return email;
 	}
 
-	public void setFriends(AbringFriends friends){
+	/*public void setFriends(AbringFriends friends){
 		this.friends = friends;
 	}
 
 	public AbringFriends getFriends(){
 		return friends;
-	}
+	}*/
 
 	public void setUsername(String username){
 		this.username = username;

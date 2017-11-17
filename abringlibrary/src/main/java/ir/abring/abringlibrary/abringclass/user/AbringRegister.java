@@ -13,6 +13,7 @@ import java.io.File;
 
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringRegisterDialog;
@@ -113,7 +114,7 @@ public class AbringRegister {
                                     mActivity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            AbringRegister register = (AbringRegister) response;
+                                            AbringRegisterModel register = (AbringRegisterModel) response;
                                             setUser(register.getResult());
                                             abringCallBack.onSuccessful(response);
                                         }
@@ -218,7 +219,7 @@ public class AbringRegister {
                         abringUser.register(activity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                ir.abring.abringlibrary.models.abringregister.AbringRegister register = (ir.abring.abringlibrary.models.abringregister.AbringRegister) response;
+                                AbringRegisterModel register = (AbringRegisterModel) response;
                                 setUser(register.getResult());
                                 abringCallBack.onSuccessful(response);
                                 mFragment.dismiss();

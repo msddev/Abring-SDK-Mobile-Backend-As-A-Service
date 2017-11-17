@@ -8,7 +8,7 @@ import java.io.File;
 import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.abringregister.AbringRegister;
+import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringAppAPI;
 import ir.abring.abringlibrary.network.AbringAppService;
 import ir.abring.abringlibrary.network.AbringRetrofitErrorResponce;
@@ -57,7 +57,7 @@ public class AbringUserServices {
             RequestBody appIdRequest = Check.isEmpty(Abring.getPackageName()) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), Abring.getPackageName());
 
-            Call<AbringRegister> mEntityCall = mApiService.RegisterAPI(
+            Call<AbringRegisterModel> mEntityCall = mApiService.RegisterAPI(
                     usernameRequest,
                     passwordRequest,
                     nameRequest,
@@ -69,9 +69,9 @@ public class AbringUserServices {
 
             Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
 
-            mEntityCall.enqueue(new Callback<AbringRegister>() {
+            mEntityCall.enqueue(new Callback<AbringRegisterModel>() {
                 @Override
-                public void onResponse(Call<AbringRegister> call, final Response<AbringRegister> response) {
+                public void onResponse(Call<AbringRegisterModel> call, final Response<AbringRegisterModel> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         abringCallBack.onSuccessful(response.body());
                     } else {
@@ -80,7 +80,7 @@ public class AbringUserServices {
                 }
 
                 @Override
-                public void onFailure(Call<AbringRegister> call, Throwable t) {
+                public void onFailure(Call<AbringRegisterModel> call, Throwable t) {
                     handleError(t, Abring.getContext(), abringCallBack);
                 }
             });
@@ -109,36 +109,66 @@ public class AbringUserServices {
                 avatarToUpload = MultipartBody.Part.createFormData("avatar", avatar.getName(), requestBody);
             }
 
+            RequestBody mobileRequest = Check.isEmpty(mobile) ?
+                    null : RequestBody.create(MediaType.parse("text/plain"), mobile);
             RequestBody usernameRequest = Check.isEmpty(username) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), username);
             RequestBody passwordRequest = Check.isEmpty(password) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), password);
+            RequestBody deviceIdRequest = Check.isEmpty(password) ?
+                    null : RequestBody.create(MediaType.parse("text/plain"), deviceId);
             RequestBody nameRequest = Check.isEmpty(name) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), name);
-            RequestBody emailRequest = Check.isEmpty(email) ?
-                    null : RequestBody.create(MediaType.parse("text/plain"), email);
-            RequestBody phoneRequest = Check.isEmpty(phone) ?
-                    null : RequestBody.create(MediaType.parse("text/plain"), phone);
-            RequestBody gcmRequest = Check.isEmpty(reg_idgcm) ?
-                    null : RequestBody.create(MediaType.parse("text/plain"), reg_idgcm);
             RequestBody appIdRequest = Check.isEmpty(Abring.getPackageName()) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), Abring.getPackageName());
 
-            Call<AbringRegister> mEntityCall = mApiService.RegisterAPI(
+            Call<Void> mEntityCall = mApiService.MobileRegisterAPI(
+                    mobileRequest,
                     usernameRequest,
                     passwordRequest,
+                    deviceIdRequest,
                     nameRequest,
                     avatarToUpload,
-                    emailRequest,
-                    phoneRequest,
-                    gcmRequest,
                     appIdRequest);
 
             Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
 
-            mEntityCall.enqueue(new Callback<AbringRegister>() {
+            mEntityCall.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<AbringRegister> call, final Response<AbringRegister> response) {
+                public void onResponse(Call<Void> call, final Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        abringCallBack.onSuccessful("Verification code has been sent to you");
+                    } else {
+                        handleError(response, Abring.getContext(), abringCallBack);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    handleError(t, Abring.getContext(), abringCallBack);
+                }
+            });
+
+        } else {
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+        }
+    }
+
+
+    public static void mobileVerify(String code, String mobile, final AbringCallBack<Object, Object> abringCallBack) {
+
+        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+            AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
+
+            Call<AbringRegisterModel> mEntityCall = mApiService.MobileVerifyAPI(mobile,
+                    code,
+                    Abring.getPackageName());
+
+            Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
+
+            mEntityCall.enqueue(new Callback<AbringRegisterModel>() {
+                @Override
+                public void onResponse(Call<AbringRegisterModel> call, final Response<AbringRegisterModel> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         abringCallBack.onSuccessful(response.body());
                     } else {
@@ -147,7 +177,7 @@ public class AbringUserServices {
                 }
 
                 @Override
-                public void onFailure(Call<AbringRegister> call, Throwable t) {
+                public void onFailure(Call<AbringRegisterModel> call, Throwable t) {
                     handleError(t, Abring.getContext(), abringCallBack);
                 }
             });

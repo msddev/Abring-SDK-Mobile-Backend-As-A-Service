@@ -28,7 +28,7 @@ public abstract class AbringBaseDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), getContentViewId(), null);
         Dialog dialog = new Dialog(getActivity(), R.style.MyDialog);
-        dialog.setCanceledOnTouchOutside(true);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setContentView(view);
 
         initViews(view);

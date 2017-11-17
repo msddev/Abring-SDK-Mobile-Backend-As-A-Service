@@ -208,12 +208,12 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                 setupView(etEmail, "آدرس ایمیل نامعتبر است!");
                 isValid = false;
             }
-        } else if (avatar) {
+        } /*else if (avatar) {
             if (file == null) {
                 setupView(etEmail, "تصویر انتخاب نشده است!");
                 isValid = false;
             }
-        }
+        }*/
 
 
         return isValid;

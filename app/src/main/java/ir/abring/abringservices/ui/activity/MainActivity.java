@@ -13,6 +13,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.btnRegister)
     Button btnRegister;
+    @BindView(R.id.btnMobileRegister)
+    Button btnMobileRegister;
 
     @Override
     protected void initBeforeView() {
@@ -28,6 +30,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void initViews() {
         setupBack("سرویس ابرینگ");
         btnRegister.setOnClickListener(this);
+        btnMobileRegister.setOnClickListener(this);
     }
 
     @Override
@@ -36,6 +39,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()){
             case R.id.btnRegister:
                 intent = new Intent(this, MainRegisterActivity.class);
+                intent.putExtra("ActionName", "Register");
+                startActivity(intent);
+                break;
+            case R.id.btnMobileRegister:
+                intent = new Intent(this, MainRegisterActivity.class);
+                intent.putExtra("ActionName", "MobileRegister");
                 startActivity(intent);
                 break;
         }

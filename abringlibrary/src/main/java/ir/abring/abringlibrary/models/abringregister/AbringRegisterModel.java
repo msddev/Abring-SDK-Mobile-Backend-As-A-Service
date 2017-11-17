@@ -2,7 +2,7 @@ package ir.abring.abringlibrary.models.abringregister;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AbringRegister {
+public class AbringRegisterModel {
 
 	@SerializedName("result")
 	private AbringResult result;
