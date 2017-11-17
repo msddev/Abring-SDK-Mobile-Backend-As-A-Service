@@ -88,7 +88,6 @@ public class MainMobileRegisterFragment extends BaseFragment implements View.OnC
             @Override
             public void onSuccessful(Object response) {
                 AbringRegisterModel register = (AbringRegisterModel) response;
-                Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
             }
 
             @Override

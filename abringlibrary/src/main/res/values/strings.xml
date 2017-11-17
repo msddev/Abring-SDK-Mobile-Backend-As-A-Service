@@ -43,5 +43,6 @@
     <string name="image_selected_wrong">خطایی رخ داده است</string>
     <string name="phone_not_valid">شماره تلفن نامعتبر است!</string>
     <string name="email_not_valid">آدرس ایمیل نامعتبر است!</string>
-
+    <string name="successful_responce">اطلاعات با موفقیت ثبت شد</string>
+    <string name="failure_responce">متاسفانه خطایی رخ داده است</string>
 </resources>

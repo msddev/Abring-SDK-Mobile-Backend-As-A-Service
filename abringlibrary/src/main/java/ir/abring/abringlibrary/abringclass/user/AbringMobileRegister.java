@@ -20,8 +20,10 @@ import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringMobileRegisterDialog;
+import ir.abring.abringlibrary.utils.Check;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
@@ -127,8 +129,7 @@ public class AbringMobileRegister {
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                            /*AbringRegisterModel register = (AbringRegisterModel) response;
-                                            setUser(register.getResult());*/
+                                        //Toast.makeText(mActivity, R.string.send_accept_code, Toast.LENGTH_LONG).show();
                                         abringCallBack.onSuccessful(response);
                                     }
                                 });
@@ -281,12 +282,21 @@ public class AbringMobileRegister {
                                                 mobileVerify(code, new AbringCallBack<Object, Object>() {
                                                     @Override
                                                     public void onSuccessful(Object response) {
+
+                                                        Toast.makeText(mActivity, mActivity.getString(R.string.successful_responce), Toast.LENGTH_SHORT).show();
+
                                                         abringCallBack.onSuccessful(response);
                                                         mFragment.dismiss();
                                                     }
 
                                                     @Override
                                                     public void onFailure(Object response) {
+                                                        AbringApiError apiError = (AbringApiError) response;
+
+                                                        Toast.makeText(mActivity,
+                                                                Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.failure_responce) :
+                                                                        apiError.getMessage(), Toast.LENGTH_SHORT).show();
+
                                                         abringCallBack.onFailure(response);
                                                     }
                                                 });

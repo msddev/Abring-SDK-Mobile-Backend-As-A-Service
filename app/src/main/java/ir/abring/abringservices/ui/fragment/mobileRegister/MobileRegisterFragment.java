@@ -1,18 +1,13 @@
 package ir.abring.abringservices.ui.fragment.mobileRegister;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,23 +19,14 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
-import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
-import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
-
 public class MobileRegisterFragment extends BaseFragment implements View.OnClickListener {
-
-    private static MobileRegisterFragment mInstance = null;
-
 
     @BindView(R.id.btnSave)
     Button btnSave;
@@ -70,21 +56,12 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
     TextInputLayout inputlayoutCode;
     @BindView(R.id.linActiveHolder)
     LinearLayout linActiveHolder;
-    Unbinder unbinder;
 
     private File file = null;
-    private int REQUEST_EXTERNAL_STORAGE = 110;
     private boolean isActive = false;
 
     public MobileRegisterFragment() {
         // Required empty public constructor
-    }
-
-    public static synchronized MobileRegisterFragment getInstance() {
-        if (mInstance == null) {
-            mInstance = new MobileRegisterFragment();
-        }
-        return mInstance;
     }
 
     @Override
@@ -107,22 +84,11 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSave:
-                if (!isActive) {
-
-                    if (file != null) {
-                        if (checkSelfPermission(mActivity,
-                                Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-                            mobileRegisterAction();
-                        else
-                            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    REQUEST_EXTERNAL_STORAGE);
-                    } else
-                        mobileRegisterAction();
-
-                    break;
-                } else {
+                if (!isActive)
+                    newUserAction();
+                else
                     verifyMobile();
-                }
+                break;
 
             case R.id.imgAvatar:
                 file = null;
@@ -131,7 +97,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
         }
     }
 
-    private void mobileRegisterAction() {
+    private void newUserAction() {
 
         final AbringMobileRegister abringUser = new AbringMobileRegister
                 .MobileRegisterBuilder()
@@ -141,8 +107,6 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
         abringUser.register(mActivity, new AbringCallBack() {
             @Override
             public void onSuccessful(Object response) {
-                //AbringRegisterModel register = (AbringRegisterModel) response;
-                //Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "کد فعالسازی ارسال شد...", Toast.LENGTH_LONG).show();
                 isActive = true;
             }
@@ -207,14 +171,6 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
             }
         } catch (Exception e) {
             Toast.makeText(mActivity, "Something went wrong", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_EXTERNAL_STORAGE) {
-            mobileRegisterAction();
         }
     }
 }
