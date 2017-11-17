@@ -180,14 +180,14 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
             dismiss();
         } else if (i == R.id.imgAvatar) {
             file = null;
-            ImagePicker.pickImage(this, getString(R.string.select_image), 100, false);
+            ImagePicker.pickImage(this, getString(R.string.abring_select_image), 100, false);
         } else if (i == R.id.tvResendActiveCode) {
             progressBar.setVisibility(View.VISIBLE);
             AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
                 @Override
                 public void onSuccessful(Object response) {
                     progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), getString(R.string.send_new_code), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), getString(R.string.abring_send_new_code), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -196,7 +196,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
                     AbringApiError apiError = (AbringApiError) response;
 
                     Toast.makeText(getActivity(),
-                            Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) :
+                            Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
                                     apiError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -208,16 +208,16 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
 
         if (etMobile.getText().toString().trim().length() != 11 ||
                 !CheckPattern.isValidPhone(etMobile.getText().toString().trim())) {
-            setupView(etMobile, getString(R.string.mobile_not_valid));
+            setupView(etMobile, getString(R.string.abring_mobile_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etUsername.getText().toString().trim())) {
-            setupView(etUsername, getString(R.string.username_not_valid));
+            setupView(etUsername, getString(R.string.abring_username_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
-            setupView(etPassword, getString(R.string.password_not_valid));
+            setupView(etPassword, getString(R.string.abring_password_not_valid));
             isValid = false;
         } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, getString(R.string.name_not_valid));
+            setupView(etName, getString(R.string.abring_name_not_valid));
             isValid = false;
         }
 
@@ -228,7 +228,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
         boolean isValid = true;
 
         if (Check.isEmpty(etCode.getText().toString().trim())) {
-            setupView(etCode, getString(R.string.active_code_not_valid));
+            setupView(etCode, getString(R.string.abring_active_code_not_valid));
             isValid = false;
         }
 
@@ -294,10 +294,10 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
                 cursor.close();
 
             } else {
-                Toast.makeText(getActivity(), getString(R.string.image_not_selected), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.abring_image_not_selected), Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), getString(R.string.image_selected_wrong), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.abring_image_selected_wrong), Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -129,10 +129,10 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                     Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
                 new MaterialDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.Theme_MatrialDialog))
-                        .title(R.string.permission)
-                        .content(R.string.read_external_storage_permission_content)
-                        .positiveText(R.string.accept_permission)
-                        .negativeText(R.string.cancel2)
+                        .title(R.string.abring_permission)
+                        .content(R.string.abring_read_external_storage_permission_content)
+                        .positiveText(R.string.abring_accept_permission)
+                        .negativeText(R.string.abring_cancel2)
                         .cancelable(false)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
@@ -157,7 +157,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
             dismiss();
         } else if (i == R.id.imgAvatar) {
             file = null;
-            ImagePicker.pickImage(this, getString(R.string.select_image), 100, false);
+            ImagePicker.pickImage(this, getString(R.string.abring_select_image), 100, false);
         }
     }
 
@@ -188,24 +188,24 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         boolean isValid = true;
 
         if (Check.isEmpty(etUsername.getText().toString().trim())) {
-            setupView(etUsername, getString(R.string.username_not_valid));
+            setupView(etUsername, getString(R.string.abring_username_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
-            setupView(etPassword, getString(R.string.password_not_valid));
+            setupView(etPassword, getString(R.string.abring_password_not_valid));
             isValid = false;
         } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, getString(R.string.name_not_valid));
+            setupView(etName, getString(R.string.abring_name_not_valid));
             isValid = false;
         } else if (phone) {
             if (etPhone.getText().toString().trim().length() != 11 ||
                     !CheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
-                setupView(etPhone, getString(R.string.phone_not_valid));
+                setupView(etPhone, getString(R.string.abring_phone_not_valid));
                 isValid = false;
             }
         } else if (email) {
             if (Check.isEmpty(etEmail.getText().toString().trim()) ||
                     !CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
-                setupView(etEmail, getString(R.string.email_not_valid));
+                setupView(etEmail, getString(R.string.abring_email_not_valid));
                 isValid = false;
             }
         } /*else if (avatar) {
@@ -273,10 +273,10 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                 cursor.close();
 
             } else {
-                Toast.makeText(getActivity(), getString(R.string.image_not_selected), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.abring_image_not_selected), Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), getString(R.string.image_selected_wrong), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.abring_image_selected_wrong), Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:background="@color/primary_text"
                 android:gravity="center"
-                android:text="@string/register"
+                android:text="@string/abring_register"
                 android:textColor="@color/primary_text_white"
                 android:textSize="@dimen/text_size_Micro" />
 
@@ -56,7 +56,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="@string/username"
+                            android:hint="@string/abring_username"
                             android:inputType="text"
                             android:paddingBottom="5dp"
                             android:maxLength="40"
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="@string/password"
+                            android:hint="@string/abring_password"
                             android:inputType="textPassword"
                             android:paddingBottom="5dp"
                             android:maxLength="30"
@@ -105,7 +105,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="@string/name"
+                            android:hint="@string/abring_name"
                             android:inputType="text"
                             android:lines="1"
                             android:maxLength="40"
@@ -129,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="@string/email"
+                            android:hint="@string/abring_email"
                             android:inputType="textEmailAddress"
                             android:lines="1"
                             android:maxLength="40"
@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="@string/phone"
+                            android:hint="@string/abring_phone"
                             android:inputType="phone"
                             android:lines="1"
                             android:maxLength="11"
@@ -194,7 +194,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
-                    android:text="@string/cancel"
+                    android:text="@string/abring_cancel"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 
@@ -204,7 +204,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:padding="0dp"
-                    android:text="@string/accept"
+                    android:text="@string/abring_accept"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 

@@ -137,7 +137,7 @@ public class AbringRegister {
                 }
             }).start();
         } else
-            Toast.makeText(mActivity, mActivity.getString(R.string.read_external_storage_permission), Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, mActivity.getString(R.string.abring_read_external_storage_permission), Toast.LENGTH_LONG).show();
 
     }
 
@@ -224,7 +224,7 @@ public class AbringRegister {
                                 AbringRegisterModel register = (AbringRegisterModel) response;
                                 setUser(register.getResult());
 
-                                Toast.makeText(mActivity, mActivity.getString(R.string.successful_responce), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mActivity, mActivity.getString(R.string.abring_successful_responce), Toast.LENGTH_SHORT).show();
 
                                 abringCallBack.onSuccessful(response);
                                 mFragment.dismiss();
@@ -235,7 +235,7 @@ public class AbringRegister {
                                 AbringApiError apiError = (AbringApiError) response;
 
                                 Toast.makeText(mActivity,
-                                        Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.failure_responce) :
+                                        Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) :
                                                 apiError.getMessage(), Toast.LENGTH_SHORT).show();
 
                                 abringCallBack.onFailure(response);

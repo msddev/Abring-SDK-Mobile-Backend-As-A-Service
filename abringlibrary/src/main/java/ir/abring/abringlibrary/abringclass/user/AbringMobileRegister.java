@@ -152,10 +152,10 @@ public class AbringMobileRegister {
 
     private void getPermission(final Activity mActivity) {
         new MaterialDialog.Builder(new ContextThemeWrapper(mActivity, R.style.Theme_MatrialDialog))
-                .title(R.string.permission)
-                .content(R.string.read_external_storage_permission_content)
-                .positiveText(R.string.accept_permission)
-                .negativeText(R.string.cancel2)
+                .title(R.string.abring_permission)
+                .content(R.string.abring_read_external_storage_permission_content)
+                .positiveText(R.string.abring_accept_permission)
+                .negativeText(R.string.abring_cancel2)
                 .cancelable(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -268,7 +268,7 @@ public class AbringMobileRegister {
                         abringUser.mobileRegister(mActivity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                Toast.makeText(mActivity, R.string.send_accept_code, Toast.LENGTH_LONG).show();
+                                Toast.makeText(mActivity, R.string.abring_send_accept_code, Toast.LENGTH_LONG).show();
 
                                 // close existing dialog fragments
                                 Fragment frag = fragmentManager.findFragmentByTag("RegisterDialogFragment");
@@ -283,7 +283,7 @@ public class AbringMobileRegister {
                                                     @Override
                                                     public void onSuccessful(Object response) {
 
-                                                        Toast.makeText(mActivity, mActivity.getString(R.string.successful_responce), Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(mActivity, mActivity.getString(R.string.abring_successful_responce), Toast.LENGTH_SHORT).show();
 
                                                         abringCallBack.onSuccessful(response);
                                                         mFragment.dismiss();
@@ -294,7 +294,7 @@ public class AbringMobileRegister {
                                                         AbringApiError apiError = (AbringApiError) response;
 
                                                         Toast.makeText(mActivity,
-                                                                Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.failure_responce) :
+                                                                Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) :
                                                                         apiError.getMessage(), Toast.LENGTH_SHORT).show();
 
                                                         abringCallBack.onFailure(response);

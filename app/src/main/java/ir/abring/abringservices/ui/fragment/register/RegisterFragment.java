@@ -98,14 +98,14 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void onSuccessful(Object response) {
                 AbringRegisterModel register = (AbringRegisterModel) response;
-                Toast.makeText(mActivity, R.string.successful_responce, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.abring_successful_responce, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Object response) {
                 AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });

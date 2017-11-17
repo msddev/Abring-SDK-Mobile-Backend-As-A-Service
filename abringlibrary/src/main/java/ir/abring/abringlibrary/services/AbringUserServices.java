@@ -86,7 +86,7 @@ public class AbringUserServices {
             });
 
         } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
         }
     }
 
@@ -150,7 +150,7 @@ public class AbringUserServices {
             });
 
         } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
         }
     }
 
@@ -183,7 +183,7 @@ public class AbringUserServices {
             });
 
         } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
         }
     }
 
@@ -214,7 +214,7 @@ public class AbringUserServices {
             });
 
         } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.no_connect_to_internet));
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
         }
     }
 

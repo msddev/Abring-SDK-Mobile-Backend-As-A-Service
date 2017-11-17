@@ -94,7 +94,7 @@ public class MainMobileRegisterFragment extends BaseFragment implements View.OnC
             public void onFailure(Object response) {
                 AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.failure_responce) : apiError.getMessage(),
+                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });

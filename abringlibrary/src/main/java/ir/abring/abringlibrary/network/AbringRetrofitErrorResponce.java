@@ -24,7 +24,7 @@ public class AbringRetrofitErrorResponce {
             Log.d("R_Error_Code", String.valueOf(error));
         } catch (ClassCastException e) {
             e.printStackTrace();
-            return mContext.getResources().getString(R.string.SERVER_ERROR);
+            return mContext.getResources().getString(R.string.abring_SERVER_ERROR);
         }
 
         try {

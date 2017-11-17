@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:background="@color/primary_text"
                 android:gravity="center"
-                android:text="@string/mobile_register"
+                android:text="@string/abring_mobile_register"
                 android:textColor="@color/primary_text_white"
                 android:textSize="@dimen/text_size_Micro" />
 
@@ -62,7 +62,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/edittext_underline"
                                 android:gravity="center"
-                                android:hint="@string/mobile_number"
+                                android:hint="@string/abring_mobile_number"
                                 android:inputType="phone"
                                 android:maxLength="11"
                                 android:paddingBottom="5dp"
@@ -88,7 +88,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/edittext_underline"
                                 android:gravity="center"
-                                android:hint="@string/username"
+                                android:hint="@string/abring_username"
                                 android:inputType="text"
                                 android:paddingBottom="5dp"
                                 android:paddingTop="5dp"
@@ -110,7 +110,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/edittext_underline"
                                 android:gravity="center"
-                                android:hint="@string/password"
+                                android:hint="@string/abring_password"
                                 android:inputType="textPassword"
                                 android:paddingBottom="5dp"
                                 android:paddingTop="5dp"
@@ -132,7 +132,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/edittext_underline"
                                 android:gravity="center"
-                                android:hint="@string/name"
+                                android:hint="@string/abring_name"
                                 android:inputType="text"
                                 android:lines="1"
                                 android:maxLength="40"
@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/edittext_underline"
                                 android:gravity="center"
-                                android:hint="@string/active_code"
+                                android:hint="@string/abring_active_code"
                                 android:inputType="number"
                                 android:lines="1"
                                 android:maxLength="10"
@@ -190,7 +190,7 @@
                             android:clickable="true"
                             android:gravity="center"
                             android:paddingTop="10dp"
-                            android:text="@string/resend_active_code"
+                            android:text="@string/abring_resend_active_code"
                             android:textColor="@drawable/textview_selector"
                             android:textSize="@dimen/text_size_Small"
                             android:focusable="true" />
@@ -220,7 +220,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
-                    android:text="@string/cancel"
+                    android:text="@string/abring_cancel"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 
@@ -230,7 +230,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:padding="0dp"
-                    android:text="@string/accept"
+                    android:text="@string/abring_accept"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 
