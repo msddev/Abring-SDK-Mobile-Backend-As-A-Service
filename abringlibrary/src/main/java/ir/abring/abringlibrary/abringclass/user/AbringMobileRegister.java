@@ -154,7 +154,7 @@ public class AbringMobileRegister {
                 .title(R.string.permission)
                 .content(R.string.read_external_storage_permission_content)
                 .positiveText(R.string.accept_permission)
-                .negativeText(R.string.cancle)
+                .negativeText(R.string.cancel2)
                 .cancelable(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
@@ -267,7 +267,7 @@ public class AbringMobileRegister {
                         abringUser.register(mActivity, new AbringCallBack() {
                             @Override
                             public void onSuccessful(Object response) {
-                                Toast.makeText(mActivity, "کد فعالسازی ارسال شد...", Toast.LENGTH_LONG).show();
+                                Toast.makeText(mActivity, R.string.send_accept_code, Toast.LENGTH_LONG).show();
 
                                 // close existing dialog fragments
                                 Fragment frag = fragmentManager.findFragmentByTag("RegisterDialogFragment");

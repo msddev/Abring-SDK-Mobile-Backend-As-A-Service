@@ -19,7 +19,29 @@
     <string name="read_external_storage_permission_content">انتخاب تصویر نیاز به دسترسی حافظه دارد. دسترسی می دهید؟</string>
     <string name="read_external_storage_permission">برای انتخاب تصویر مجوز دسترسی به حافظه داده نشده است!</string>
     <string name="accept_permission">اعمال دسترسی</string>
-    <string name="cancle">الان نه</string>
+    <string name="cancel2">الان نه</string>
     <string name="permission">مجوزدهی</string>
+    <string name="mobile_register">ثبت نام با موبایل</string>
+    <string name="mobile_number">شماره موبایل</string>
+    <string name="username">نام کاربری</string>
+    <string name="password">کلمه عبور</string>
+    <string name="name">نام و نام خانوادگی</string>
+    <string name="active_code">کد فعال سازی</string>
+    <string name="cancel">انصراف</string>
+    <string name="accept">تایید</string>
+    <string name="register">ثبت نام</string>
+    <string name="email">ایمیل</string>
+    <string name="phone">تلفن</string>
+    <string name="send_accept_code">کد فعالسازی ارسال شد…</string>
+    <string name="select_image">تصویر خود را انتخاب کنید:</string>
+    <string name="mobile_not_valid">شماره موبایل نامعتبر است!</string>
+    <string name="username_not_valid">نام کاربری نامعتبر است!</string>
+    <string name="password_not_valid">کلمه عبور نامعتبر است!</string>
+    <string name="name_not_valid">نام و نام خانوادگی نامعتبر است!</string>
+    <string name="active_code_not_valid">کد فعال سازی نامعتبر است!</string>
+    <string name="image_not_selected">تصویری انتاخب نشده است!</string>
+    <string name="image_selected_wrong">خطایی رخ داده است</string>
+    <string name="phone_not_valid">شماره تلفن نامعتبر است!</string>
+    <string name="email_not_valid">آدرس ایمیل نامعتبر است!</string>
 
 </resources>

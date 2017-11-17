@@ -132,7 +132,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                         .title(R.string.permission)
                         .content(R.string.read_external_storage_permission_content)
                         .positiveText(R.string.accept_permission)
-                        .negativeText(R.string.cancle)
+                        .negativeText(R.string.cancel2)
                         .cancelable(false)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
@@ -157,7 +157,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
             dismiss();
         } else if (i == R.id.imgAvatar) {
             file = null;
-            ImagePicker.pickImage(this, "تصویر خود را انتخاب کنید:", 100, false);
+            ImagePicker.pickImage(this, getString(R.string.select_image), 100, false);
         }
     }
 
@@ -188,24 +188,24 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         boolean isValid = true;
 
         if (Check.isEmpty(etUsername.getText().toString().trim())) {
-            setupView(etUsername, "نام کاربری نامعتبر است!");
+            setupView(etUsername, getString(R.string.username_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
-            setupView(etPassword, "کلمه عبور نامعتبر است!");
+            setupView(etPassword, getString(R.string.password_not_valid));
             isValid = false;
         } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, "نام و نام خانوادگی نامعتبر است!");
+            setupView(etName, getString(R.string.name_not_valid));
             isValid = false;
         } else if (phone) {
             if (etPhone.getText().toString().trim().length() != 11 ||
                     !CheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
-                setupView(etPhone, "شماره تلفن نامعتبر است!");
+                setupView(etPhone, getString(R.string.phone_not_valid));
                 isValid = false;
             }
         } else if (email) {
             if (Check.isEmpty(etEmail.getText().toString().trim()) ||
                     !CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
-                setupView(etEmail, "آدرس ایمیل نامعتبر است!");
+                setupView(etEmail, getString(R.string.email_not_valid));
                 isValid = false;
             }
         } /*else if (avatar) {
@@ -214,7 +214,6 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                 isValid = false;
             }
         }*/
-
 
         return isValid;
     }
@@ -274,10 +273,10 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
                 cursor.close();
 
             } else {
-                Toast.makeText(getActivity(), "You haven't picked Image/Video", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.image_not_selected), Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.image_selected_wrong), Toast.LENGTH_LONG).show();
         }
     }
 }

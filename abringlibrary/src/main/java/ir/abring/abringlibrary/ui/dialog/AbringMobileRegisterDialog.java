@@ -1,17 +1,13 @@
 package ir.abring.abringlibrary.ui.dialog;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -20,24 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mvc.imagepicker.ImagePicker;
-
 import java.io.File;
-
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.utils.Check;
 import ir.abring.abringlibrary.utils.CheckPattern;
 
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
-
 public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
 
-    private static AbringMobileRegisterDialog instance = null;
     private static boolean username;
     private static boolean password;
     private static boolean deviceId;
@@ -88,9 +76,6 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
         avatar = isAvatar;
         mRegisterListener = onFinishListener;
 
-//        if (instance == null) {
-//            instance = new AbringMobileRegisterDialog();
-//        }
         return new AbringMobileRegisterDialog();
     }
 
@@ -98,9 +83,6 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
         isActive = true;
         mActiveListener = onFinishListener;
 
-//        if (instance == null) {
-//            instance = new AbringMobileRegisterDialog();
-//        }
         return new AbringMobileRegisterDialog();
     }
 
@@ -183,7 +165,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
             dismiss();
         } else if (i == R.id.imgAvatar) {
             file = null;
-            ImagePicker.pickImage(this, "تصویر خود را انتخاب کنید:", 100, false);
+            ImagePicker.pickImage(this, getString(R.string.select_image), 100, false);
         }
     }
 
@@ -192,16 +174,16 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
 
         if (etMobile.getText().toString().trim().length() != 11 ||
                 !CheckPattern.isValidPhone(etMobile.getText().toString().trim())) {
-            setupView(etMobile, "شماره موبایل نامعتبر است!");
+            setupView(etMobile, getString(R.string.mobile_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etUsername.getText().toString().trim())) {
-            setupView(etUsername, "نام کاربری نامعتبر است!");
+            setupView(etUsername, getString(R.string.username_not_valid));
             isValid = false;
         } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
-            setupView(etPassword, "کلمه عبور نامعتبر است!");
+            setupView(etPassword, getString(R.string.password_not_valid));
             isValid = false;
         } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, "نام و نام خانوادگی نامعتبر است!");
+            setupView(etName, getString(R.string.name_not_valid));
             isValid = false;
         }
 
@@ -213,7 +195,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
         boolean isValid = true;
 
         if (Check.isEmpty(etCode.getText().toString().trim())) {
-            setupView(etCode, "کد فعال سازی نامعتبر است!");
+            setupView(etCode, getString(R.string.active_code_not_valid));
             isValid = false;
         }
 
@@ -279,10 +261,10 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment
                 cursor.close();
 
             } else {
-                Toast.makeText(getActivity(), "You haven't picked Image/Video", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.image_not_selected), Toast.LENGTH_LONG).show();
             }
         } catch (Exception e) {
-            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.image_selected_wrong), Toast.LENGTH_LONG).show();
         }
     }
 }

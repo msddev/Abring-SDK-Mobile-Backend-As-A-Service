@@ -26,7 +26,7 @@
                 android:layout_gravity="center"
                 android:background="@color/primary_text"
                 android:gravity="center"
-                android:text="ثبت نام"
+                android:text="@string/register"
                 android:textColor="@color/primary_text_white"
                 android:textSize="@dimen/text_size_Micro" />
 
@@ -56,9 +56,10 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="نام کاربری"
+                            android:hint="@string/username"
                             android:inputType="text"
                             android:paddingBottom="5dp"
+                            android:maxLength="40"
                             android:paddingTop="5dp"
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_size_Small">
@@ -81,9 +82,10 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="کلمه عبور"
+                            android:hint="@string/password"
                             android:inputType="textPassword"
                             android:paddingBottom="5dp"
+                            android:maxLength="30"
                             android:paddingTop="5dp"
                             android:textColor="@color/primary_text"
                             android:textSize="@dimen/text_size_Small" />
@@ -103,7 +105,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="نام و نام خانوادگی"
+                            android:hint="@string/name"
                             android:inputType="text"
                             android:lines="1"
                             android:maxLength="40"
@@ -127,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="ایمیل"
+                            android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:lines="1"
                             android:maxLength="40"
@@ -151,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:background="@drawable/edittext_underline"
                             android:gravity="center"
-                            android:hint="تلفن"
+                            android:hint="@string/phone"
                             android:inputType="phone"
                             android:lines="1"
                             android:maxLength="11"
@@ -192,7 +194,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
-                    android:text="انصراف"
+                    android:text="@string/cancel"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 
@@ -202,7 +204,7 @@
                     android:layout_width="60dp"
                     android:layout_height="40dp"
                     android:padding="0dp"
-                    android:text="تایید"
+                    android:text="@string/accept"
                     android:textColor="@color/primary_text"
                     android:textSize="@dimen/text_size_Micro" />
 
