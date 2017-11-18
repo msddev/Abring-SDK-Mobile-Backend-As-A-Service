@@ -48,4 +48,5 @@
     <string name="abring_resend_active_code">دریافت مجدد کد فعال سازی</string>
     <string name="abring_send_new_code">منتظر دریافت کد جدید باشید</string>
     <string name="abring_login">ورود</string>
+    <string name="abring_login_successfull">ورود با موفقیت انجام شد</string>
 </resources>

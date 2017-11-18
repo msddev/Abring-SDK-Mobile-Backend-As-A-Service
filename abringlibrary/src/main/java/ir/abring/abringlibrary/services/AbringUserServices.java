@@ -90,7 +90,6 @@ public class AbringUserServices {
         }
     }
 
-
     public static void mobileRegister(String mobile,
                                       String username,
                                       String password,
@@ -154,7 +153,6 @@ public class AbringUserServices {
         }
     }
 
-
     public static void mobileVerify(String code, String mobile, final AbringCallBack<Object, Object> abringCallBack) {
 
         if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
@@ -209,6 +207,38 @@ public class AbringUserServices {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
+                    handleError(t, Abring.getContext(), abringCallBack);
+                }
+            });
+
+        } else {
+            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
+        }
+    }
+
+    public static void login(String username,
+                             String password,
+                             final AbringCallBack<Object, Object> abringCallBack) {
+
+        if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
+            AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
+
+            Call<AbringRegisterModel> mEntityCall = mApiService.LoginAPI(username, password, Abring.getPackageName());
+
+            Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
+
+            mEntityCall.enqueue(new Callback<AbringRegisterModel>() {
+                @Override
+                public void onResponse(Call<AbringRegisterModel> call, final Response<AbringRegisterModel> response) {
+                    if (response.isSuccessful()) {
+                        abringCallBack.onSuccessful(response.body());
+                    } else {
+                        handleError(response, Abring.getContext(), abringCallBack);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<AbringRegisterModel> call, Throwable t) {
                     handleError(t, Abring.getContext(), abringCallBack);
                 }
             });

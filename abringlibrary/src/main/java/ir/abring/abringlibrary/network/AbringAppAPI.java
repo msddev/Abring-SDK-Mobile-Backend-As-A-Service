@@ -54,6 +54,14 @@ public interface AbringAppAPI {
     );
 
     @FormUrlEncoded
+    @POST("index.php?r=player/login")
+    Call<AbringRegisterModel> LoginAPI(
+            @Field("username") String username,
+            @Field("password") String password,
+            @Field("app") String app_id
+    );
+
+    @FormUrlEncoded
     @POST("index.php?r=site/ping")
     Call<AbringPing> PingAPI(
             @Field("app") String app_id

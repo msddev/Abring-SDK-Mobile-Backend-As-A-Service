@@ -16,6 +16,7 @@ import com.orhanobut.hawk.Hawk;
 
 import java.io.File;
 
+import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
@@ -36,7 +37,6 @@ public class AbringRegister {
     private String phone;       //optional
     private String reg_idgcm;   //optional
 
-    private final static String ABRING_USER_INFO = "ABRING_USER_INFO";
     private int REQUEST_EXTERNAL_STORAGE = 110;
 
     AbringRegister(RegisterBuilder registerBuilder) {
@@ -286,14 +286,6 @@ public class AbringRegister {
     }
 
     private void setUser(AbringResult result) {
-        Hawk.put(ABRING_USER_INFO, result);
-    }
-
-
-    public static Object getUser() {
-        Object user = null;
-        if (Hawk.contains(ABRING_USER_INFO))
-            user = Hawk.get(ABRING_USER_INFO, null);
-        return user;
+        Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }

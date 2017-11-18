@@ -9,13 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.ContextThemeWrapper;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.hawk.Hawk;
-
 import java.io.File;
-
+import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
@@ -38,8 +36,6 @@ public class AbringMobileRegister {
     private String deviceId;       //optional
     private String name;        //optional
     private File avatar;      //optional
-
-    private final static String ABRING_USER_INFO = "ABRING_USER_INFO";
 
     AbringMobileRegister(MobileRegisterBuilder registerBuilder) {
         this.mobile = registerBuilder.mobile;
@@ -378,13 +374,6 @@ public class AbringMobileRegister {
     }
 
     private static void setUser(AbringResult result) {
-        Hawk.put(ABRING_USER_INFO, result);
-    }
-
-    public static Object getUser() {
-        Object user = null;
-        if (Hawk.contains(ABRING_USER_INFO))
-            user = Hawk.get(ABRING_USER_INFO, null);
-        return user;
+        Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }
