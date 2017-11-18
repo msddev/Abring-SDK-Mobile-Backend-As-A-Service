@@ -3,6 +3,8 @@ package ir.abring.abringlibrary.network;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.orhanobut.hawk.Hawk;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +15,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import ir.abring.abringlibrary.Abring;
+import ir.abring.abringlibrary.AbringConstant;
+import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringFileUtil;
 import ir.abring.abringlibrary.utils.AbringNetworkUtil;
@@ -90,11 +94,9 @@ public class AbringAppService {
                 }
                 Request.Builder builder = original.newBuilder();
 
-                /*boolean isLogin = Hawk.get(MyConstant.IS_LOGIN, false);
-                String token = Hawk.get(MyConstant.TOKEN, null);
-
-                if (isLogin && token != null)
-                    builder.header("Authorization", token);*/
+                String token = Hawk.get(AbringConstant.ABRING_TOKEN, null);
+                if (token != null)
+                    builder.header("Authorization", token);
 
                 Request request = builder.method(original.method(), original.body())
                         .build();

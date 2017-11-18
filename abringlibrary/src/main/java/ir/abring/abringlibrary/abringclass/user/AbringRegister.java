@@ -18,6 +18,7 @@ import java.io.File;
 
 import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
@@ -134,7 +135,7 @@ public class AbringRegister {
                                     @Override
                                     public void run() {
                                         AbringRegisterModel register = (AbringRegisterModel) response;
-                                        setUser(register.getResult());
+                                        AbringServices.setUser(register.getResult());
                                         abringCallBack.onSuccessful(response);
                                     }
                                 });
@@ -259,7 +260,7 @@ public class AbringRegister {
                             @Override
                             public void onSuccessful(Object response) {
                                 AbringRegisterModel register = (AbringRegisterModel) response;
-                                setUser(register.getResult());
+                                AbringServices.setUser(register.getResult());
 
                                 Toast.makeText(mActivity, mActivity.getString(R.string.abring_successful_responce), Toast.LENGTH_SHORT).show();
 
@@ -283,9 +284,5 @@ public class AbringRegister {
                 });
 
         mFragment.show(fragmentManager, "RegisterDialogFragment");
-    }
-
-    private void setUser(AbringResult result) {
-        Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }

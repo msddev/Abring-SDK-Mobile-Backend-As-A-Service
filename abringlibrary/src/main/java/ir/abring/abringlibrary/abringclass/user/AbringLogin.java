@@ -8,6 +8,7 @@ import com.orhanobut.hawk.Hawk;
 
 import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
@@ -59,7 +60,7 @@ public class AbringLogin {
                                     @Override
                                     public void run() {
                                         AbringRegisterModel register = (AbringRegisterModel) response;
-                                        setUser(register.getResult());
+                                        AbringServices.setUser(register.getResult());
                                         abringCallBack.onSuccessful(response);
                                     }
                                 });
@@ -108,7 +109,7 @@ public class AbringLogin {
                     @Override
                     public void onSuccessful(Object response) {
                         AbringRegisterModel register = (AbringRegisterModel) response;
-                        setUser(register.getResult());
+                        AbringServices.setUser(register.getResult());
 
                         Toast.makeText(mActivity, mActivity.getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
 
@@ -131,9 +132,5 @@ public class AbringLogin {
         });
 
         mFragment.show(fragmentManager, "LoginDialogFragment");
-    }
-
-    private static void setUser(AbringResult result) {
-        Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }

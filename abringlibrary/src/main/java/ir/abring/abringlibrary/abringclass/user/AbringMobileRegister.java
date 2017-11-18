@@ -15,6 +15,7 @@ import com.orhanobut.hawk.Hawk;
 import java.io.File;
 import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
@@ -327,7 +328,7 @@ public class AbringMobileRegister {
                     @Override
                     public void run() {
                         AbringRegisterModel register = (AbringRegisterModel) response;
-                        setUser(register.getResult());
+                        AbringServices.setUser(register.getResult());
                         abringCallBack.onSuccessful(response);
                     }
                 });
@@ -371,9 +372,5 @@ public class AbringMobileRegister {
                 });
             }
         });
-    }
-
-    private static void setUser(AbringResult result) {
-        Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }
