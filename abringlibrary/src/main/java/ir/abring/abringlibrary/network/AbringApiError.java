@@ -3,22 +3,31 @@ package ir.abring.abringlibrary.network;
 public class AbringApiError {
 
     /**
-     * name : Internal Server Error
-     * message : خطای داخلی سرور رخ داده است.
-     * code : 0
-     * status : 500
+     * code : 400
+     * result :
+     * message : invalid verify code
+     * timestamp : 1510968434
      */
 
-    private String name;
+    private String code;
+    private String result;
     private String message;
-    private int code;
+    private String timestamp;
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
     public String getMessage() {
@@ -29,11 +38,11 @@ public class AbringApiError {
         this.message = message;
     }
 
-    public int getCode() {
-        return code;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

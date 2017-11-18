@@ -121,7 +121,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
 
             @Override
             public void onFailure(Object response) {
-                AbringApiError apiError = null;
+                AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
                         AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
@@ -138,7 +138,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
 
             @Override
             public void onFailure(Object response) {
-                AbringApiError apiError = null;
+                AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
                         AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
@@ -155,7 +155,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
 
             @Override
             public void onFailure(Object response) {
-                AbringApiError apiError = null;
+                AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
                         AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();

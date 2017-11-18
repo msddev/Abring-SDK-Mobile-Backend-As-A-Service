@@ -20,21 +20,21 @@ public class AbringLogin {
     private String username;    //required
     private String password;    //required
 
-    AbringLogin(RegisterBuilder registerBuilder) {
+    AbringLogin(LoginBuilder registerBuilder) {
         this.username = registerBuilder.username;
         this.password = registerBuilder.password;
     }
 
-    public static class RegisterBuilder {
+    public static class LoginBuilder {
         private String username;    //required
         private String password;    //required
 
-        public RegisterBuilder setUsername(String username) {
+        public LoginBuilder setUsername(String username) {
             this.username = username;
             return this;
         }
 
-        public RegisterBuilder setPassword(String password) {
+        public LoginBuilder setPassword(String password) {
             this.password = password;
             return this;
         }
@@ -84,9 +84,9 @@ public class AbringLogin {
      * login with ui
      */
 
-    AbringLoginDialog mFragment;
+    private static AbringLoginDialog mFragment;
 
-    public void showDialog(FragmentManager fragmentManager,
+    public static void showDialog(FragmentManager fragmentManager,
                            final Activity mActivity,
                            final AbringCallBack abringCallBack) {
         // close existing dialog fragments
@@ -99,7 +99,7 @@ public class AbringLogin {
             public void onFinishDialog(String userName, String password) {
 
                 AbringLogin abringUser = new AbringLogin
-                        .RegisterBuilder()
+                        .LoginBuilder()
                         .setUsername(userName)
                         .setPassword(password)
                         .build();
@@ -133,7 +133,7 @@ public class AbringLogin {
         mFragment.show(fragmentManager, "LoginDialogFragment");
     }
 
-    private void setUser(AbringResult result) {
+    private static void setUser(AbringResult result) {
         Hawk.put(AbringConstant.ABRING_USER_INFO, result);
     }
 }
