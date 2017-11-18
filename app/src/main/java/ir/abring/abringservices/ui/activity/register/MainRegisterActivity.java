@@ -2,7 +2,7 @@ package ir.abring.abringservices.ui.activity.register;
 
 import android.app.FragmentManager;
 
-import ir.abring.abringlibrary.utils.ActivityUtils;
+import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseActivity;
 import ir.abring.abringservices.ui.fragment.mobileRegister.MainMobileRegisterFragment;
@@ -29,12 +29,12 @@ public class MainRegisterActivity extends BaseActivity {
 
         if (actionName.equals("Register")) {
             setupBack("ثبت نام");
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+            AbringActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     MainRegisterFragment.getInstance(),
                     R.id.mainframe);
         } else if (actionName.equals("MobileRegister")) {
             setupBack("ثبت نام با موبایل");
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+            AbringActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     MainMobileRegisterFragment.getInstance(),
                     R.id.mainframe);
         }

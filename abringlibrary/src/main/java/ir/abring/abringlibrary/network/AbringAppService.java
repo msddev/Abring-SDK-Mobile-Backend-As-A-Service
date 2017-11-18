@@ -13,9 +13,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import ir.abring.abringlibrary.Abring;
-import ir.abring.abringlibrary.utils.Check;
-import ir.abring.abringlibrary.utils.FileUtil;
-import ir.abring.abringlibrary.utils.NetworkUtil;
+import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringFileUtil;
+import ir.abring.abringlibrary.utils.AbringNetworkUtil;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -72,7 +72,7 @@ public class AbringAppService {
     }
 
     private Cache cache() {
-        final File baseDir = FileUtil.getExternalCacheDir(Abring.getContext());
+        final File baseDir = AbringFileUtil.getExternalCacheDir(Abring.getContext());
         final File cacheDir = new File(baseDir, "HttpResponseCache");
         return (new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE));
 
@@ -85,7 +85,7 @@ public class AbringAppService {
             public Response intercept(Chain chain) throws IOException {
 
                 Request original = chain.request();
-                if (!NetworkUtil.isAvailable(Abring.getContext())) {
+                if (!AbringNetworkUtil.isAvailable(Abring.getContext())) {
                     original = original.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();
                 }
                 Request.Builder builder = original.newBuilder();
@@ -118,7 +118,7 @@ public class AbringAppService {
 
     public synchronized <T> T getService(Class<T> apiInterface) {
         String serviceName = apiInterface.getName();
-        if (!Check.isNull(serviceByType.get(serviceName))) {
+        if (!AbringCheck.isNull(serviceByType.get(serviceName))) {
             return (T) serviceByType.get(serviceName);
         }
         T service = mRetrofit.create(apiInterface);

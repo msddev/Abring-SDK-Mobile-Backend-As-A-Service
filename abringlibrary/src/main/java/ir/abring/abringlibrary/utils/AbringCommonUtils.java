@@ -8,7 +8,7 @@ import android.util.LruCache;
 
 import ir.abring.abringlibrary.R;
 
-public class CommonUtils {
+public class AbringCommonUtils {
 
     public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;

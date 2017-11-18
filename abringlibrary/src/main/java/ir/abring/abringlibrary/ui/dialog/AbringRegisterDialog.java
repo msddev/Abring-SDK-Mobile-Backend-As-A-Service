@@ -25,8 +25,8 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.File;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
-import ir.abring.abringlibrary.utils.Check;
-import ir.abring.abringlibrary.utils.CheckPattern;
+import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringCheckPattern;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
@@ -58,7 +58,6 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private Button btnCancel;
 
     private File file;
-    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     public AbringRegisterDialog() {
     }
@@ -92,6 +91,11 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
 
     @Override
     protected void initViews(View view) {
+
+        //close keyboard
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+
         etUsername = (EditText) view.findViewById(R.id.etUsername);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
         etName = (EditText) view.findViewById(R.id.etName);
@@ -124,35 +128,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.btnOK) {
-
-            if (avatar && checkSelfPermission(getContext(),
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                new MaterialDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.Theme_MatrialDialog))
-                        .title(R.string.abring_permission)
-                        .content(R.string.abring_read_external_storage_permission_content)
-                        .positiveText(R.string.abring_accept_permission)
-                        .negativeText(R.string.abring_cancel2)
-                        .cancelable(false)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                        REQUEST_EXTERNAL_STORAGE);
-                            }
-                        })
-                        .onNegative(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .show();
-
-            } else
-                okAction();
-
-
+            registerAction();
         } else if (i == R.id.btnCancel) {
             dismiss();
         } else if (i == R.id.imgAvatar) {
@@ -161,15 +137,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_EXTERNAL_STORAGE)
-            okAction();
-    }
-
-    private void okAction() {
+    private void registerAction() {
         progressBar.setVisibility(View.VISIBLE);
 
         if (checkValidation()) {
@@ -187,24 +155,24 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private boolean checkValidation() {
         boolean isValid = true;
 
-        if (Check.isEmpty(etUsername.getText().toString().trim())) {
+        if (AbringCheck.isEmpty(etUsername.getText().toString().trim())) {
             setupView(etUsername, getString(R.string.abring_username_not_valid));
             isValid = false;
-        } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
+        } else if (AbringCheck.isEmpty(etPassword.getText().toString().trim())) {
             setupView(etPassword, getString(R.string.abring_password_not_valid));
             isValid = false;
-        } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
+        } else if (name && AbringCheck.isEmpty(etName.getText().toString().trim())) {
             setupView(etName, getString(R.string.abring_name_not_valid));
             isValid = false;
         } else if (phone) {
             if (etPhone.getText().toString().trim().length() != 11 ||
-                    !CheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
+                    !AbringCheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
                 setupView(etPhone, getString(R.string.abring_phone_not_valid));
                 isValid = false;
             }
         } else if (email) {
-            if (Check.isEmpty(etEmail.getText().toString().trim()) ||
-                    !CheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
+            if (AbringCheck.isEmpty(etEmail.getText().toString().trim()) ||
+                    !AbringCheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
                 setupView(etEmail, getString(R.string.abring_email_not_valid));
                 isValid = false;
             }

@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-public class UIUtil {
+public class AbringUIUtil {
 
     public static void closeKeyBoard(Activity mActivity) {
         // Check if no view has focus:

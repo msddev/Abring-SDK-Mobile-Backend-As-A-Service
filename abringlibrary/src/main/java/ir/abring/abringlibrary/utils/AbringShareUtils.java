@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-public class ShareUtils {
+public class AbringShareUtils {
 
     public static void shareText(Context context, String extraSubject, String extraText) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);

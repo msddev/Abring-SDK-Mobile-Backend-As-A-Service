@@ -3,15 +3,13 @@ package ir.abring.abringservices.ui.fragment.register;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.utils.ActivityUtils;
-import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
@@ -59,7 +57,7 @@ public class MainRegisterFragment extends BaseFragment implements View.OnClickLi
 
                 RegisterFragment fragment = RegisterFragment.getInstance();
 
-                ActivityUtils.replaceFragmentToActivity(getFragmentManager(),
+                AbringActivityUtils.replaceFragmentToActivity(getFragmentManager(),
                         fragment,
                         R.id.mainframe,
                         "RegisterFragment",

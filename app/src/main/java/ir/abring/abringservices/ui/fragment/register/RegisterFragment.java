@@ -18,7 +18,7 @@ import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
@@ -105,7 +105,7 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
             public void onFailure(Object response) {
                 AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });

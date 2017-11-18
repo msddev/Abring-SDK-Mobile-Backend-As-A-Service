@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-public class SPUtil {
+public class AbringSPUtil {
 
     public static final String FILE_NAME = "share_data";
 

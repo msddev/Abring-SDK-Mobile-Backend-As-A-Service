@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-public class PermissaoUtils {
+public class AbringPermissaoUtils {
     public static boolean useRunTimePermissions() {
         return Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1;
     }

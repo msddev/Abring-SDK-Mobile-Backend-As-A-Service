@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class FileUtil {
+public class AbringFileUtil {
 
-    private FileUtil() {
+    private AbringFileUtil() {
         throw new UnsupportedOperationException("can't instantiate ...");
     }
 

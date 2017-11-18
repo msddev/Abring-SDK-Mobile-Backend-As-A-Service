@@ -12,8 +12,8 @@ import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringAppAPI;
 import ir.abring.abringlibrary.network.AbringAppService;
 import ir.abring.abringlibrary.network.AbringRetrofitErrorResponce;
-import ir.abring.abringlibrary.utils.Check;
-import ir.abring.abringlibrary.utils.NetworkUtil;
+import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringNetworkUtil;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -32,7 +32,7 @@ public class AbringUserServices {
                                 String reg_idgcm,
                                 final AbringCallBack<Object, Object> abringCallBack) {
 
-        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+        if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
 
             // Parsing any Media type file
@@ -42,19 +42,19 @@ public class AbringUserServices {
                 avatarToUpload = MultipartBody.Part.createFormData("avatar", avatar.getName(), requestBody);
             }
 
-            RequestBody usernameRequest = Check.isEmpty(username) ?
+            RequestBody usernameRequest = AbringCheck.isEmpty(username) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), username);
-            RequestBody passwordRequest = Check.isEmpty(password) ?
+            RequestBody passwordRequest = AbringCheck.isEmpty(password) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), password);
-            RequestBody nameRequest = Check.isEmpty(name) ?
+            RequestBody nameRequest = AbringCheck.isEmpty(name) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), name);
-            RequestBody emailRequest = Check.isEmpty(email) ?
+            RequestBody emailRequest = AbringCheck.isEmpty(email) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), email);
-            RequestBody phoneRequest = Check.isEmpty(phone) ?
+            RequestBody phoneRequest = AbringCheck.isEmpty(phone) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), phone);
-            RequestBody gcmRequest = Check.isEmpty(reg_idgcm) ?
+            RequestBody gcmRequest = AbringCheck.isEmpty(reg_idgcm) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), reg_idgcm);
-            RequestBody appIdRequest = Check.isEmpty(Abring.getPackageName()) ?
+            RequestBody appIdRequest = AbringCheck.isEmpty(Abring.getPackageName()) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), Abring.getPackageName());
 
             Call<AbringRegisterModel> mEntityCall = mApiService.RegisterAPI(
@@ -99,7 +99,7 @@ public class AbringUserServices {
                                       File avatar,
                                       final AbringCallBack<Object, Object> abringCallBack) {
 
-        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+        if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
 
             // Parsing any Media type file
@@ -109,17 +109,17 @@ public class AbringUserServices {
                 avatarToUpload = MultipartBody.Part.createFormData("avatar", avatar.getName(), requestBody);
             }
 
-            RequestBody mobileRequest = Check.isEmpty(mobile) ?
+            RequestBody mobileRequest = AbringCheck.isEmpty(mobile) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), mobile);
-            RequestBody usernameRequest = Check.isEmpty(username) ?
+            RequestBody usernameRequest = AbringCheck.isEmpty(username) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), username);
-            RequestBody passwordRequest = Check.isEmpty(password) ?
+            RequestBody passwordRequest = AbringCheck.isEmpty(password) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), password);
-            RequestBody deviceIdRequest = Check.isEmpty(password) ?
+            RequestBody deviceIdRequest = AbringCheck.isEmpty(password) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), deviceId);
-            RequestBody nameRequest = Check.isEmpty(name) ?
+            RequestBody nameRequest = AbringCheck.isEmpty(name) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), name);
-            RequestBody appIdRequest = Check.isEmpty(Abring.getPackageName()) ?
+            RequestBody appIdRequest = AbringCheck.isEmpty(Abring.getPackageName()) ?
                     null : RequestBody.create(MediaType.parse("text/plain"), Abring.getPackageName());
 
             Call<Void> mEntityCall = mApiService.MobileRegisterAPI(
@@ -157,7 +157,7 @@ public class AbringUserServices {
 
     public static void mobileVerify(String code, String mobile, final AbringCallBack<Object, Object> abringCallBack) {
 
-        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+        if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
 
             Call<AbringRegisterModel> mEntityCall = mApiService.MobileVerifyAPI(mobile,
@@ -189,7 +189,7 @@ public class AbringUserServices {
 
     public static void mobileResendCode(String mobile, final AbringCallBack<Object, Object> abringCallBack) {
 
-        if (NetworkUtil.isNetworkConnected(Abring.getContext())) {
+        if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
 
             Call<Void> mEntityCall = mApiService.MobileResendCodeAPI(mobile,

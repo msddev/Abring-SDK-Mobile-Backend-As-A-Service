@@ -11,7 +11,7 @@ import android.util.TypedValue;
 
 import ir.abring.abringlibrary.R;
 
-public class ThemeUtil {
+public class AbringThemeUtil {
 
     public static int getThemeColor(Context context, int attrRes) {
         TypedArray typedArray = context.obtainStyledAttributes(new int[]{attrRes});

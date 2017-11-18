@@ -3,7 +3,7 @@ package ir.abring.abringlibrary.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TimeUtil {
+public class AbringTimeUtil {
 
     private static SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private static SimpleDateFormat HOUR_MINUTE = new SimpleDateFormat("HH:mm");

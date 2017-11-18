@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.TextInputLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,12 +20,10 @@ import com.mvc.imagepicker.ImagePicker;
 import java.io.File;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
@@ -128,7 +123,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
             public void onFailure(Object response) {
                 AbringApiError apiError = null;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,7 +140,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
             public void onFailure(Object response) {
                 AbringApiError apiError = null;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -162,7 +157,7 @@ public class MobileRegisterFragment extends BaseFragment implements View.OnClick
             public void onFailure(Object response) {
                 AbringApiError apiError = null;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });

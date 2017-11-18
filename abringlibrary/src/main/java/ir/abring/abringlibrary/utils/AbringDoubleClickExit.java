@@ -1,6 +1,6 @@
 package ir.abring.abringlibrary.utils;
 
-public class DoubleClickExit {
+public class AbringDoubleClickExit {
     public static long mLastClick = 0L;
     private static final int THRESHOLD = 2000;
 

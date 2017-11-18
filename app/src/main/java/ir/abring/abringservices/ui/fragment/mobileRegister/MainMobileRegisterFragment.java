@@ -7,15 +7,13 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
-import ir.abring.abringlibrary.abringclass.user.AbringRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.utils.ActivityUtils;
-import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringlibrary.utils.AbringActivityUtils;
+import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
-import ir.abring.abringservices.ui.fragment.register.RegisterFragment;
 
 public class MainMobileRegisterFragment extends BaseFragment implements View.OnClickListener {
 
@@ -61,7 +59,7 @@ public class MainMobileRegisterFragment extends BaseFragment implements View.OnC
 
                 MobileRegisterFragment fragment = new MobileRegisterFragment();
 
-                ActivityUtils.replaceFragmentToActivity(getFragmentManager(),
+                AbringActivityUtils.replaceFragmentToActivity(getFragmentManager(),
                         fragment,
                         R.id.mainframe,
                         "MobileRegisterFragment",
@@ -94,7 +92,7 @@ public class MainMobileRegisterFragment extends BaseFragment implements View.OnC
             public void onFailure(Object response) {
                 AbringApiError apiError = (AbringApiError) response;
                 Toast.makeText(mActivity,
-                        Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });

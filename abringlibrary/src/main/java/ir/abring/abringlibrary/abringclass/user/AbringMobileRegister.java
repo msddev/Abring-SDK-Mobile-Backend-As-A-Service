@@ -23,7 +23,7 @@ import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringMobileRegisterDialog;
-import ir.abring.abringlibrary.utils.Check;
+import ir.abring.abringlibrary.utils.AbringCheck;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
@@ -106,9 +106,9 @@ public class AbringMobileRegister {
             } else {
                 getPermission(mActivity);
             }
-        } else {
+        } else
             runRegister(mActivity, abringCallBack);
-        }
+
     }
 
     private void runRegister(final Activity mActivity, final AbringCallBack abringCallBack) {
@@ -294,7 +294,7 @@ public class AbringMobileRegister {
                                                         AbringApiError apiError = (AbringApiError) response;
 
                                                         Toast.makeText(mActivity,
-                                                                Check.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) :
+                                                                AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) :
                                                                         apiError.getMessage(), Toast.LENGTH_SHORT).show();
 
                                                         abringCallBack.onFailure(response);

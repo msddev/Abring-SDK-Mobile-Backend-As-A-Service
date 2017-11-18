@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-public class Version {
+public class AbringVersion {
     public static int buildVersion() {
         return Build.VERSION.SDK_INT;
     }

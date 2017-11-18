@@ -27,7 +27,7 @@ import ir.abring.abringlibrary.utils.AbringCheck;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
-public class AbringRegister {
+public class AbringLogin {
     private String username;    //required
     private String password;    //required
     private String name;        //optional
@@ -39,7 +39,7 @@ public class AbringRegister {
     private final static String ABRING_USER_INFO = "ABRING_USER_INFO";
     private int REQUEST_EXTERNAL_STORAGE = 110;
 
-    AbringRegister(RegisterBuilder registerBuilder) {
+    AbringLogin(RegisterBuilder registerBuilder) {
         this.username = registerBuilder.username;
         this.password = registerBuilder.password;
         this.name = registerBuilder.name;
@@ -93,8 +93,8 @@ public class AbringRegister {
             return this;
         }
 
-        public AbringRegister build() {
-            return new AbringRegister(this);
+        public AbringLogin build() {
+            return new AbringLogin(this);
         }
 
     }
@@ -188,7 +188,7 @@ public class AbringRegister {
 
     AbringRegisterDialog mFragment;
 
-    AbringRegister(DialogBuilder dialogBuilder) {
+    AbringLogin(DialogBuilder dialogBuilder) {
         this.isName = dialogBuilder.isName;
         this.isAvatar = dialogBuilder.isAvatar;
         this.isEmail = dialogBuilder.isEmail;
@@ -221,8 +221,8 @@ public class AbringRegister {
             return this;
         }
 
-        public AbringRegister build() {
-            return new AbringRegister(this);
+        public AbringLogin build() {
+            return new AbringLogin(this);
         }
 
     }
@@ -245,7 +245,7 @@ public class AbringRegister {
                                                String email,
                                                File avatar) {
 
-                        AbringRegister abringUser = new AbringRegister
+                        AbringLogin abringUser = new AbringLogin
                                 .RegisterBuilder()
                                 .setUsername(userName)
                                 .setPassword(password)

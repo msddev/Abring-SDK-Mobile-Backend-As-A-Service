@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import ir.abring.abringlibrary.R;
 
-public class CustomToast {
+public class AbringCustomToast {
 
     public static final int SUCCESS = 1;
     public static final int WARNING = 2;
@@ -79,11 +79,11 @@ public class CustomToast {
 
     private static void setBackgroundAndTextcolor(Context context, LinearLayout layout, int toast_color, int text_color) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-            layout.setBackgroundDrawable(drawRoundRect(UIUtil.getColor(context, toast_color)));
+            layout.setBackgroundDrawable(drawRoundRect(AbringUIUtil.getColor(context, toast_color)));
         } else {
-            layout.setBackground(drawRoundRect(UIUtil.getColor(context, toast_color)));
+            layout.setBackground(drawRoundRect(AbringUIUtil.getColor(context, toast_color)));
         }
-        textColor = UIUtil.getColor(context, text_color);
+        textColor = AbringUIUtil.getColor(context, text_color);
     }
 
     private static GradientDrawable drawRoundRect(int backgroundColor) {

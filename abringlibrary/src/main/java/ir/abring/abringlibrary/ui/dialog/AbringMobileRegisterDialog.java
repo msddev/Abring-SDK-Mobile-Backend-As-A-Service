@@ -27,8 +27,8 @@ import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.utils.Check;
-import ir.abring.abringlibrary.utils.CheckPattern;
+import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringCheckPattern;
 
 public class AbringMobileRegisterDialog extends AbringBaseDialogFragment implements
         View.OnClickListener {
@@ -196,7 +196,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
                     AbringApiError apiError = (AbringApiError) response;
 
                     Toast.makeText(getActivity(),
-                            Check.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                            AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
                                     apiError.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -207,16 +207,16 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
         boolean isValid = true;
 
         if (etMobile.getText().toString().trim().length() != 11 ||
-                !CheckPattern.isValidPhone(etMobile.getText().toString().trim())) {
+                !AbringCheckPattern.isValidPhone(etMobile.getText().toString().trim())) {
             setupView(etMobile, getString(R.string.abring_mobile_not_valid));
             isValid = false;
-        } else if (Check.isEmpty(etUsername.getText().toString().trim())) {
+        } else if (AbringCheck.isEmpty(etUsername.getText().toString().trim())) {
             setupView(etUsername, getString(R.string.abring_username_not_valid));
             isValid = false;
-        } else if (Check.isEmpty(etPassword.getText().toString().trim())) {
+        } else if (AbringCheck.isEmpty(etPassword.getText().toString().trim())) {
             setupView(etPassword, getString(R.string.abring_password_not_valid));
             isValid = false;
-        } else if (name && Check.isEmpty(etName.getText().toString().trim())) {
+        } else if (name && AbringCheck.isEmpty(etName.getText().toString().trim())) {
             setupView(etName, getString(R.string.abring_name_not_valid));
             isValid = false;
         }
@@ -227,7 +227,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
     private boolean checkActiveValidation() {
         boolean isValid = true;
 
-        if (Check.isEmpty(etCode.getText().toString().trim())) {
+        if (AbringCheck.isEmpty(etCode.getText().toString().trim())) {
             setupView(etCode, getString(R.string.abring_active_code_not_valid));
             isValid = false;
         }

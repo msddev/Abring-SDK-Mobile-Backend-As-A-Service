@@ -1,6 +1,6 @@
 package ir.abring.abringlibrary.utils;
 
-public class ConvertDigits {
+public class AbringConvertDigits {
 
     public static String persianDigits(String string) {
         if (string != null) {

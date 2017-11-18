@@ -7,7 +7,7 @@ import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 
-public class NetworkUtil {
+public class AbringNetworkUtil {
 
     public enum NetType {
         None(1),
@@ -80,19 +80,19 @@ public class NetworkUtil {
         return false;
     }
 
-    public static NetworkUtil.NetType getConnectedType(Context context) {
+    public static AbringNetworkUtil.NetType getConnectedType(Context context) {
         NetworkInfo net = getConnectivityManager(context).getActiveNetworkInfo();
         if (net != null) {
             switch (net.getType()) {
                 case ConnectivityManager.TYPE_WIFI:
-                    return NetworkUtil.NetType.Wifi;
+                    return AbringNetworkUtil.NetType.Wifi;
                 case ConnectivityManager.TYPE_MOBILE:
-                    return NetworkUtil.NetType.Mobile;
+                    return AbringNetworkUtil.NetType.Mobile;
                 default:
-                    return NetworkUtil.NetType.Other;
+                    return AbringNetworkUtil.NetType.Other;
             }
         }
-        return NetworkUtil.NetType.None;
+        return AbringNetworkUtil.NetType.None;
     }
 
     public static boolean isWifiConnected(Context context) {
@@ -200,11 +200,11 @@ public class NetworkUtil {
      * HSPAP   3G HSPAP 比 HSDPA 快些
      *
      */
-    public static NetworkUtil.NetWorkType getNetworkType(Context context) {
+    public static AbringNetworkUtil.NetWorkType getNetworkType(Context context) {
         int type = getConnectedTypeINT(context);
         switch (type) {
             case ConnectivityManager.TYPE_WIFI:
-                return NetworkUtil.NetWorkType.Wifi;
+                return AbringNetworkUtil.NetWorkType.Wifi;
             case ConnectivityManager.TYPE_MOBILE:
             case ConnectivityManager.TYPE_MOBILE_DUN:
                 int teleType = getTelephonyManager(context).getNetworkType();
@@ -214,7 +214,7 @@ public class NetworkUtil {
                     case TelephonyManager.NETWORK_TYPE_CDMA:
                     case TelephonyManager.NETWORK_TYPE_1xRTT:
                     case TelephonyManager.NETWORK_TYPE_IDEN:
-                        return NetworkUtil.NetWorkType.Net2G;
+                        return AbringNetworkUtil.NetWorkType.Net2G;
                     case TelephonyManager.NETWORK_TYPE_UMTS:
                     case TelephonyManager.NETWORK_TYPE_EVDO_0:
                     case TelephonyManager.NETWORK_TYPE_EVDO_A:
@@ -224,14 +224,14 @@ public class NetworkUtil {
                     case TelephonyManager.NETWORK_TYPE_EVDO_B:
                     case TelephonyManager.NETWORK_TYPE_EHRPD:
                     case TelephonyManager.NETWORK_TYPE_HSPAP:
-                        return NetworkUtil.NetWorkType.Net3G;
+                        return AbringNetworkUtil.NetWorkType.Net3G;
                     case TelephonyManager.NETWORK_TYPE_LTE:
-                        return NetworkUtil.NetWorkType.Net4G;
+                        return AbringNetworkUtil.NetWorkType.Net4G;
                     default:
-                        return NetworkUtil.NetWorkType.UnKnown;
+                        return AbringNetworkUtil.NetWorkType.UnKnown;
                 }
             default:
-                return NetworkUtil.NetWorkType.UnKnown;
+                return AbringNetworkUtil.NetWorkType.UnKnown;
         }
     }
 

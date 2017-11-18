@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateConvertUtils {
+public class AbringDateConvertUtils {
 
     public static final String DATA_FORMAT_PATTEN_YYYY_MMMM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String DATA_FORMAT_PATTEN_YYYY_MMMM_DD_HH_MM = "yyyy-MM-dd HH:mm";
@@ -74,7 +74,7 @@ public class DateConvertUtils {
 
     public static String currentJalaliDateTime() {
         Calendar c = Calendar.getInstance();
-        return JalaliCalendar.getStrJalaliDate(c.getTime(), true);
+        return AbringJalaliCalendar.getStrJalaliDate(c.getTime(), true);
     }
 
     public static Date currentMiladiDateTime() {

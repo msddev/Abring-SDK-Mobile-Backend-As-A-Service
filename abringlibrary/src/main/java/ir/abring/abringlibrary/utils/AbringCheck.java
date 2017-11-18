@@ -3,7 +3,7 @@ package ir.abring.abringlibrary.utils;
 import java.util.Collection;
 import java.util.Map;
 
-public class Check {
+public class AbringCheck {
     public static boolean isEmpty(CharSequence str) {
         return isNull(str) || str.length() == 0;
     }

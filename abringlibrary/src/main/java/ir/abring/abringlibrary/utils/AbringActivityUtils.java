@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import ir.abring.abringlibrary.R;
 
-public final class ActivityUtils {
+public final class AbringActivityUtils {
 
     public static void addFragmentToActivity(FragmentManager fragmentManager,
                                              Fragment fragment,

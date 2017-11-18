@@ -7,7 +7,7 @@ import android.support.v4.util.LruCache;
 import android.text.TextPaint;
 import android.text.style.MetricAffectingSpan;
 
-public class TypefaceSpan extends MetricAffectingSpan {
+public class AbringTypefaceSpan extends MetricAffectingSpan {
 
     private static final float ACTIONBAR_TITLE_TEXT_SIZE = 15.0f;
 
@@ -15,7 +15,7 @@ public class TypefaceSpan extends MetricAffectingSpan {
 
     private Context context;
 
-    public TypefaceSpan(Context context, String typefaceName) {
+    public AbringTypefaceSpan(Context context, String typefaceName) {
 
         this.context = context;
         LruCache<String, Typeface> sTypeFaceCache = new LruCache<>(12);
