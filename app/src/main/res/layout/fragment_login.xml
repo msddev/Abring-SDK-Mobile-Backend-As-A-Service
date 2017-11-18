@@ -92,6 +92,12 @@
                 android:layout_height="wrap_content"
                 android:text="ورود" />
 
+            <Button
+                android:id="@+id/btnGuest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ورود میهمان" />
+
         </LinearLayout>
 
     </ScrollView>

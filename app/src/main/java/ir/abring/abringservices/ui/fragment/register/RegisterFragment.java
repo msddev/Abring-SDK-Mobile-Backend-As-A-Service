@@ -42,7 +42,6 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     Button btnSave;
 
     private File file = null;
-    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     public RegisterFragment() {
         // Required empty public constructor

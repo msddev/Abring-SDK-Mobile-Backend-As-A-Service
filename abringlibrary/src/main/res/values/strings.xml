@@ -16,8 +16,7 @@
     <string name="abring_no_connect_to_server">دسترسی به سرور امکان پذیر نمی باشد!</string>
     <string name="abring_no_connect_to_internet">دسترسی به اینترنت امکان پذیر نمی باشد!</string>
     <string name="abring_no_server_valid_response">پاسخ سرور نامفهوم می باشد!</string>
-    <string name="abring_read_external_storage_permission_content">انتخاب تصویر نیاز به دسترسی حافظه دارد. دسترسی می دهید؟</string>
-    <string name="abring_read_external_storage_permission">برای انتخاب تصویر مجوز دسترسی به حافظه داده نشده است!</string>
+    <string name="abring_permission_content" formatted="false">این عملیات نیاز به دسترسی %1$s دارد. دسترسی می دهید؟</string>
     <string name="abring_accept_permission">اعمال دسترسی</string>
     <string name="abring_cancel2">الان نه</string>
     <string name="abring_permission">مجوزدهی</string>
@@ -49,4 +48,7 @@
     <string name="abring_send_new_code">منتظر دریافت کد جدید باشید</string>
     <string name="abring_login">ورود</string>
     <string name="abring_login_successfull">ورود با موفقیت انجام شد</string>
+    <string name="abring_guest_login">ورود میهمان</string>
+    <string name="READ_EXTERNAL_STORAGE_STRING">حافظه</string>
+    <string name="READ_PHONE_STATE_STRING">وضعیت دستگاه</string>
 </resources>

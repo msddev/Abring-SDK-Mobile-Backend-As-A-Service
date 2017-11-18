@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import butterknife.BindView;
 import ir.abring.abringlibrary.abringclass.user.AbringLogin;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
@@ -17,6 +18,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     @BindView(R.id.btnSave)
     Button btnSave;
+    @BindView(R.id.btnGuest)
+    Button btnGuest;
     @BindView(R.id.etUsername)
     EditText etUsername;
     @BindView(R.id.inputlayoutUsername)
@@ -43,6 +46,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initViews(View rootView) {
         btnSave.setOnClickListener(this);
+        btnGuest.setOnClickListener(this);
     }
 
     @Override
@@ -50,6 +54,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         switch (view.getId()) {
             case R.id.btnSave:
                 login();
+                break;
+            case R.id.btnGuest:
+                loginGuest();
                 break;
         }
     }
@@ -74,6 +81,24 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 Toast.makeText(mActivity,
                         AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) : apiError.getMessage(),
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loginGuest() {
+        AbringLogin.loginAsGuest(getActivity(), new AbringCallBack() {
+            @Override
+            public void onSuccessful(Object response) {
+                Toast.makeText(getActivity(), getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Object response) {
+                AbringApiError apiError = (AbringApiError) response;
+
+                Toast.makeText(getActivity(),
+                        AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                                apiError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

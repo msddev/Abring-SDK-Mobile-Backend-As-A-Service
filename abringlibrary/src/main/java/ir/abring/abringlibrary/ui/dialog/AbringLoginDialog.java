@@ -6,8 +6,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.user.AbringLogin;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
+import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.AbringCheck;
 
 public class AbringLoginDialog extends AbringBaseDialogFragment
@@ -21,6 +26,7 @@ public class AbringLoginDialog extends AbringBaseDialogFragment
 
     private Button btnOK;
     private Button btnCancel;
+    private Button btnGuest;
 
     public AbringLoginDialog() {
     }
@@ -59,9 +65,11 @@ public class AbringLoginDialog extends AbringBaseDialogFragment
 
         btnOK = (Button) view.findViewById(R.id.btnOK);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnGuest = (Button) view.findViewById(R.id.btnGuest);
 
         btnOK.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+        btnGuest.setOnClickListener(this);
     }
 
     @Override
@@ -79,6 +87,26 @@ public class AbringLoginDialog extends AbringBaseDialogFragment
 
         } else if (i == R.id.btnCancel) {
             dismiss();
+        } else if (i == R.id.btnGuest) {
+            progressBar.setVisibility(View.VISIBLE);
+            AbringLogin.loginAsGuest(getActivity(), new AbringCallBack() {
+                @Override
+                public void onSuccessful(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+
+                @Override
+                public void onFailure(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    AbringApiError apiError = (AbringApiError) response;
+
+                    Toast.makeText(getActivity(),
+                            AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                                    apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

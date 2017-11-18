@@ -24,7 +24,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.mvc.imagepicker.ImagePicker;
 import java.io.File;
 import ir.abring.abringlibrary.R;
+import ir.abring.abringlibrary.abringclass.user.AbringLogin;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
+import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringCheckPattern;
 
@@ -56,6 +59,7 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private ImageView imgAvatar;
     private Button btnOK;
     private Button btnCancel;
+    private Button btnGuest;
 
     private File file;
 
@@ -113,10 +117,12 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
 
         btnOK = (Button) view.findViewById(R.id.btnOK);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnGuest = (Button) view.findViewById(R.id.btnGuest);
 
         btnOK.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
         imgAvatar.setOnClickListener(this);
+        btnGuest.setOnClickListener(this);
 
         if (!name) inputlayoutName.setVisibility(View.GONE);
         if (!email) inputlayoutEmail.setVisibility(View.GONE);
@@ -134,6 +140,26 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         } else if (i == R.id.imgAvatar) {
             file = null;
             ImagePicker.pickImage(this, getString(R.string.abring_select_image), 100, false);
+        } else if (i == R.id.btnGuest) {
+            progressBar.setVisibility(View.VISIBLE);
+            AbringLogin.loginAsGuest(getActivity(), new AbringCallBack() {
+                @Override
+                public void onSuccessful(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
+                    dismiss();
+                }
+
+                @Override
+                public void onFailure(Object response) {
+                    progressBar.setVisibility(View.GONE);
+                    AbringApiError apiError = (AbringApiError) response;
+
+                    Toast.makeText(getActivity(),
+                            AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                                    apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

@@ -1,21 +1,24 @@
 package ir.abring.abringlibrary.abringclass.user;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
-import com.orhanobut.hawk.Hawk;
 
-import ir.abring.abringlibrary.AbringConstant;
+import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
-import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringLoginDialog;
 import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
+import android.provider.Settings.Secure;
 
 public class AbringLogin {
     private String username;    //required
@@ -88,8 +91,8 @@ public class AbringLogin {
     private static AbringLoginDialog mFragment;
 
     public static void showDialog(FragmentManager fragmentManager,
-                           final Activity mActivity,
-                           final AbringCallBack abringCallBack) {
+                                  final Activity mActivity,
+                                  final AbringCallBack abringCallBack) {
         // close existing dialog fragments
         Fragment frag = fragmentManager.findFragmentByTag("LoginDialogFragment");
         if (frag != null)
@@ -132,5 +135,58 @@ public class AbringLogin {
         });
 
         mFragment.show(fragmentManager, "LoginDialogFragment");
+    }
+
+    /**
+     * login with device id - guest user
+     */
+    public static void loginAsGuest(Activity mActivity, AbringCallBack abringCallBack) {
+        if (AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.READ_PHONE_STATE))
+            runloginAsGuest(mActivity, abringCallBack);
+        else {
+            String[] permissions = {Manifest.permission.READ_PHONE_STATE};
+            AbringPermissaoUtils.showDialog(mActivity,
+                    permissions,
+                    AbringPermissaoUtils.READ_PHONE_STATE,
+                    mActivity.getString(R.string.READ_PHONE_STATE_STRING));
+        }
+    }
+
+    private static void runloginAsGuest(final Activity mActivity, final AbringCallBack abringCallBack) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                @SuppressLint("HardwareIds")
+                String androidId = Secure.getString(mActivity.getContentResolver(),
+                        Secure.ANDROID_ID);
+                //Run in new thread
+                AbringUserServices.loginAsGuest(androidId,
+                        new AbringCallBack<Object, Object>() {
+                            @Override
+                            public void onSuccessful(final Object response) {
+                                mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AbringRegisterModel register = (AbringRegisterModel) response;
+                                        AbringServices.setUser(register.getResult());
+                                        abringCallBack.onSuccessful(response);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailure(final Object response) {
+                                mActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        abringCallBack.onFailure(response);
+                                    }
+                                });
+                            }
+                        });
+
+            }
+        }).start();
     }
 }

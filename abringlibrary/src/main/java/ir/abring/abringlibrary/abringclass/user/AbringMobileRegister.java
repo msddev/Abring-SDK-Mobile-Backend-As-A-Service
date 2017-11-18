@@ -13,6 +13,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.orhanobut.hawk.Hawk;
 import java.io.File;
+
+import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.AbringServices;
@@ -23,13 +25,13 @@ import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringMobileRegisterDialog;
 import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class AbringMobileRegister {
 
     private static Activity myActivity;
-    private int REQUEST_EXTERNAL_STORAGE = 110;
 
     private static String mobile;    //required
     private String username;    //optional
@@ -95,13 +97,14 @@ public class AbringMobileRegister {
         myActivity = mActivity;
 
         if (avatar != null) {
-            if (checkSelfPermission(mActivity,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
+            if (AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 runRegister(mActivity, abringCallBack);
-
             } else {
-                getPermission(mActivity);
+                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                AbringPermissaoUtils.showDialog(mActivity,
+                        permissions,
+                        AbringPermissaoUtils.READ_EXTERNAL_STORAGE,
+                        mActivity.getString(R.string.READ_EXTERNAL_STORAGE_STRING));
             }
         } else
             runRegister(mActivity, abringCallBack);
@@ -145,29 +148,6 @@ public class AbringMobileRegister {
 
             }
         }).start();
-    }
-
-    private void getPermission(final Activity mActivity) {
-        new MaterialDialog.Builder(new ContextThemeWrapper(mActivity, R.style.Theme_MatrialDialog))
-                .title(R.string.abring_permission)
-                .content(R.string.abring_read_external_storage_permission_content)
-                .positiveText(R.string.abring_accept_permission)
-                .negativeText(R.string.abring_cancel2)
-                .cancelable(false)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        ActivityCompat.requestPermissions(mActivity, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                REQUEST_EXTERNAL_STORAGE);
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
     }
 
     /**
