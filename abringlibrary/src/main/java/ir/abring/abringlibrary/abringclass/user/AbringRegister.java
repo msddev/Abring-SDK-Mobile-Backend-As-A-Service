@@ -109,7 +109,7 @@ public class AbringRegister {
                 AbringPermissaoUtils.showDialog(mActivity,
                         permissions,
                         AbringPermissaoUtils.READ_EXTERNAL_STORAGE,
-                        mActivity.getString(R.string.READ_EXTERNAL_STORAGE_STRING));
+                        mActivity.getString(R.string.abring_READ_EXTERNAL_STORAGE_STRING));
             }
         } else
             runRegister(mActivity, abringCallBack);

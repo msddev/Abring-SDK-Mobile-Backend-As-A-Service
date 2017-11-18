@@ -15,13 +15,12 @@ import retrofit2.Response;
 public class AbringRetrofitErrorResponce {
 
     private Context mContext;
-    private AbringApiError errorResponse;
+    private AbringApiError errorResponse = new AbringApiError();
 
     public Object getMessage(Object error, Context context) {
 
         mContext = context;
         Log.d("R_Error", String.valueOf(error));
-        errorResponse = new AbringApiError();
 
         if (error instanceof SocketTimeoutException) {
             errorResponse.setMessage(context.getResources().getString(R.string.abring_SERVER_TIMEOUT));
@@ -73,9 +72,6 @@ public class AbringRetrofitErrorResponce {
             case 422: // validation
 
             case 401: // autorization - refresh token
-                /*Intent intent = new Intent(mContext, LoginRegisterActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                mContext.startActivity(intent);*/
                 return errorResponse;
             //return mActivity.getResources().getString(R.string.ERROR_AUTOROZATION);
 

@@ -49,6 +49,10 @@
     <string name="abring_login">ورود</string>
     <string name="abring_login_successfull">ورود با موفقیت انجام شد</string>
     <string name="abring_guest_login">ورود میهمان</string>
-    <string name="READ_EXTERNAL_STORAGE_STRING">حافظه</string>
-    <string name="READ_PHONE_STATE_STRING">وضعیت دستگاه</string>
+    <string name="abring_READ_EXTERNAL_STORAGE_STRING">حافظه</string>
+    <string name="abring_READ_PHONE_STATE_STRING">وضعیت دستگاه</string>
+    <string name="abring_not_login">هنوز وارد حساب کاربری خود نشده اید!</string>
+    <string name="abring_logout">خروج کاربری</string>
+    <string name="abring_logout_question">برای خروج از حساب کاربری خود اطمینان دارید؟</string>
+    <string name="logout_successful">خروج کاربری با موفقیت انجام شد</string>
 </resources>

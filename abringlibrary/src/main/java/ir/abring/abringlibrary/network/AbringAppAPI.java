@@ -69,6 +69,12 @@ public interface AbringAppAPI {
     );
 
     @FormUrlEncoded
+    @POST("index.php?r=player/logout")
+    Call<Void> LogoutAPI(
+            @Field("token") String deviceId
+    );
+
+    @FormUrlEncoded
     @POST("index.php?r=site/ping")
     Call<AbringPing> PingAPI(
             @Field("app") String app_id

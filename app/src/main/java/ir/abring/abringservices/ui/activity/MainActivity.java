@@ -3,8 +3,13 @@ package ir.abring.abringservices.ui.activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import butterknife.BindView;
+import ir.abring.abringlibrary.abringclass.AbringServices;
+import ir.abring.abringlibrary.interfaces.AbringCallBack;
+import ir.abring.abringlibrary.network.AbringApiError;
+import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseActivity;
 import ir.abring.abringservices.ui.activity.register.MainRegisterActivity;
@@ -17,6 +22,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Button btnMobileRegister;
     @BindView(R.id.btnLogin)
     Button btnLogin;
+    @BindView(R.id.btnLogout)
+    Button btnLogout;
 
     @Override
     protected void initBeforeView() {
@@ -34,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         btnRegister.setOnClickListener(this);
         btnMobileRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
     }
 
     @Override
@@ -53,6 +61,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btnLogin:
                 intent = new Intent(this, MainRegisterActivity.class);
                 intent.putExtra("ActionName", "Login");
+                startActivity(intent);
+                break;
+            case R.id.btnLogout:
+                intent = new Intent(this, MainRegisterActivity.class);
+                intent.putExtra("ActionName", "Logout");
                 startActivity(intent);
                 break;
         }

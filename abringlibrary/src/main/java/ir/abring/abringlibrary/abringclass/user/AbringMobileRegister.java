@@ -104,7 +104,7 @@ public class AbringMobileRegister {
                 AbringPermissaoUtils.showDialog(mActivity,
                         permissions,
                         AbringPermissaoUtils.READ_EXTERNAL_STORAGE,
-                        mActivity.getString(R.string.READ_EXTERNAL_STORAGE_STRING));
+                        mActivity.getString(R.string.abring_READ_EXTERNAL_STORAGE_STRING));
             }
         } else
             runRegister(mActivity, abringCallBack);
@@ -159,7 +159,7 @@ public class AbringMobileRegister {
     private boolean isName;
     private boolean isAvatar;
 
-    AbringMobileRegisterDialog mFragment;
+    private AbringMobileRegisterDialog mFragment;
 
     AbringMobileRegister(DialogBuilder dialogBuilder) {
         this.isUsername = dialogBuilder.isUsername;

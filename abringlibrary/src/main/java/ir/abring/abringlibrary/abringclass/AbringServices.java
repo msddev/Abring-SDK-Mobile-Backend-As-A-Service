@@ -15,6 +15,9 @@ public class AbringServices {
 
     public static void setUser(AbringResult result) {
         Hawk.put(AbringConstant.ABRING_USER_INFO, result);
-        Hawk.put(AbringConstant.ABRING_TOKEN, result.getToken());
+        if(result != null)
+            Hawk.put(AbringConstant.ABRING_TOKEN, result.getToken());
+        else
+            Hawk.put(AbringConstant.ABRING_TOKEN, null);
     }
 }

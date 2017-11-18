@@ -3,12 +3,10 @@ package ir.abring.abringlibrary.abringclass.user;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
-
-import ir.abring.abringlibrary.Abring;
+import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
@@ -18,7 +16,10 @@ import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringLoginDialog;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
+
 import android.provider.Settings.Secure;
+
+import com.orhanobut.hawk.Hawk;
 
 public class AbringLogin {
     private String username;    //required
@@ -111,9 +112,6 @@ public class AbringLogin {
                 abringUser.login(mActivity, new AbringCallBack() {
                     @Override
                     public void onSuccessful(Object response) {
-                        AbringRegisterModel register = (AbringRegisterModel) response;
-                        AbringServices.setUser(register.getResult());
-
                         Toast.makeText(mActivity, mActivity.getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
 
                         abringCallBack.onSuccessful(response);
@@ -148,7 +146,7 @@ public class AbringLogin {
             AbringPermissaoUtils.showDialog(mActivity,
                     permissions,
                     AbringPermissaoUtils.READ_PHONE_STATE,
-                    mActivity.getString(R.string.READ_PHONE_STATE_STRING));
+                    mActivity.getString(R.string.abring_READ_PHONE_STATE_STRING));
         }
     }
 
