@@ -54,5 +54,6 @@
     <string name="abring_not_login">هنوز وارد حساب کاربری خود نشده اید!</string>
     <string name="abring_logout">خروج کاربری</string>
     <string name="abring_logout_question">برای خروج از حساب کاربری خود اطمینان دارید؟</string>
+    <string name="abring_logout_all_question">برای خروج از تمام حساب های کاربری خود اطمینان دارید؟</string>
     <string name="logout_successful">خروج کاربری با موفقیت انجام شد</string>
 </resources>

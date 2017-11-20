@@ -6,6 +6,7 @@ import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseActivity;
 import ir.abring.abringservices.ui.fragment.login.MainLoginrFragment;
+import ir.abring.abringservices.ui.fragment.logout.MainLogoutAllFragment;
 import ir.abring.abringservices.ui.fragment.logout.MainLogoutFragment;
 import ir.abring.abringservices.ui.fragment.mobileRegister.MainMobileRegisterFragment;
 import ir.abring.abringservices.ui.fragment.register.MainRegisterFragment;
@@ -48,6 +49,11 @@ public class MainRegisterActivity extends BaseActivity {
             setupBack("خروج کاربری");
             AbringActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
                     MainLogoutFragment.getInstance(),
+                    R.id.mainframe);
+        }else if (actionName.equals("LogoutAll")) {
+            setupBack("خروج کاربری همگی");
+            AbringActivityUtils.addFragmentToActivity(getSupportFragmentManager(),
+                    MainLogoutAllFragment.getInstance(),
                     R.id.mainframe);
         }
     }

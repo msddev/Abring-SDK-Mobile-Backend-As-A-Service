@@ -106,4 +106,91 @@ public class AbringLogout {
             }
         });
     }
+
+    /**
+     * logout all
+     */
+    public static void logoutAll(final Activity mActivity, final AbringCallBack abringCallBack) {
+
+        final String token = Hawk.get(AbringConstant.ABRING_TOKEN, null);
+        if (!AbringCheck.isEmpty(token)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    //Run in new thread
+                    AbringUserServices.logoutAll(token, new AbringCallBack<Object, Object>() {
+                        @Override
+                        public void onSuccessful(final Object response) {
+                            mActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    AbringServices.setUser(null);
+                                    abringCallBack.onSuccessful(null);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(final Object response) {
+                            mActivity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    abringCallBack.onFailure(response);
+                                }
+                            });
+                        }
+                    });
+                }
+            }).start();
+        } else {
+            AbringApiError errorResponse = new AbringApiError();
+            errorResponse.setMessage(mActivity.getString(R.string.abring_not_login));
+            abringCallBack.onFailure(errorResponse);
+        }
+    }
+
+    /**
+     * abring logout UI
+     */
+    public static void showDialogLogoutAll(final Activity mActivity, final AbringCallBack abringCallBack) {
+
+        new MaterialDialog.Builder(new ContextThemeWrapper(mActivity, R.style.Theme_MatrialDialog))
+                .title(R.string.abring_logout)
+                .content(R.string.abring_logout_all_question)
+                .positiveText(R.string.abring_accept)
+                .negativeText(R.string.abring_cancel)
+                .cancelable(false)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        runlogoutAllAction(mActivity, abringCallBack);
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
+
+    private static void runlogoutAllAction(final Activity mActivity, final AbringCallBack abringCallBack) {
+        AbringLogout.logoutAll(mActivity, new AbringCallBack() {
+            @Override
+            public void onSuccessful(Object response) {
+                Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
+                abringCallBack.onSuccessful(response);
+            }
+
+            @Override
+            public void onFailure(Object response) {
+                AbringApiError apiError = (AbringApiError) response;
+                Toast.makeText(mActivity,
+                        AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+                abringCallBack.onFailure(response);
+            }
+        });
+    }
 }
