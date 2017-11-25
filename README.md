@@ -12,4 +12,4 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 # Usage
 **Adding Dependency**
 </br>
-Add this to 'build.gradle' Project level
+Add this to <java>build.gradle<java> Project level
