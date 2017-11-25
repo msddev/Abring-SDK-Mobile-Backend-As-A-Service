@@ -28,5 +28,5 @@ dependencies {
   compile 'com.github.msddev:abring-sdk-android:v0.3'
 }
 ```
-</br>
+
 **Adding The View**
