@@ -10,7 +10,6 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 - Minimum SDK : 17
 
 # Usage
-</br>
 **Adding Dependency**
 </br>
 Add this to `build.gradle` Project level
