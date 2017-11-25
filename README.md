@@ -10,6 +10,7 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 - Minimum SDK : 17
 
 # Usage
+
 **Adding Dependency**
 </br>
 Add this to `build.gradle` Project level
@@ -31,12 +32,13 @@ dependencies {
 
 **User service (Auth)**
 </br>
-1. Register
+</br>
+**1. Register**
 > Register a user with a username, password required and neme, phone, email, avatar optional.
 
 The avatar is from the File Object type.
 
-- Java code :
+- Whitout abring UI :
 ```
 AbringRegister abringUser = new AbringRegister 
         .RegisterBuilder()                     
@@ -63,4 +65,27 @@ abringUser.register(activity, new AbringCallBack() {
                 Toast.LENGTH_SHORT).show();                                                                       
     }                                                                                                             
 });                                                                                                               
+```
+
+- Whit abring UI :
+```
+AbringRegister abringUser = new AbringRegister 
+        .DialogBuilder()                       
+        .setName(true/false)       
+        .setPhone(true/false)      
+        .setEmail(true/false)      
+        .setAvatar(true/false)     
+        .build();                              
+        
+abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack() { 
+    @Override                                                                       
+    public void onSuccessful(Object response) {                                     
+        AbringRegisterModel register = (AbringRegisterModel) response;              
+    }                                                                               
+                                                                                    
+    @Override                                                                       
+    public void onFailure(Object response) {                                        
+        AbringApiError apiError = (AbringApiError) response;                        
+    }                                                                               
+});                                                                                 
 ```
