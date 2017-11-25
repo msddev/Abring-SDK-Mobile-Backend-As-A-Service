@@ -30,3 +30,30 @@ dependencies {
 ```
 
 **Adding The View**
+```
+AbringRegister abringUser = new AbringRegister 
+        .RegisterBuilder()                     
+        .setUsername("string required")        
+        .setPassword("string required")        
+        .setName("string optional")            
+        .setPhone("string optional")           
+        .setEmail("string optional")           
+        .setAvatar(File file optional)         
+        .build();                              
+        
+abringUser.register(activity, new AbringCallBack() {                                                              
+    @Override                                                                                                     
+    public void onSuccessful(Object response) {                                                                   
+        AbringRegisterModel register = (AbringRegisterModel) response;                                            
+        Toast.makeText(activity, "اطلاعات با موفقیت ثبت شد", Toast.LENGTH_SHORT).show();                          
+    }                                                                                                             
+                                                                                                                  
+    @Override                                                                                                     
+    public void onFailure(Object response) {                                                                      
+        AbringApiError apiError = (AbringApiError) response;                                                      
+        Toast.makeText(mActivity,                                                                                 
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();                                                                       
+    }                                                                                                             
+});                                                                                                               
+```
