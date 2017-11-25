@@ -68,7 +68,7 @@ abringUser.register(activity, new AbringCallBack() {
 ```
 
 - Whit abring UI :
-```
+```java
 AbringRegister abringUser = new AbringRegister 
         .DialogBuilder()                       
         .setName(true/false)       
