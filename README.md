@@ -14,11 +14,17 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 </br>
 Add this to `build.gradle` Project level
 </br>
-<java>
-  allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
- }
-</java>
+```
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+```
+Add this to `build.gradle` Module:app
+</br>
+```
+dependencies {
+  compile 'com.github.msddev:abring-sdk-android:v0.3'
+}
+```
