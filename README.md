@@ -29,7 +29,13 @@ dependencies {
 }
 ```
 
-**Adding The View**
+**User service (Auth)**
+1.Register
+> Register a user with a username, password required and neme, phone, email, avatar optional.
+
+The avatar is from the File Object type.
+
+-Java code :
 ```
 AbringRegister abringUser = new AbringRegister 
         .RegisterBuilder()                     
