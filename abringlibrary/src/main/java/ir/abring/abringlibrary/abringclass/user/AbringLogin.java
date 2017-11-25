@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.Toast;
-import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
@@ -18,8 +17,6 @@ import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
 
 import android.provider.Settings.Secure;
-
-import com.orhanobut.hawk.Hawk;
 
 public class AbringLogin {
     private String username;    //required

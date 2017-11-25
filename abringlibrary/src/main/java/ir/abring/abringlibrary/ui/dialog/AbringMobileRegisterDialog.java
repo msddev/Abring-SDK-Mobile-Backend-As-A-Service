@@ -236,15 +236,27 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
                 !AbringCheckPattern.isValidPhone(etMobile.getText().toString().trim())) {
             setupView(etMobile, getString(R.string.abring_mobile_not_valid));
             isValid = false;
-        } else if (AbringCheck.isEmpty(etUsername.getText().toString().trim())) {
-            setupView(etUsername, getString(R.string.abring_username_not_valid));
-            isValid = false;
-        } else if (AbringCheck.isEmpty(etPassword.getText().toString().trim())) {
-            setupView(etPassword, getString(R.string.abring_password_not_valid));
-            isValid = false;
-        } else if (name && AbringCheck.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, getString(R.string.abring_name_not_valid));
-            isValid = false;
+        } else if (username) {
+            if (!AbringCheck.isEmpty(etUsername.getText().toString().trim())) {
+                if (etUsername.getText().toString().length() < 3) {
+                    setupView(etUsername, getString(R.string.abring_username_not_valid));
+                    isValid = false;
+                }
+            }
+        } else if (password) {
+            if (!AbringCheck.isEmpty(etPassword.getText().toString().trim())) {
+                if (etPassword.getText().toString().length() < 3) {
+                    setupView(etPassword, getString(R.string.abring_password_not_valid));
+                    isValid = false;
+                }
+            }
+        } else if (name) {
+            if (!AbringCheck.isEmpty(etName.getText().toString().trim())) {
+                if (etName.getText().toString().length() < 3) {
+                    setupView(etName, getString(R.string.abring_name_not_valid));
+                    isValid = false;
+                }
+            }
         }
 
         return isValid;
@@ -285,6 +297,7 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
 
     public interface OnActiveFinishListener {
         void onFinishDialog(String code);
+
     }
 
     @Override

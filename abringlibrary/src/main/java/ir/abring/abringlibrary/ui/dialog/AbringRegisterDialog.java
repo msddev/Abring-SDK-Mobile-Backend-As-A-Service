@@ -1,17 +1,13 @@
 package ir.abring.abringlibrary.ui.dialog;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,10 +15,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
+
 import com.mvc.imagepicker.ImagePicker;
+
 import java.io.File;
+
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.user.AbringLogin;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
@@ -30,8 +27,6 @@ import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringCheckPattern;
-
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class AbringRegisterDialog extends AbringBaseDialogFragment
         implements View.OnClickListener {
@@ -50,7 +45,6 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private TextInputLayout inputlayoutPhone;
 
     private ProgressBar progressBar;
-
     private EditText etUsername;
     private EditText etPassword;
     private EditText etName;
@@ -60,7 +54,6 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
     private Button btnOK;
     private Button btnCancel;
     private Button btnGuest;
-
     private File file;
 
     public AbringRegisterDialog() {
@@ -187,20 +180,27 @@ public class AbringRegisterDialog extends AbringBaseDialogFragment
         } else if (AbringCheck.isEmpty(etPassword.getText().toString().trim())) {
             setupView(etPassword, getString(R.string.abring_password_not_valid));
             isValid = false;
-        } else if (name && AbringCheck.isEmpty(etName.getText().toString().trim())) {
-            setupView(etName, getString(R.string.abring_name_not_valid));
-            isValid = false;
+        } else if (name) {
+            if (!AbringCheck.isEmpty(etName.getText().toString().trim())) {
+                if (etName.getText().toString().length() < 3) {
+                    setupView(etName, getString(R.string.abring_name_not_valid));
+                    isValid = false;
+                }
+            }
         } else if (phone) {
-            if (etPhone.getText().toString().trim().length() != 11 ||
-                    !AbringCheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
-                setupView(etPhone, getString(R.string.abring_phone_not_valid));
-                isValid = false;
+            if (!AbringCheck.isEmpty(etPhone.getText().toString().trim())) {
+                if (etPhone.getText().toString().trim().length() != 11 ||
+                        !AbringCheckPattern.isValidPhone(etPhone.getText().toString().trim())) {
+                    setupView(etPhone, getString(R.string.abring_phone_not_valid));
+                    isValid = false;
+                }
             }
         } else if (email) {
-            if (AbringCheck.isEmpty(etEmail.getText().toString().trim()) ||
-                    !AbringCheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
-                setupView(etEmail, getString(R.string.abring_email_not_valid));
-                isValid = false;
+            if (!AbringCheck.isEmpty(etEmail.getText().toString().trim())) {
+                if (!AbringCheckPattern.isValidEmail(etEmail.getText().toString().trim())) {
+                    setupView(etEmail, getString(R.string.abring_email_not_valid));
+                    isValid = false;
+                }
             }
         } /*else if (avatar) {
             if (file == null) {

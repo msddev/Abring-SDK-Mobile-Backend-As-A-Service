@@ -2,32 +2,20 @@ package ir.abring.abringlibrary.abringclass.user;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.view.ContextThemeWrapper;
 import android.widget.Toast;
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.orhanobut.hawk.Hawk;
 import java.io.File;
 
-import ir.abring.abringlibrary.Abring;
-import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
-import ir.abring.abringlibrary.models.abringregister.AbringResult;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.ui.dialog.AbringMobileRegisterDialog;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
-
-import static android.support.v4.content.ContextCompat.checkSelfPermission;
 
 public class AbringMobileRegister {
 

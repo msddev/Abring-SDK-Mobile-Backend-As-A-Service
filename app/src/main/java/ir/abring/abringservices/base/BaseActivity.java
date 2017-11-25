@@ -3,6 +3,7 @@ package ir.abring.abringservices.base;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -14,9 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ir.abring.abringservices.R;
-import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
 
-public abstract class BaseActivity extends ActivityManagePermission {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected Unbinder unbinder;
     protected MaterialDialog loadinDialog;
