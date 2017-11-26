@@ -6,13 +6,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-
 import ir.abring.abringlibrary.R;
-
-import static android.support.v4.app.ActivityCompat.requestPermissions;
 
 public class AbringPermissaoUtils {
 
