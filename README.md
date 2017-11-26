@@ -2,8 +2,6 @@
 Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps developers to have an unbreakable connection with clients during the mobile app
 
 [![NPM version](https://img.shields.io/badge/Download-0.3-brightgreen.svg)](http://www.google.com)
-[![GitHub version](https://badge.fury.io/gh/boennemann%2Fbadges.svg)](http://badge.fury.io/gh/boennemann%2Fbadges)
-[![Bower version](https://badge.fury.io/bo/badges.svg)](http://badge.fury.io/bo/badges)
 
 # Preview
 ![img 1](http://s8.picofile.com/file/8312681284/111.png) 
