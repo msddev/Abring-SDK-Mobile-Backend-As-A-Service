@@ -183,7 +183,27 @@ AbringMobileRegister.mobileVerify("Your activation code", new AbringCallBack<Obj
 });
 ```
 
-**4. login**
+and use this to resend **activation code** in `Whitout UI` mode only:
+
+**4. Retry code**
+```
+AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(activity, "منتظر دریافت کد جدید باشید", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+**5. login**
 > Login, registered user in the previous API.
 
 - Whitout abring UI :
