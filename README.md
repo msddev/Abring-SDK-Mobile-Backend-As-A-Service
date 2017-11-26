@@ -185,7 +185,7 @@ AbringMobileRegister.mobileVerify("Your activation code", new AbringCallBack<Obj
 
 and use this to resend **activation code** in `Whitout UI` mode only:
 
-**4. Retry code**
+**4. Retry active code**
 ```
 AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
     @Override
@@ -203,8 +203,8 @@ AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
 });
 ```
 
-**5. login**
-> Login, registered user in the previous API.
+**5. Login**
+> Login registered user in the previous API.
 
 - Whitout abring UI :
 ```java
@@ -244,6 +244,77 @@ AbringLogin.showDialog(getSupportFragmentManager(), activity, new AbringCallBack
         Toast.makeText(activity,
                 AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
                 Toast.LENGTH_SHORT).show();
+    }
+});
+```
+**6. Logout**
+> Logout current user.
+
+- Whitout abring UI :
+```java
+AbringLogout.logout(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(activity, "خروج کاربری با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+    }
+    
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+- Whit abring UI :
+```java
+AbringLogout.showDialog(mActivity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+
+    }
+
+    @Override
+    public void onFailure(Object response) {
+
+    }
+});
+```
+
+**6. Logout all**
+> Logout all users.
+
+- Whitout abring UI :
+```java
+AbringLogout.logoutAll(getActivity(), new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(getActivity(), "خروج کاربری با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+- Whit abring UI :
+```java
+AbringLogout.showDialogLogoutAll(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+
+    }
+
+    @Override
+    public void onFailure(Object response) {
+
     }
 });
 ```
