@@ -41,7 +41,7 @@ new Abring.Builder(this)
 ```
 # Abring services
 
-# User service (Auth)
+**User service (Auth)**
 
 **1. Register**
 > Register a user with a username, password required and name, phone, email, avatar optional.
@@ -99,9 +99,85 @@ abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack(
     }
 });
 ```
-**2. Mobile Register**
+**2. Mobile register**
 > Register a user with a mobile number with pattern `09123456789` required and name, phone, email, avatar optional.
 
 The avatar is from the File Object type.
 
 - Whitout abring UI :
+```java
+AbringMobileRegister abringUser = new AbringMobileRegister
+        .MobileRegisterBuilder()
+        .setMobile("string required")
+        .setUsername("string optional")
+        .setPassword("string optional")
+        .setName("string optional")
+        .setDeviceId("string optional")
+        .setAvatar(File file optional)
+        .build();
+
+abringUser.mobileRegister(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(activity, "کد فعالسازی ارسال شد...", Toast.LENGTH_LONG).show();
+        isActive = true;
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+- Whit abring UI :
+```java
+AbringMobileRegister abringUser = new AbringMobileRegister
+        .DialogBuilder()
+        .setUsername(true/false)
+        .setPassword(true/false)
+        .setName(true/false)
+        .setDeviceId(true/false)
+        .setAvatar(true/false)
+        .build();
+
+abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        AbringRegisterModel register = (AbringRegisterModel) response;
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+and use this to send **activation code** :
+
+**3. Mobile verify**
+> Send activation code after user registration with a mobile number.
+
+```java
+AbringMobileRegister.mobileVerify("Your activation code", new AbringCallBack<Object, Object>() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(activity, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
