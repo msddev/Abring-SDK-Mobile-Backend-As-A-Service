@@ -9,7 +9,7 @@ This SDK consists of two sections:
 2. `Without Abring UI:`
     This part does not contain dialog and any UI elements, And it only supports the functionality.
 
-[![NPM version](https://img.shields.io/badge/Download-0.3-brightgreen.svg)](https://github.com/msddev/abring-sdk-android)
+[![NPM version](https://img.shields.io/badge/Download-0.4-brightgreen.svg)](https://github.com/msddev/abring-sdk-android)
 ![NPM version](https://img.shields.io/badge/min%20sdk-17-red.svg)
 
 # Preview
@@ -37,7 +37,7 @@ Add this to `build.gradle` Module:app
 </br>
 ```java
 dependencies {
-  compile 'com.github.msddev:abring-sdk-android:v0.3'
+  compile 'com.github.msddev:abring-sdk-android:v0.4'
 }
 
 ```
