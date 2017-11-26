@@ -1,5 +1,13 @@
 # Abring android SDK
-Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps developers to have an unbreakable connection with clients during the mobile app
+Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps developers to have an unbreakable connection with clients during the mobile app.
+</br>
+This SDK is a middleware between mobile apps(clients) and Abring webservice.
+</br></br>
+This SDK consists of two sections:
+1. With Abring UI: 
+    This part contains a dialog which you can select your desired fields with a boolean.
+2. Without Abring UI:
+    This part does not contain dialog and any UI elements, And it only supports the functionality.
 
 [![NPM version](https://img.shields.io/badge/Download-0.3-brightgreen.svg)](https://github.com/msddev/abring-sdk-android)
 ![NPM version](https://img.shields.io/badge/min%20sdk-17-red.svg)
@@ -45,7 +53,7 @@ new Abring.Builder(this)
 **User service (Auth)**
 
 **1. Register**
-> Register a user with a username, password required and name, phone, email, avatar optional.
+> Register a user with a username, password required and name, phone, email, avatar are optional.
 
 The avatar is from the File Object type.
 
@@ -101,7 +109,7 @@ abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack(
 });
 ```
 **2. Mobile register**
-> Register a user with a mobile number with pattern `09123456789` required and name, phone, email, avatar optional.
+> Register a user with a mobile number with this pattern `09123456789` required and name, phone, email, avatar are optional.
 
 The avatar is from the File Object type.
 
