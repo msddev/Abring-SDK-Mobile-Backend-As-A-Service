@@ -4,9 +4,9 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 This SDK is a middleware between mobile apps(clients) and Abring webservice.
 </br></br>
 This SDK consists of two sections:
-1. With Abring UI: 
+1. `With Abring UI:`
     This part contains a dialog which you can select your desired fields with a boolean.
-2. Without Abring UI:
+2. `Without Abring UI:`
     This part does not contain dialog and any UI elements, And it only supports the functionality.
 
 [![NPM version](https://img.shields.io/badge/Download-0.3-brightgreen.svg)](https://github.com/msddev/abring-sdk-android)
