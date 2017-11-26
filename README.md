@@ -28,13 +28,21 @@ Add this to `build.gradle` Module:app
 dependencies {
   compile 'com.github.msddev:abring-sdk-android:v0.3'
 }
+
+```
+Add this to Application class:
+</br>
+```java
+new Abring.Builder(this)
+                .setPackageName("Your abring package name")
+                .build();
 ```
 
 **User service (Auth)**
 </br>
 </br>
 **1. Register**
-> Register a user with a username, password required and neme, phone, email, avatar optional.
+> Register a user with a username, password required and name, phone, email, avatar optional.
 
 The avatar is from the File Object type.
 
@@ -89,3 +97,5 @@ abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack(
     }
 });
 ```
+**2. Mobile Register**
+>
