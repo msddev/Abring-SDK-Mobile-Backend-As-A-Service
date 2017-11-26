@@ -214,10 +214,10 @@ final AbringLogin abringUser = new AbringLogin
         .setPassword("string required")
         .build();
 
-abringUser.login(mActivity, new AbringCallBack() {
+abringUser.login(activity, new AbringCallBack() {
     @Override
     public void onSuccessful(Object response) {
-        Toast.makeText(getActivity(), "ورود با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, "ورود با موفقیت انجام شد", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -288,10 +288,10 @@ AbringLogout.showDialog(mActivity, new AbringCallBack() {
 
 - Whitout abring UI :
 ```java
-AbringLogout.logoutAll(getActivity(), new AbringCallBack() {
+AbringLogout.logoutAll(activity, new AbringCallBack() {
     @Override
     public void onSuccessful(Object response) {
-        Toast.makeText(getActivity(), "خروج کاربری با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, "خروج کاربری با موفقیت انجام شد", Toast.LENGTH_LONG).show();
     }
 
     @Override
