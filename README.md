@@ -160,7 +160,7 @@ abringUser.showDialog(getSupportFragmentManager(), activity, new AbringCallBack(
 });
 ```
 
-and use this to send **activation code** :
+and use this to send **activation code** in `Whitout UI` mode only:
 
 **3. Mobile verify**
 > Send activation code after user registration with a mobile number.
@@ -170,6 +170,53 @@ AbringMobileRegister.mobileVerify("Your activation code", new AbringCallBack<Obj
     @Override
     public void onSuccessful(Object response) {
         Toast.makeText(activity, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+**4. login**
+> Login, registered user in the previous API.
+
+- Whitout abring UI :
+```java
+final AbringLogin abringUser = new AbringLogin
+        .LoginBuilder()
+        .setUsername("string required")
+        .setPassword("string required")
+        .build();
+
+abringUser.login(mActivity, new AbringCallBack() {
+
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(getActivity(), "ورود با موفقیت انجام شد", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+- Whit abring UI :
+```java
+AbringLogin.showDialog(getSupportFragmentManager(), activity, new AbringCallBack() {
+
+    @Override
+    public void onSuccessful(Object response) {
+        AbringRegisterModel register = (AbringRegisterModel) response;
     }
 
     @Override
