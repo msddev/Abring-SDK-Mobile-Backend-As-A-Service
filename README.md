@@ -194,7 +194,6 @@ final AbringLogin abringUser = new AbringLogin
         .build();
 
 abringUser.login(mActivity, new AbringCallBack() {
-
     @Override
     public void onSuccessful(Object response) {
         Toast.makeText(getActivity(), "ورود با موفقیت انجام شد", Toast.LENGTH_LONG).show();
@@ -213,7 +212,6 @@ abringUser.login(mActivity, new AbringCallBack() {
 - Whit abring UI :
 ```java
 AbringLogin.showDialog(getSupportFragmentManager(), activity, new AbringCallBack() {
-
     @Override
     public void onSuccessful(Object response) {
         AbringRegisterModel register = (AbringRegisterModel) response;
