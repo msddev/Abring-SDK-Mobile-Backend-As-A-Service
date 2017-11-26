@@ -39,8 +39,9 @@ new Abring.Builder(this)
                 .setPackageName("Your abring package name")
                 .build();
 ```
+# Abring services
 
-**User service (Auth)**
+# User service (Auth)
 </br>
 </br>
 **1. Register**
