@@ -42,8 +42,7 @@ new Abring.Builder(this)
 # Abring services
 
 # User service (Auth)
-</br>
-</br>
+
 **1. Register**
 > Register a user with a username, password required and name, phone, email, avatar optional.
 
