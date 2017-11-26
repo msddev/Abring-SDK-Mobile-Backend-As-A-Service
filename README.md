@@ -1,7 +1,9 @@
 # Abring android SDK
 Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps developers to have an unbreakable connection with clients during the mobile app
 
-[![NPM Version][npm-image]][npm-url]
+[![NPM version](https://img.shields.io/badge/Download-0.3-brightgreen.svg)
+[![GitHub version](https://badge.fury.io/gh/boennemann%2Fbadges.svg)](http://badge.fury.io/gh/boennemann%2Fbadges)
+[![Bower version](https://badge.fury.io/bo/badges.svg)](http://badge.fury.io/bo/badges)
 
 # Preview
 ![img 1](http://s8.picofile.com/file/8312681284/111.png) 
@@ -11,7 +13,7 @@ Abring as a MBAAS (Mobile Backend As A Service) is a service provider that helps
 - IDE : android studio
 - Minimum SDK : 17
 
-# Usage
+# Installation
 
 **Adding Dependency**
 </br>
