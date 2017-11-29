@@ -277,7 +277,7 @@ AbringLogin.loginAsGuest(activity, new AbringCallBack() {
     public void onFailure(Object response) {
         AbringApiError apiError = (AbringApiError) response;
         Toast.makeText(activity,
-                AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" :
                         apiError.getMessage(), Toast.LENGTH_SHORT).show();
     }
 });
