@@ -35,7 +35,7 @@ This SDK consists of two sections:
 </br>
 Add this to `build.gradle` Project level
 </br>
-```java
+```android
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
