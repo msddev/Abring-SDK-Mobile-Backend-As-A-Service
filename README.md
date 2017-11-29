@@ -35,7 +35,7 @@ This SDK consists of two sections:
 </br>
 Add this to `build.gradle` Project level
 </br>
-```android studio
+```gradle
 allprojects {
     repositories {
         maven { url "https://jitpack.io" }
@@ -44,7 +44,7 @@ allprojects {
 ```
 Add this to `build.gradle` Module:app
 </br>
-```java
+```gradle
 dependencies {
   compile 'com.github.msddev:abring-sdk-android:v0.4'
 }
