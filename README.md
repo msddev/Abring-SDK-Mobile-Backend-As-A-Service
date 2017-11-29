@@ -22,6 +22,15 @@ This SDK consists of two sections:
 
 # Installation
 
+**Add permissions in your `AndroidManifest.xml`**
+```xml
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- read avatar from gallery-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- get device id for guest login-->
+```
+
 **Adding Dependency**
 </br>
 Add this to `build.gradle` Project level
@@ -255,7 +264,26 @@ AbringLogin.showDialog(getSupportFragmentManager(), activity, new AbringCallBack
     }
 });
 ```
-**6. Logout**
+**6. Login as guest**
+> Login with device id and generate token.
+
+```java
+AbringLogin.loginAsGuest(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+    }
+
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                        apiError.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+**7. Logout**
 > Logout current user.
 
 - Whitout abring UI :
