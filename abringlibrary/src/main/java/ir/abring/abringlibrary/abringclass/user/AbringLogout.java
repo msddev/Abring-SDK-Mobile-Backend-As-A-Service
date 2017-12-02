@@ -18,6 +18,7 @@ import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringUserServices;
 import ir.abring.abringlibrary.utils.AbringCheck;
+import ir.abring.abringlibrary.utils.AbringNetworkUtil;
 
 public class AbringLogout {
     /**
@@ -89,22 +90,27 @@ public class AbringLogout {
     }
 
     private static void runlogoutAction(final Activity mActivity, final AbringCallBack abringCallBack) {
-        AbringLogout.logout(mActivity, new AbringCallBack() {
-            @Override
-            public void onSuccessful(Object response) {
-                Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
-                abringCallBack.onSuccessful(response);
-            }
+        if (AbringNetworkUtil.isNetworkConnected(mActivity)) {
 
-            @Override
-            public void onFailure(Object response) {
-                AbringApiError apiError = (AbringApiError) response;
-                Toast.makeText(mActivity,
-                        AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) : apiError.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-                abringCallBack.onFailure(response);
-            }
-        });
+            AbringLogout.logout(mActivity, new AbringCallBack() {
+                @Override
+                public void onSuccessful(Object response) {
+                    Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
+                    abringCallBack.onSuccessful(response);
+                }
+
+                @Override
+                public void onFailure(Object response) {
+                    AbringApiError apiError = (AbringApiError) response;
+                    Toast.makeText(mActivity,
+                            AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    abringCallBack.onFailure(response);
+                }
+            });
+
+        } else
+            Toast.makeText(mActivity, mActivity.getString(R.string.abring_no_connect_to_internet), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -176,21 +182,24 @@ public class AbringLogout {
     }
 
     private static void runlogoutAllAction(final Activity mActivity, final AbringCallBack abringCallBack) {
-        AbringLogout.logoutAll(mActivity, new AbringCallBack() {
-            @Override
-            public void onSuccessful(Object response) {
-                Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
-                abringCallBack.onSuccessful(response);
-            }
+        if (AbringNetworkUtil.isNetworkConnected(mActivity)) {
+            AbringLogout.logoutAll(mActivity, new AbringCallBack() {
+                @Override
+                public void onSuccessful(Object response) {
+                    Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
+                    abringCallBack.onSuccessful(response);
+                }
 
-            @Override
-            public void onFailure(Object response) {
-                AbringApiError apiError = (AbringApiError) response;
-                Toast.makeText(mActivity,
-                        AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) : apiError.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-                abringCallBack.onFailure(response);
-            }
-        });
+                @Override
+                public void onFailure(Object response) {
+                    AbringApiError apiError = (AbringApiError) response;
+                    Toast.makeText(mActivity,
+                            AbringCheck.isEmpty(apiError.getMessage()) ? mActivity.getString(R.string.abring_failure_responce) : apiError.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                    abringCallBack.onFailure(response);
+                }
+            });
+        } else
+            Toast.makeText(mActivity, mActivity.getString(R.string.abring_no_connect_to_internet), Toast.LENGTH_SHORT).show();
     }
 }

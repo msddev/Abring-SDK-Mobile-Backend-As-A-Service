@@ -30,6 +30,7 @@ import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringCheckPattern;
+import ir.abring.abringlibrary.utils.AbringNetworkUtil;
 
 public class AbringMobileRegisterDialog extends AbringBaseDialogFragment implements
         View.OnClickListener {
@@ -158,28 +159,32 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
         int i = view.getId();
 
         if (i == R.id.btnOK) {
+            if (AbringNetworkUtil.isNetworkConnected(getContext())) {
 
-            progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
 
-            if (!isActive) {
+                if (!isActive) {
 
-                if (checkRegisterValidation()) {
-                    mRegisterListener.onFinishDialog(etMobile.getText().toString().trim(),
-                            etUsername.getText().toString().trim(),
-                            etPassword.getText().toString().trim(),
-                            "Generate device id later",
-                            etName.getText().toString().trim(),
-                            file
-                    );
-                } else
-                    progressBar.setVisibility(View.GONE);
+                    if (checkRegisterValidation()) {
+                        mRegisterListener.onFinishDialog(etMobile.getText().toString().trim(),
+                                etUsername.getText().toString().trim(),
+                                etPassword.getText().toString().trim(),
+                                "Generate device id later",
+                                etName.getText().toString().trim(),
+                                file
+                        );
+                    } else
+                        progressBar.setVisibility(View.GONE);
 
-            } else {
-                if (checkActiveValidation()) {
-                    mActiveListener.onFinishDialog(etCode.getText().toString().trim());
-                } else
-                    progressBar.setVisibility(View.GONE);
-            }
+                } else {
+                    if (checkActiveValidation()) {
+                        mActiveListener.onFinishDialog(etCode.getText().toString().trim());
+                    } else
+                        progressBar.setVisibility(View.GONE);
+                }
+
+            } else
+                Toast.makeText(getActivity(), getString(R.string.abring_no_connect_to_internet), Toast.LENGTH_SHORT).show();
 
         } else if (i == R.id.btnCancel) {
             dismiss();
@@ -187,45 +192,57 @@ public class AbringMobileRegisterDialog extends AbringBaseDialogFragment impleme
             file = null;
             ImagePicker.pickImage(this, getString(R.string.abring_select_image), 100, false);
         } else if (i == R.id.tvResendActiveCode) {
-            progressBar.setVisibility(View.VISIBLE);
-            AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
-                @Override
-                public void onSuccessful(Object response) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), getString(R.string.abring_send_new_code), Toast.LENGTH_SHORT).show();
-                }
 
-                @Override
-                public void onFailure(Object response) {
-                    progressBar.setVisibility(View.GONE);
-                    AbringApiError apiError = (AbringApiError) response;
+            if (AbringNetworkUtil.isNetworkConnected(getContext())) {
 
-                    Toast.makeText(getActivity(),
-                            AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
-                                    apiError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                progressBar.setVisibility(View.VISIBLE);
+                AbringMobileRegister.mobileResendCode(new AbringCallBack<Object, Object>() {
+                    @Override
+                    public void onSuccessful(Object response) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), getString(R.string.abring_send_new_code), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Object response) {
+                        progressBar.setVisibility(View.GONE);
+                        AbringApiError apiError = (AbringApiError) response;
+
+                        Toast.makeText(getActivity(),
+                                AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                                        apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else
+                Toast.makeText(getActivity(), getString(R.string.abring_no_connect_to_internet), Toast.LENGTH_SHORT).show();
 
         } else if (i == R.id.btnGuest) {
-            progressBar.setVisibility(View.VISIBLE);
-            AbringLogin.loginAsGuest(getActivity(), new AbringCallBack() {
-                @Override
-                public void onSuccessful(Object response) {
-                    progressBar.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
-                    dismiss();
-                }
 
-                @Override
-                public void onFailure(Object response) {
-                    progressBar.setVisibility(View.GONE);
-                    AbringApiError apiError = (AbringApiError) response;
+            if (AbringNetworkUtil.isNetworkConnected(getContext())) {
 
-                    Toast.makeText(getActivity(),
-                            AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
-                                    apiError.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                progressBar.setVisibility(View.VISIBLE);
+                AbringLogin.loginAsGuest(getActivity(), new AbringCallBack() {
+                    @Override
+                    public void onSuccessful(Object response) {
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), getString(R.string.abring_login_successfull), Toast.LENGTH_SHORT).show();
+                        dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Object response) {
+                        progressBar.setVisibility(View.GONE);
+                        AbringApiError apiError = (AbringApiError) response;
+
+                        Toast.makeText(getActivity(),
+                                AbringCheck.isEmpty(apiError.getMessage()) ? getString(R.string.abring_failure_responce) :
+                                        apiError.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } else
+                Toast.makeText(getActivity(), getString(R.string.abring_no_connect_to_internet), Toast.LENGTH_SHORT).show();
         }
     }
 

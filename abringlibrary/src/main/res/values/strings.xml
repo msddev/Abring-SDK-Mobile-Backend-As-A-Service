@@ -38,7 +38,7 @@
     <string name="abring_password_not_valid">کلمه عبور نامعتبر است!</string>
     <string name="abring_name_not_valid">نام و نام خانوادگی نامعتبر است!</string>
     <string name="abring_active_code_not_valid">کد فعال سازی نامعتبر است!</string>
-    <string name="abring_image_not_selected">تصویری انتاخب نشده است!</string>
+    <string name="abring_image_not_selected">تصویری انتخاب نشده است!</string>
     <string name="abring_image_selected_wrong">خطایی رخ داده است</string>
     <string name="abring_phone_not_valid">شماره تلفن نامعتبر است!</string>
     <string name="abring_email_not_valid">آدرس ایمیل نامعتبر است!</string>
