@@ -65,9 +65,8 @@ new Abring.Builder(this)
 > Register a user with a username, password required and name, phone, email, avatar are optional.
 
 The avatar is from the File Object type.
-</br>
+
 - Whitout abring UI :
-</br>
 ```java
 AbringRegister abringUser = new AbringRegister
         .RegisterBuilder()
