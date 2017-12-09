@@ -41,7 +41,7 @@ public class AbringRegister {
         private String username;    //required
         private String password;    //required
         private String name;        //optional
-        private File avatar;      //optional
+        private File avatar;        //optional
         private String email;       //optional
         private String phone;       //optional
         private String reg_idgcm;   //optional

@@ -55,5 +55,10 @@
     <string name="abring_logout">خروج کاربری</string>
     <string name="abring_logout_question">برای خروج از حساب کاربری خود اطمینان دارید؟</string>
     <string name="abring_logout_all_question">برای خروج از تمام حساب های کاربری خود اطمینان دارید؟</string>
-    <string name="logout_successful">خروج کاربری با موفقیت انجام شد</string>
+    <string name="abring_logout_successful">خروج کاربری با موفقیت انجام شد</string>
+    <string name="abring_app_new_version">نسخه جدید برنامه آماده دانلود می باشد!</string>
+    <string name="abring_new_version">نسخه جدید</string>
+    <string name="abring_exit">خروج</string>
+    <string name="abring_download_app">دریافت</string>
+
 </resources>
