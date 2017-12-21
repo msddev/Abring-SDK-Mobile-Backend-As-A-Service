@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
 import com.orhanobut.hawk.LogInterceptor;
+import com.tonyodev.fetch.Fetch;
 
 public class Abring {
 
@@ -33,6 +34,13 @@ public class Abring {
 
             //setup SharePreferences
             setupHawk();
+
+            //setup download manager Fetch
+            new Fetch.Settings(mContext)
+                    .setAllowedNetwork(Fetch.NETWORK_ALL)
+                    .enableLogging(true)
+                    .setConcurrentDownloadsLimit(1)
+                    .apply();
         }
 
         public Builder setPackageName(String packageName) {

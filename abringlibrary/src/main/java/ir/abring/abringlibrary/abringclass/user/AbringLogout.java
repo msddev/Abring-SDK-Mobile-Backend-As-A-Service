@@ -95,7 +95,7 @@ public class AbringLogout {
             AbringLogout.logout(mActivity, new AbringCallBack() {
                 @Override
                 public void onSuccessful(Object response) {
-                    Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
+                    Toast.makeText(mActivity, R.string.abring_logout_successful, Toast.LENGTH_LONG).show();
                     abringCallBack.onSuccessful(response);
                 }
 
@@ -186,7 +186,7 @@ public class AbringLogout {
             AbringLogout.logoutAll(mActivity, new AbringCallBack() {
                 @Override
                 public void onSuccessful(Object response) {
-                    Toast.makeText(mActivity, R.string.logout_successful, Toast.LENGTH_LONG).show();
+                    Toast.makeText(mActivity, R.string.abring_logout_successful, Toast.LENGTH_LONG).show();
                     abringCallBack.onSuccessful(response);
                 }
 

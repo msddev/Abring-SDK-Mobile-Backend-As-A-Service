@@ -60,5 +60,12 @@
     <string name="abring_new_version">نسخه جدید</string>
     <string name="abring_exit">خروج</string>
     <string name="abring_download_app">دریافت</string>
+    <string name="abring_not_access_to_storage">مجوز دسترسی به حافظه وجود ندارد!</string>
+    <string name="abring_retry_download">تلاش مجدد</string>
+    <string name="abring_download_error">خطا در دانلود</string>
+    <string name="abring_download_queued">در انتظار دانلود</string>
+    <string name="abring_connecting">در حال اتصال</string>
+    <string name="abring_downloading">در حال دانلود</string>
+    <string name="abring_complete">دانلود با موفقیت</string>
 
 </resources>

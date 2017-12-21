@@ -15,28 +15,79 @@
         card_view:cardElevation="2dp">
 
         <LinearLayout
-            android:id="@+id/linHolder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@color/primary_text"
-                android:gravity="center"
-                android:text="@string/abring_register"
-                android:textColor="@color/primary_text_white"
-                android:textSize="@dimen/text_size_Micro" />
+                android:layout_height="40dp">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark" />
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/abring_new_version"
+                    android:textColor="@color/primary_text_white"
+                    android:textSize="@dimen/text_size_Micro" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:visibility="gone" />
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/relDownloadProgress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvDownloadPercent"
+                        style="@style/MyTextViewPrimaryStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="۰ %" />
+
+                    <TextView
+                        android:id="@+id/tvDownloadPerSize"
+                        style="@style/MyTextViewPrimaryStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="۰ KB - ۰ KB" />
+
+                    <TextView
+                        android:id="@+id/tvDownloadStatus"
+                        style="@style/MyTextViewPrimaryStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/tvDownloadPerSize"
+                        android:text="..." />
+
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:layoutDirection="ltr"
+                    android:max="100" />
+
+            </LinearLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -49,24 +100,24 @@
                     android:layout_alignParentLeft="true">
 
                     <Button
-                        android:id="@+id/btnCancel"
+                        android:id="@+id/btnOK"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="60dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:text="@string/abring_cancel"
-                        android:textColor="@color/primary_text"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:padding="0dp"
+                        android:text="@string/abring_exit"
+                        android:textColor="@color/appRed900"
                         android:textSize="@dimen/text_size_Micro" />
 
                     <Button
-                        android:id="@+id/btnOK"
+                        android:id="@+id/btnCancel"
                         style="@style/Widget.AppCompat.Button.Borderless"
-                        android:layout_width="60dp"
-                        android:layout_height="40dp"
-                        android:padding="0dp"
-                        android:text="@string/abring_accept"
-                        android:textColor="@color/primary_text"
-                        android:textSize="@dimen/text_size_Micro" />
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/abring_download_app"
+                        android:textColor="@color/appRed900"
+                        android:textSize="@dimen/text_size_Micro"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

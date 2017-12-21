@@ -1,7 +1,16 @@
 package ir.abring.abringlibrary.utils;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
@@ -9,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
+import java.util.List;
 
 public class AbringFileUtil {
 
@@ -83,5 +94,78 @@ public class AbringFileUtil {
         } catch (PackageManager.NameNotFoundException e) {
         }
         return false;
+    }
+
+    public static void installAppN(Context context, File apkFile) {
+
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        String ext = apkFile.getName().substring(apkFile.getName().lastIndexOf(".") + 1);
+        String type = mime.getMimeTypeFromExtension(ext);
+
+        try {
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName().concat(".fileProvider"), apkFile);
+                intent.setDataAndType(contentUri, type);
+            } else {
+                intent.setDataAndType(Uri.fromFile(apkFile), type);
+            }
+
+            context.startActivity(intent);
+
+        } catch (ActivityNotFoundException anfe) {
+            Log.d("Exception", "ActivityNotFoundException - installAPK: " + anfe.toString());
+        }
+    }
+
+    public static void unInstallApp(Context context, String packageName) {
+        Uri packageUri = Uri.parse("package:" + packageName);
+        Intent intent = new Intent(Intent.ACTION_DELETE, packageUri);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    /**
+     * download manager code
+     */
+    public static String getDownloadPerSize(long finished, long total) {
+        DecimalFormat DF = new DecimalFormat("0.00");
+        return DF.format((float) finished / (1024 * 1024)) + "M/" + DF.format((float) total / (1024 * 1024)) + "M";
+    }
+
+    public static boolean isAppInstalled(Context context, String packageName) {
+        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(0);
+        if (!AbringCheck.isEmpty(packages)) {
+            for (PackageInfo packageInfo : packages) {
+                if (packageInfo.packageName.equals(packageName)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void runInstalledApplication(Context context, String packageName) {
+        Intent LaunchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        context.startActivity(LaunchIntent);
+    }
+
+    public static File createDirectoryInStorage(String folderName){
+        File folder = new File(Environment.getExternalStorageDirectory(), folderName);
+        if(!folder.exists()) {
+            folder.mkdir();
+        }
+        return folder;
+    }
+
+    public static String readableFileSize(long size) {
+
+        if (size <= 0) return "0";
+        final String[] units = new String[]{"بایت", "کیلوبایت", "مگابایت", "گیگابایت", "ترابایت"};
+        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 }

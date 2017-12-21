@@ -90,4 +90,11 @@
         <item name="android:shadowRadius">1</item>
     </style>
 
+    <style name="MyTextViewPrimaryStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/text_size_Micro</item>
+        <item name="android:lineSpacingExtra">5dp</item>
+        <item name="android:textColorHint">@color/secondary_text</item>
+    </style>
+
 </resources>
