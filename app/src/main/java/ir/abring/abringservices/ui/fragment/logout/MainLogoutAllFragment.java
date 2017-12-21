@@ -41,7 +41,7 @@ public class MainLogoutAllFragment extends BaseFragment implements View.OnClickL
 
     @Override
     protected int getContentViewId() {
-        return R.layout.fragment_main_logout;
+        return R.layout.fragment_main_layout;
     }
 
     @Override

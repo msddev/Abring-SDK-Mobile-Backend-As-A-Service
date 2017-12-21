@@ -9,6 +9,7 @@ import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.network.AbringAppAPI;
 import ir.abring.abringlibrary.network.AbringAppService;
 import ir.abring.abringlibrary.network.AbringRetrofitErrorResponce;
@@ -85,9 +86,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void mobileRegister(String mobile,
@@ -148,9 +150,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void mobileVerify(String code, String mobile, final AbringCallBack<Object, Object> abringCallBack) {
@@ -180,9 +183,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void mobileResendCode(String mobile, final AbringCallBack<Object, Object> abringCallBack) {
@@ -211,9 +215,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void login(String username,
@@ -243,9 +248,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void loginAsGuest(String deviceId, final AbringCallBack<Object, Object> abringCallBack) {
@@ -273,9 +279,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void logout(String token, final AbringCallBack<Object, Object> abringCallBack) {
@@ -303,9 +310,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     public static void logoutAll(String token, final AbringCallBack<Object, Object> abringCallBack) {
@@ -333,9 +341,10 @@ public class AbringUserServices {
                 }
             });
 
-        } else {
-            abringCallBack.onFailure(Abring.getContext().getString(R.string.abring_no_connect_to_internet));
-        }
+        } else
+            handleError(Abring.getContext().getString(R.string.abring_no_connect_to_internet),
+                    Abring.getContext(),
+                    abringCallBack);
     }
 
     private static void handleError(Object response, Context context, AbringCallBack<Object, Object> abringCallBack) {

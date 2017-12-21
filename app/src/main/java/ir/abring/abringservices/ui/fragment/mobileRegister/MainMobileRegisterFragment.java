@@ -43,7 +43,7 @@ public class MainMobileRegisterFragment extends BaseFragment implements View.OnC
 
     @Override
     protected int getContentViewId() {
-        return R.layout.fragment_main_register;
+        return R.layout.fragment_main_layout;
     }
 
     @Override

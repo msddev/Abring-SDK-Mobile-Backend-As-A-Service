@@ -1,12 +1,11 @@
 package ir.abring.abringlibrary.ui.dialog;
 
-import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
+import android.widget.TextView;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tonyodev.fetch.Fetch;
@@ -15,8 +14,8 @@ import com.tonyodev.fetch.request.Request;
 import com.tonyodev.fetch.request.RequestInfo;
 
 import java.io.File;
+import java.util.List;
 
-import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.base.AbringBaseDialogFragment;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
@@ -37,9 +36,11 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
 
     private boolean isRetry;
     private static String mUrl;
-    private static String mDirPath;
+    private static File mfilePath;
+    private static File mDownloadDir;
     private static String mFileName;
-    private static long downloadId;
+
+    private static long downloadId = -1;
     private static Request request;
     private Fetch fetch;
 
@@ -64,12 +65,9 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
 
     @Override
     protected void initBeforeView() {
-        if (getArguments() != null) {
-            Bundle bundle = this.getArguments();
-            mUrl = bundle.getString("url", null);
-            mDirPath = bundle.getString("dirPath", null);
-            mFileName = bundle.getString("fileName", null);
-        }
+        if (getArguments() != null)
+            mUrl = getArguments().getString("url", null);
+
     }
 
     @Override
@@ -86,11 +84,13 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
         btnOK.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                setupDownloadManager();
-            }
-        }, 1000);
+        mFileName = getString(R.string.app_name).toLowerCase() + ".apk";
+
+        mDownloadDir = AbringFileUtil.createDirectoryInStorage(getString(R.string.app_name));
+        mfilePath = new File(mDownloadDir, mFileName);
+        /*filePath = AbringFileUtil.getSaveDir(getString(R.string.app_name)) +
+                getString(R.string.app_name).toLowerCase() + ".apk";*/
+        setupDownloadManager();
     }
 
     @Override
@@ -104,7 +104,6 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
 
             } else {
                 fetch.pause(downloadId);
-                abringCallBack.onFailure(null);
                 dismiss();
             }
 
@@ -114,11 +113,19 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
     private void setupDownloadManager() {
         fetch = Fetch.newInstance(getContext());
         fetch.removeAll();
+        fetch.removeRequests();
 
-        request = new Request(mUrl, mDirPath, mFileName);
-        downloadId = fetch.enqueue(request);
+        if (mfilePath.exists())
+            mfilePath.delete();
 
-        fetch.addFetchListener(this);
+        request = new Request(mUrl, mDownloadDir.toString(), mFileName);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                downloadId = fetch.enqueue(request);
+                fetch.addFetchListener(AbringCheckUpdateDialog.this);
+            }
+        }, 1000);
+
     }
 
     @Override
@@ -138,13 +145,15 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
     @Override
     public void onPause() {
         super.onPause();
-        fetch.removeFetchListener(this);
+        if (fetch != null)
+            fetch.removeFetchListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        fetch.release();
+        if (fetch != null)
+            fetch.release();
     }
 
     @Override
@@ -192,9 +201,8 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
                 tvDownloadPerSize.setText(AbringFileUtil.getDownloadPerSize(downloadedBytes, fileSize));
                 tvDownloadPercent.setText("100 %");
 
-                File apk = new File(mDirPath, mFileName.concat(".apk"));
-                if (apk.isFile() && apk.exists()) {
-                    AbringFileUtil.installAppN(getActivity(), apk);
+                if (mfilePath.isFile() && mfilePath.exists()) {
+                    AbringFileUtil.installAppN(getActivity(), mfilePath);
                     android.os.Process.killProcess(android.os.Process.myPid());
                     System.exit(1);
                 }
@@ -206,6 +214,9 @@ public class AbringCheckUpdateDialog extends AbringBaseDialogFragment
 
     private void showDownloadErrorMessage(int error) {
         Toast.makeText(getContext(), getString(R.string.abring_failure_responce), Toast.LENGTH_SHORT).show();
+
+        if (mfilePath.exists())
+            mfilePath.delete();
 
         progressBar.setIndeterminate(true);
         tvDownloadStatus.setText(R.string.abring_download_error);

@@ -83,7 +83,7 @@ public interface AbringAppAPI {
             @Field("token") String deviceId
     );
 
-    @GET("index.php?r=app/get")
+    @GET("index.php?r=app/check-update ")
     Call<AbringCheckUpdateModel> CheckUpdate(
             @Query("variable") String variable,
             @Query("app") String app

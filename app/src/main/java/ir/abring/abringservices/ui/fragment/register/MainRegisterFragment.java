@@ -13,7 +13,8 @@ import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 
-public class MainRegisterFragment extends BaseFragment implements View.OnClickListener {
+public class MainRegisterFragment extends BaseFragment
+        implements View.OnClickListener {
 
     private static MainRegisterFragment mInstance = null;
 
@@ -41,7 +42,7 @@ public class MainRegisterFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected int getContentViewId() {
-        return R.layout.fragment_main_register;
+        return R.layout.fragment_main_layout;
     }
 
     @Override

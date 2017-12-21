@@ -1,6 +1,7 @@
 package ir.abring.abringlibrary.abringclass;
 
 import com.orhanobut.hawk.Hawk;
+
 import ir.abring.abringlibrary.AbringConstant;
 import ir.abring.abringlibrary.models.abringregister.AbringResult;
 
@@ -13,9 +14,14 @@ public class AbringServices {
         return user;
     }
 
+    public static String getToken() {
+        AbringResult user = (AbringResult) getUser();
+        return user.getToken();
+    }
+
     public static void setUser(AbringResult result) {
         Hawk.put(AbringConstant.ABRING_USER_INFO, result);
-        if(result != null)
+        if (result != null)
             Hawk.put(AbringConstant.ABRING_TOKEN, result.getToken());
         else
             Hawk.put(AbringConstant.ABRING_TOKEN, null);

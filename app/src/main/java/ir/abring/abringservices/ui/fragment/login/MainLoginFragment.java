@@ -7,20 +7,17 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import ir.abring.abringlibrary.abringclass.user.AbringLogin;
-import ir.abring.abringlibrary.abringclass.user.AbringMobileRegister;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringregister.AbringRegisterModel;
 import ir.abring.abringlibrary.network.AbringApiError;
-import ir.abring.abringlibrary.ui.dialog.AbringLoginDialog;
 import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
-import ir.abring.abringservices.ui.fragment.mobileRegister.MobileRegisterFragment;
 
-public class MainLoginrFragment extends BaseFragment implements View.OnClickListener {
+public class MainLoginFragment extends BaseFragment implements View.OnClickListener {
 
-    private static MainLoginrFragment mInstance = null;
+    private static MainLoginFragment mInstance = null;
 
     @BindView(R.id.btnUserUI)
     Button btnUserUI;
@@ -29,12 +26,12 @@ public class MainLoginrFragment extends BaseFragment implements View.OnClickList
     @BindView(R.id.tvResult)
     TextView tvResult;
 
-    public MainLoginrFragment() {
+    public MainLoginFragment() {
     }
 
-    public static synchronized MainLoginrFragment getInstance() {
+    public static synchronized MainLoginFragment getInstance() {
         if (mInstance == null) {
-            mInstance = new MainLoginrFragment();
+            mInstance = new MainLoginFragment();
         }
         return mInstance;
     }
@@ -46,7 +43,7 @@ public class MainLoginrFragment extends BaseFragment implements View.OnClickList
 
     @Override
     protected int getContentViewId() {
-        return R.layout.fragment_main_register;
+        return R.layout.fragment_main_layout;
     }
 
     @Override

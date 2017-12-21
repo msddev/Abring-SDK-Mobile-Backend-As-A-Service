@@ -14,89 +14,26 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import ir.abring.abringlibrary.R;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringapp.AbringCheckUpdateModel;
+import ir.abring.abringlibrary.network.AbringApiError;
 import ir.abring.abringlibrary.services.AbringAppServices;
 import ir.abring.abringlibrary.ui.dialog.AbringCheckUpdateDialog;
+import ir.abring.abringlibrary.utils.AbringCheck;
 import ir.abring.abringlibrary.utils.AbringPermissaoUtils;
 import ir.abring.abringlibrary.utils.AbringVersion;
 
 public class AbringCheckUpdate {
 
-    private String url;    //required
-    private String dirPath;    //required
-    private String fileName;    //required
+    private static Activity mActivity;
+    private static FragmentManager mFragmentManager;
+    private static AbringCheckUpdateModel mUpdateApp;
 
-    AbringCheckUpdate(LoginBuilder registerBuilder) {
-        this.url = registerBuilder.url;
-        this.dirPath = registerBuilder.dirPath;
-        this.fileName = registerBuilder.fileName;
-    }
+    public static void check(Activity activity, final AbringCallBack abringCallBack) {
 
-    public static class LoginBuilder {
-
-        private String url;    //required
-        private String dirPath;    //required
-        private String fileName;    //required
-
-        public LoginBuilder setUrl(String url) {
-            this.url = url;
-            return this;
-        }
-
-        public LoginBuilder setDirPath(String dirPath) {
-            this.dirPath = dirPath;
-            return this;
-        }
-
-        public LoginBuilder setFileName(String fileName) {
-            this.fileName = fileName;
-            return this;
-        }
-
-        public AbringCheckUpdate build() {
-            return new AbringCheckUpdate(this);
-        }
-
-    }
-
-    public void checkUpdate(Activity mActivity, final AbringCallBack abringCallBack) {
-
-        if (AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE) &&
-                AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-
-            AbringAppServices.checkUpdate(new AbringCallBack<Object, Object>() {
-                @Override
-                public void onSuccessful(Object response) {
-                    abringCallBack.onSuccessful(response);
-                }
-
-                @Override
-                public void onFailure(Object response) {
-                    abringCallBack.onFailure(response);
-                }
-            });
-
-        } else {
-            abringCallBack.onFailure(mActivity.getString(R.string.abring_not_access_to_storage));
-        }
-    }
-
-    public void showDialog(final FragmentManager fragmentManager,
-                           final Activity mActivity,
-                           final AbringCallBack abringCallBack) {
-
-        checkUpdate(mActivity, new AbringCallBack() {
+        mActivity = activity;
+        AbringAppServices.checkUpdate(new AbringCallBack<Object, Object>() {
             @Override
             public void onSuccessful(Object response) {
-
-                AbringCheckUpdateModel mUpdateApp = (AbringCheckUpdateModel) response;
-                int current = AbringVersion.getVersionCode(mActivity);
-                if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getForce()) > current)
-                    forceUpdate(fragmentManager, mActivity, abringCallBack);
-                else if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getCurrent()) > current)
-                    normalUpdate(fragmentManager, mActivity, abringCallBack);
-                else
-                    abringCallBack.onSuccessful(null);
-
+                abringCallBack.onSuccessful(response);
             }
 
             @Override
@@ -106,9 +43,44 @@ public class AbringCheckUpdate {
         });
     }
 
-    private void forceUpdate(final FragmentManager fragmentManager,
-                             final Activity mActivity,
-                             final AbringCallBack abringCallBack) {
+    public static void showDialog(final FragmentManager fragmentManager,
+                                  final Activity activity,
+                                  final AbringCallBack abringCallBack) {
+
+        mActivity = activity;
+        mFragmentManager = fragmentManager;
+
+        check(mActivity, new AbringCallBack() {
+            @Override
+            public void onSuccessful(Object response) {
+                mUpdateApp = (AbringCheckUpdateModel) response;
+
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (mUpdateApp.getResult().getAndroid() != null) {
+                            int current = AbringVersion.getVersionCode(mActivity);
+                            if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getForce()) > current)
+                                forceUpdate(abringCallBack);
+                            else if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getCurrent()) > current)
+                                normalUpdate(abringCallBack);
+                            else
+                                abringCallBack.onSuccessful(mUpdateApp);
+                        } else
+                            abringCallBack.onSuccessful(mUpdateApp);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Object response) {
+                abringCallBack.onFailure(response);
+            }
+        });
+    }
+
+    private static void forceUpdate(final AbringCallBack abringCallBack) {
 
         new MaterialDialog.Builder(new ContextThemeWrapper(mActivity, R.style.Theme_MatrialDialog))
                 .title(R.string.abring_new_version)
@@ -119,7 +91,7 @@ public class AbringCheckUpdate {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        checkPermission(fragmentManager, mActivity, abringCallBack);
+                        checkPermission(abringCallBack);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -131,9 +103,7 @@ public class AbringCheckUpdate {
                 .show();
     }
 
-    private void normalUpdate(final FragmentManager fragmentManager,
-                              final Activity mActivity,
-                              final AbringCallBack abringCallBack) {
+    private static void normalUpdate(final AbringCallBack abringCallBack) {
 
         new MaterialDialog.Builder(new ContextThemeWrapper(mActivity, R.style.Theme_MatrialDialog))
                 .title(R.string.abring_new_version)
@@ -144,27 +114,25 @@ public class AbringCheckUpdate {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        checkPermission(fragmentManager, mActivity, abringCallBack);
+                        checkPermission(abringCallBack);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        //showNextIntent();
+                        abringCallBack.onSuccessful(null);
                     }
                 })
                 .show();
     }
 
 
-    private void checkPermission(FragmentManager fragmentManager,
-                                 Activity mActivity,
-                                 AbringCallBack abringCallBack) {
+    private static void checkPermission(AbringCallBack abringCallBack) {
 
         if (AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE) &&
                 AbringPermissaoUtils.hasPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-            showDownloadDialog(abringCallBack, fragmentManager);
+            showDownloadDialog(abringCallBack);
 
         } else {
             String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -175,12 +143,11 @@ public class AbringCheckUpdate {
         }
     }
 
-    private void showDownloadDialog(final AbringCallBack abringCallBack,
-                                    FragmentManager fragmentManager) {
+    private static void showDownloadDialog(final AbringCallBack abringCallBack) {
 
-        Fragment frag = fragmentManager.findFragmentByTag("AbringCheckUpdateDialog");
+        Fragment frag = mFragmentManager.findFragmentByTag("AbringCheckUpdateDialog");
         if (frag != null)
-            fragmentManager.beginTransaction().remove(frag).commit();
+            mFragmentManager.beginTransaction().remove(frag).commit();
 
         AbringCheckUpdateDialog mFragment =
                 AbringCheckUpdateDialog.getInstance(new AbringCallBack<Object, Object>() {
@@ -196,10 +163,8 @@ public class AbringCheckUpdate {
                 });
 
         Bundle bundle = new Bundle();
-        bundle.putString("url", url);
-        bundle.putString("dirPath", dirPath);
-        bundle.putString("fileName", fileName);
+        bundle.putString("url", mUpdateApp.getResult().getAndroid().getLink());
         mFragment.setArguments(bundle);
-        mFragment.show(fragmentManager, "AbringCheckUpdateDialog");
+        mFragment.show(mFragmentManager, "AbringCheckUpdateDialog");
     }
 }

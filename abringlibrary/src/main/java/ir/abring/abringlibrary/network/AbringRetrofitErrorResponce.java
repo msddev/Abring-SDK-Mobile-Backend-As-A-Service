@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
+import ir.abring.abringlibrary.Abring;
 import ir.abring.abringlibrary.R;
 import retrofit2.Response;
 
@@ -22,7 +23,10 @@ public class AbringRetrofitErrorResponce {
         mContext = context;
         Log.d("R_Error", String.valueOf(error));
 
-        if (error instanceof SocketTimeoutException) {
+        if (String.valueOf(error).equals(Abring.getContext().getString(R.string.abring_no_connect_to_internet))) {
+            errorResponse.setMessage(context.getResources().getString(R.string.abring_no_connect_to_internet));
+            return errorResponse;
+        } else if (error instanceof SocketTimeoutException) {
             errorResponse.setMessage(context.getResources().getString(R.string.abring_SERVER_TIMEOUT));
             return errorResponse;
         } else if (isNetworkProblem(error)) {
