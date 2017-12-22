@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context="ir.abring.abringservices.ui.fragment.MainFragment">
 
     <LinearLayout
@@ -70,6 +71,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="بروزرسانی" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnDynamicRequest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="درخواست داینامیک" />
 
         </LinearLayout>
 

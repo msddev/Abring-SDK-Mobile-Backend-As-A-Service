@@ -30,17 +30,41 @@ public class AbringCheckUpdate {
     public static void check(Activity activity, final AbringCallBack abringCallBack) {
 
         mActivity = activity;
-        AbringAppServices.checkUpdate(new AbringCallBack<Object, Object>() {
+        new Thread(new Runnable() {
             @Override
-            public void onSuccessful(Object response) {
-                abringCallBack.onSuccessful(response);
-            }
+            public void run() {
 
-            @Override
-            public void onFailure(Object response) {
-                abringCallBack.onFailure(response);
+                AbringAppServices.checkUpdate(new AbringCallBack<Object, Object>() {
+                    @Override
+                    public void onSuccessful(final Object response) {
+
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                abringCallBack.onSuccessful(response);
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(final Object response) {
+
+                        mActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                abringCallBack.onFailure(response);
+
+                            }
+                        });
+                    }
+                });
+
             }
-        });
+        }).start();
+
     }
 
     public static void showDialog(final FragmentManager fragmentManager,
@@ -55,22 +79,21 @@ public class AbringCheckUpdate {
             public void onSuccessful(Object response) {
                 mUpdateApp = (AbringCheckUpdateModel) response;
 
-                mActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if (mUpdateApp.getResult().getAndroid() != null) {
 
-                        if (mUpdateApp.getResult().getAndroid() != null) {
-                            int current = AbringVersion.getVersionCode(mActivity);
-                            if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getForce()) > current)
-                                forceUpdate(abringCallBack);
-                            else if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getCurrent()) > current)
-                                normalUpdate(abringCallBack);
-                            else
-                                abringCallBack.onSuccessful(mUpdateApp);
-                        } else
-                            abringCallBack.onSuccessful(mUpdateApp);
-                    }
-                });
+                    int current = AbringVersion.getVersionCode(mActivity);
+
+                    if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getForce()) > current)
+                        forceUpdate(abringCallBack);
+
+                    else if (Integer.valueOf(mUpdateApp.getResult().getAndroid().getCurrent()) > current)
+                        normalUpdate(abringCallBack);
+
+                    else
+                        abringCallBack.onSuccessful(mUpdateApp);
+
+                } else
+                    abringCallBack.onSuccessful(mUpdateApp);
             }
 
             @Override

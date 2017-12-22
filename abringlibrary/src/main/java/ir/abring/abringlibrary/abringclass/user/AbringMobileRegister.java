@@ -100,6 +100,7 @@ public class AbringMobileRegister {
     }
 
     private void runRegister(final Activity mActivity, final AbringCallBack abringCallBack) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -133,6 +134,7 @@ public class AbringMobileRegister {
                                 });
                             }
                         });
+
             }
         }).start();
     }

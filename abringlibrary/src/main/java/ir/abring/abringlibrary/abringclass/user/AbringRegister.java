@@ -104,11 +104,11 @@ public class AbringRegister {
     }
 
     private void runRegister(final Activity mActivity, final AbringCallBack abringCallBack) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                //Run in new thread
                 AbringUserServices.register(username,
                         password,
                         name,

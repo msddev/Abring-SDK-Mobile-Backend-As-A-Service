@@ -8,6 +8,7 @@ import ir.abring.abringlibrary.utils.AbringActivityUtils;
 import ir.abring.abringservices.R;
 import ir.abring.abringservices.base.BaseFragment;
 import ir.abring.abringservices.ui.fragment.checkUpdate.MainCheckUpdateFragment;
+import ir.abring.abringservices.ui.fragment.dynamicRequest.MainDynamicRequestFragment;
 import ir.abring.abringservices.ui.fragment.login.MainLoginFragment;
 import ir.abring.abringservices.ui.fragment.logout.MainLogoutAllFragment;
 import ir.abring.abringservices.ui.fragment.logout.MainLogoutFragment;
@@ -31,6 +32,8 @@ public class MainFragment  extends BaseFragment
     Button btnLogoutAll;
     @BindView(R.id.btnUpdate)
     Button btnUpdate;
+    @BindView(R.id.btnDynamicRequest)
+    Button btnDynamicRequest;
 
     public static synchronized MainFragment getInstance() {
         if (mInstance == null) {
@@ -61,6 +64,7 @@ public class MainFragment  extends BaseFragment
         btnLogout.setOnClickListener(this);
         btnLogoutAll.setOnClickListener(this);
         btnUpdate.setOnClickListener(this);
+        btnDynamicRequest.setOnClickListener(this);
     }
 
     @Override
@@ -113,6 +117,15 @@ public class MainFragment  extends BaseFragment
 
                 AbringActivityUtils.replaceFragmentToActivity(getFragmentManager(),
                         MainCheckUpdateFragment.getInstance(),
+                        R.id.mainframe,
+                        "MainLogoutAllFragment",
+                        "MainFragment");
+                break;
+
+            case R.id.btnDynamicRequest:
+
+                AbringActivityUtils.replaceFragmentToActivity(getFragmentManager(),
+                        MainDynamicRequestFragment.getInstance(),
                         R.id.mainframe,
                         "MainLogoutAllFragment",
                         "MainFragment");

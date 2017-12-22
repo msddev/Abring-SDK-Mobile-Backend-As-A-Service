@@ -22,9 +22,9 @@ public class AbringLogin {
     private String username;    //required
     private String password;    //required
 
-    AbringLogin(LoginBuilder registerBuilder) {
-        this.username = registerBuilder.username;
-        this.password = registerBuilder.password;
+    AbringLogin(LoginBuilder mBuilder) {
+        this.username = mBuilder.username;
+        this.password = mBuilder.password;
     }
 
     public static class LoginBuilder {
@@ -48,30 +48,35 @@ public class AbringLogin {
     }
 
     public void login(final Activity mActivity, final AbringCallBack abringCallBack) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
 
-                //Run in new thread
                 AbringUserServices.login(username, password,
                         new AbringCallBack<Object, Object>() {
                             @Override
                             public void onSuccessful(final Object response) {
+
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+
                                         AbringRegisterModel register = (AbringRegisterModel) response;
                                         AbringServices.setUser(register.getResult());
                                         abringCallBack.onSuccessful(response);
+
                                     }
                                 });
                             }
 
                             @Override
                             public void onFailure(final Object response) {
+
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+
                                         abringCallBack.onFailure(response);
                                     }
                                 });

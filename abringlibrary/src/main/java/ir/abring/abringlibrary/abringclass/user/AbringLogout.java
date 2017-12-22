@@ -28,10 +28,11 @@ public class AbringLogout {
 
         final String token = Hawk.get(AbringConstant.ABRING_TOKEN, null);
         if (!AbringCheck.isEmpty(token)) {
+
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    //Run in new thread
+
                     AbringUserServices.logout(token, new AbringCallBack<Object, Object>() {
                         @Override
                         public void onSuccessful(final Object response) {
@@ -54,6 +55,7 @@ public class AbringLogout {
                             });
                         }
                     });
+
                 }
             }).start();
         } else {
