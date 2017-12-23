@@ -1,6 +1,5 @@
 package ir.abring.abringlibrary.network;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import ir.abring.abringlibrary.models.AbringPing;
@@ -10,9 +9,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -100,8 +97,9 @@ public interface AbringAppAPI {
     );
 
     @Multipart
-    @POST("index.php")
+    @POST
     Call<ResponseBody> DynamicRequestPost(
+            @Url String url,
             @PartMap Map<String, RequestBody> params
     );
 

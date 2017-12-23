@@ -61,11 +61,11 @@ public class AbringAppServices {
 
         if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
 
-            params.put("app", AbringUtils.toRequestBody(Abring.getPackageName())); //set current package name : "ir.iranplays.tootak"
-            params.put("r", AbringUtils.toRequestBody(url)); //set url
+            String URL = "http://ws.v3.abring.ir/index.php?r=".concat(url);
+            params.put("app", AbringUtils.toRequestBody(Abring.getPackageName()));
 
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
-            Call<ResponseBody> mEntityCall = mApiService.DynamicRequestPost(params);
+            Call<ResponseBody> mEntityCall = mApiService.DynamicRequestPost(URL, params);
             Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
 
             mEntityCall.enqueue(new Callback<ResponseBody>() {
