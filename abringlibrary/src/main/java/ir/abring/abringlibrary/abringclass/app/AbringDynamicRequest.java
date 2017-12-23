@@ -9,30 +9,67 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringapp.AbringCheckUpdateModel;
 import ir.abring.abringlibrary.services.AbringAppServices;
+import okhttp3.RequestBody;
 
 public class AbringDynamicRequest {
 
-    private String url;    //required
-    private Map<String, String> parameters;    //required
+    private String method;                              //required
+    private String url;                                 //required
+    private Map<String, RequestBody> parametersPost;    //required
+    private Map<String, String> parametersGet;          //required
 
-    AbringDynamicRequest(DynamicRequestBuilder mBuilder) {
+    AbringDynamicRequest(DynamicRequestGetBuilder mBuilder) {
+        this.method = mBuilder.method;
         this.url = mBuilder.url;
-        this.parameters = mBuilder.parameters;
+        this.parametersGet = mBuilder.parameters;
     }
 
-    public static class DynamicRequestBuilder {
-        private String url;    //required
-        private Map<String, String> parameters;    //required
+    AbringDynamicRequest(DynamicRequestPostBuilder mBuilder) {
+        this.method = mBuilder.method;
+        this.url = mBuilder.url;
+        this.parametersPost = mBuilder.parameters;
+    }
 
-        public DynamicRequestBuilder setUrl(String url) {
+    public static class DynamicRequestPostBuilder {
+        private String method = "POST";
+        private String url;
+        private Map<String, RequestBody> parameters;
+
+        public DynamicRequestPostBuilder setUrl(String url) {
             this.url = url;
             return this;
         }
 
-        public DynamicRequestBuilder setParameters(Map<String, String> parameters) {
+        public DynamicRequestPostBuilder setParameters(Map<String, RequestBody> parameters) {
+            this.parameters = parameters;
+            return this;
+        }
+
+        public AbringDynamicRequest build() {
+            return new AbringDynamicRequest(this);
+        }
+    }
+
+    public static class DynamicRequestGetBuilder {
+        private String method = "GET";
+        private String url;
+        private Map<String, String> parameters;
+
+        public DynamicRequestGetBuilder setMethod(String method) {
+            this.method = method;
+            return this;
+        }
+
+        public DynamicRequestGetBuilder setUrl(String url) {
+            this.url = url;
+            return this;
+        }
+
+        public DynamicRequestGetBuilder setParameters(Map<String, String> parameters) {
             this.parameters = parameters;
             return this;
         }
@@ -48,32 +85,66 @@ public class AbringDynamicRequest {
             @Override
             public void run() {
 
-                AbringAppServices.dynamicRequest(url,
-                        parameters,
-                        new AbringCallBack<Object, Object>() {
-                            @Override
-                            public void onSuccessful(final Object response) {
+                if (method.equals("POST")) {
 
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        abringCallBack.onSuccessful(response);
-                                    }
-                                });
-                            }
+                    AbringAppServices.dynamicRequestPost(url,
+                            parametersPost,
+                            new AbringCallBack<Object, Object>() {
+                                @Override
+                                public void onSuccessful(final Object response) {
 
-                            @Override
-                            public void onFailure(final Object response) {
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            abringCallBack.onSuccessful(response);
+                                        }
+                                    });
+                                }
 
-                                mActivity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
+                                @Override
+                                public void onFailure(final Object response) {
 
-                                        abringCallBack.onFailure(response);
-                                    }
-                                });
-                            }
-                        });
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            abringCallBack.onFailure(response);
+                                        }
+                                    });
+                                }
+                            });
+
+                } else if (method.equals("GET")) {
+
+                    AbringAppServices.dynamicRequestGet(url,
+                            parametersGet,
+                            new AbringCallBack<Object, Object>() {
+                                @Override
+                                public void onSuccessful(final Object response) {
+
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            abringCallBack.onSuccessful(response);
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onFailure(final Object response) {
+
+                                    mActivity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+
+                                            abringCallBack.onFailure(response);
+                                        }
+                                    });
+                                }
+                            });
+
+                }
+
             }
         }).start();
     }

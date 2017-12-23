@@ -18,6 +18,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
@@ -98,8 +99,14 @@ public interface AbringAppAPI {
             @Query("app") String app
     );
 
+    @Multipart
+    @POST("index.php")
+    Call<ResponseBody> DynamicRequestPost(
+            @PartMap Map<String, RequestBody> params
+    );
+
     @GET("index.php")
-    Call<ResponseBody> DynamicRequest(
+    Call<ResponseBody> DynamicRequestGet(
             @QueryMap Map<String, String> params
     );
 
