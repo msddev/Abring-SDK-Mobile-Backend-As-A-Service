@@ -15,13 +15,13 @@ public class AbringUtils {
     }
 
     // This method  converts File to MultipartBody.Part
-    public static MultipartBody.Part toMultipartBody(File image) {
+    public static MultipartBody.Part toMultipartBody( String name, File image) {
 
         // Parsing any Media type file
         MultipartBody.Part avatarToUpload = null;
         if (image != null) {
             RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), image);
-            avatarToUpload = MultipartBody.Part.createFormData("avatar", image.getName(), requestBody);
+            avatarToUpload = MultipartBody.Part.createFormData(name, image.getName(), requestBody);
         }
         return avatarToUpload;
     }

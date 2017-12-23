@@ -1,9 +1,13 @@
 package ir.abring.abringlibrary.services;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ir.abring.abringlibrary.Abring;
@@ -16,6 +20,7 @@ import ir.abring.abringlibrary.network.AbringAppService;
 import ir.abring.abringlibrary.network.AbringRetrofitErrorResponce;
 import ir.abring.abringlibrary.utils.AbringNetworkUtil;
 import ir.abring.abringlibrary.utils.AbringUtils;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -57,6 +62,7 @@ public class AbringAppServices {
 
     public static void dynamicRequestPost(String url,
                                           Map<String, RequestBody> params,
+                                          List<MultipartBody.Part> imageParams,
                                           final AbringCallBack<Object, Object> abringCallBack) {
 
         if (AbringNetworkUtil.isNetworkConnected(Abring.getContext())) {
@@ -65,9 +71,14 @@ public class AbringAppServices {
             params.put("app", AbringUtils.toRequestBody(Abring.getPackageName()));
 
             AbringAppAPI mApiService = AbringAppService.getInstance().getService(AbringAppAPI.class);
-            Call<ResponseBody> mEntityCall = mApiService.DynamicRequestPost(URL, params);
-            Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
 
+            Call<ResponseBody> mEntityCall = null;
+            if (imageParams == null)
+                mEntityCall = mApiService.DynamicRequestPost(URL, params);
+            else
+                mEntityCall = mApiService.DynamicRequestImagePost(URL, params, imageParams);
+
+            Log.i("RetrofitURL", "Request URL: " + mEntityCall.request().url().toString());
             mEntityCall.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

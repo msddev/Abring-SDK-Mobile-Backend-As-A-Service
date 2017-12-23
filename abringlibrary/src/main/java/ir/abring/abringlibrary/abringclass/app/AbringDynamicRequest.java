@@ -7,45 +7,49 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ir.abring.abringlibrary.abringclass.AbringServices;
 import ir.abring.abringlibrary.interfaces.AbringCallBack;
 import ir.abring.abringlibrary.models.abringapp.AbringCheckUpdateModel;
 import ir.abring.abringlibrary.services.AbringAppServices;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class AbringDynamicRequest {
 
-    private String method;                              //required
-    private String url;                                 //required
-    private Map<String, RequestBody> parametersPost;    //required
-    private Map<String, String> parametersGet;          //required
+    private String method;                                     //required
+    private String url;                                        //required
+    private List<MultipartBody.Part> imageParamsPost;          //required
+    private Map<String, String> stringParamsGet;               //required
+    private Map<String, RequestBody> requestBodyParamsPost;    //required
 
     AbringDynamicRequest(DynamicRequestGetBuilder mBuilder) {
         this.method = mBuilder.method;
         this.url = mBuilder.url;
-        this.parametersGet = mBuilder.parameters;
+        this.stringParamsGet = mBuilder.stringParamsGet;
     }
 
     AbringDynamicRequest(DynamicRequestPostBuilder mBuilder) {
         this.method = mBuilder.method;
         this.url = mBuilder.url;
-        this.parametersPost = mBuilder.parameters;
+        this.requestBodyParamsPost = mBuilder.requestBodyParamsPost;
+        this.imageParamsPost = mBuilder.imageParamsPost;
     }
 
-    public static class DynamicRequestPostBuilder {
-        private String method = "POST";
+    public static class DynamicRequestGetBuilder {
+        private String method = "GET";
         private String url;
-        private Map<String, RequestBody> parameters;
+        private Map<String, String> stringParamsGet;
 
-        public DynamicRequestPostBuilder setUrl(String url) {
+        public DynamicRequestGetBuilder setUrl(String url) {
             this.url = url;
             return this;
         }
 
-        public DynamicRequestPostBuilder setParameters(Map<String, RequestBody> parameters) {
-            this.parameters = parameters;
+        public DynamicRequestGetBuilder setStringParamsGet(Map<String, String> stringParamsGet) {
+            this.stringParamsGet = stringParamsGet;
             return this;
         }
 
@@ -54,23 +58,24 @@ public class AbringDynamicRequest {
         }
     }
 
-    public static class DynamicRequestGetBuilder {
-        private String method = "GET";
+    public static class DynamicRequestPostBuilder {
+        private String method = "POST";
         private String url;
-        private Map<String, String> parameters;
+        private Map<String, RequestBody> requestBodyParamsPost;
+        private List<MultipartBody.Part> imageParamsPost;
 
-        public DynamicRequestGetBuilder setMethod(String method) {
-            this.method = method;
-            return this;
-        }
-
-        public DynamicRequestGetBuilder setUrl(String url) {
+        public DynamicRequestPostBuilder setUrl(String url) {
             this.url = url;
             return this;
         }
 
-        public DynamicRequestGetBuilder setParameters(Map<String, String> parameters) {
-            this.parameters = parameters;
+        public DynamicRequestPostBuilder setRequestBodyParamsPost(Map<String, RequestBody> requestBodyParamsPost) {
+            this.requestBodyParamsPost = requestBodyParamsPost;
+            return this;
+        }
+
+        public DynamicRequestPostBuilder setImageParamsPost(List<MultipartBody.Part> imageParamsPost) {
+            this.imageParamsPost = imageParamsPost;
             return this;
         }
 
@@ -88,7 +93,8 @@ public class AbringDynamicRequest {
                 if (method.equals("POST")) {
 
                     AbringAppServices.dynamicRequestPost(url,
-                            parametersPost,
+                            requestBodyParamsPost,
+                            imageParamsPost,
                             new AbringCallBack<Object, Object>() {
                                 @Override
                                 public void onSuccessful(final Object response) {
@@ -117,7 +123,7 @@ public class AbringDynamicRequest {
                 } else if (method.equals("GET")) {
 
                     AbringAppServices.dynamicRequestGet(url,
-                            parametersGet,
+                            stringParamsGet,
                             new AbringCallBack<Object, Object>() {
                                 @Override
                                 public void onSuccessful(final Object response) {

@@ -1,5 +1,6 @@
 package ir.abring.abringlibrary.network;
 
+import java.util.List;
 import java.util.Map;
 
 import ir.abring.abringlibrary.models.AbringPing;
@@ -101,6 +102,14 @@ public interface AbringAppAPI {
     Call<ResponseBody> DynamicRequestPost(
             @Url String url,
             @PartMap Map<String, RequestBody> params
+    );
+
+    @Multipart
+    @POST
+    Call<ResponseBody> DynamicRequestImagePost(
+            @Url String url,
+            @PartMap Map<String, RequestBody> params,
+            @Part List<MultipartBody.Part> paramsImage
     );
 
     @GET("index.php")

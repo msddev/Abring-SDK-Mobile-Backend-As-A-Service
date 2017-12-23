@@ -1,12 +1,7 @@
 package ir.abring.abringlibrary.utils;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
-import android.util.LruCache;
-
-import ir.abring.abringlibrary.R;
+import java.util.Random;
 
 public class AbringCommonUtils {
 
@@ -30,5 +25,12 @@ public class AbringCommonUtils {
         } else {
             return Character.toUpperCase(first) + s.substring(1);
         }
+    }
+
+    /**
+     * generate numbers from min to max (including both)
+     */
+    public static int randInt(int min, int max) {
+        return new Random().nextInt((max - min) + 1) + min;
     }
 }
