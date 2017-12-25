@@ -354,3 +354,52 @@ AbringLogout.showDialogLogoutAll(activity, new AbringCallBack() {
     }
 });
 ```
+
+**7. Check update**
+> Check the application update in the `abring system`
+
+- Whitout abring UI :
+```java
+AbringCheckUpdate.check(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        AbringCheckUpdateModel mUpdateApp = (AbringCheckUpdateModel) response;
+        Toast.makeText(activity,
+                "عملیات با موفقیت انجام شد",
+                Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                AbringCheck.isEmpty(apiError.getMessage()) ? 
+                        "متاسفانه خطایی رخ داده است" : 
+                        apiError.getMessage(),
+                Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+
+- Whit abring UI :
+```java
+AbringCheckUpdate.showDialog(activity.getSupportFragmentManager(), activity,
+        new AbringCallBack() {
+            @Override
+            public void onSuccessful(Object response) {
+                AbringCheckUpdateModel mUpdateApp = (AbringCheckUpdateModel) response;
+                Toast.makeText(activity,
+                        "عملیات با موفقیت انجام شد",
+                        Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Object response) {
+                AbringApiError apiError = (AbringApiError) response;
+                Toast.makeText(activity,
+                        AbringCheck.isEmpty(apiError.getMessage()) ? 
+                                "متاسفانه خطایی رخ داده است" : 
+                                apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+```
