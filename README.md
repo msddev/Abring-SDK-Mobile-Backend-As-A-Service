@@ -27,8 +27,9 @@ This SDK consists of two sections:
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- read avatar from gallery-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- get device id for guest login-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> <!-- optional-read avatar from gallery-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/><!-- optional-download update file-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/> <!-- optional-get device id for guest login-->
 ```
 
 **Adding Dependency**
