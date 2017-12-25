@@ -580,7 +580,7 @@ AbringServices.getUser();
 AbringServices.getToken();
 ```
 
-3. set user data :
+3. Set user data :
 
 ```java
 AbringServices.setUser();
