@@ -88,7 +88,7 @@ abringUser.register(activity, new AbringCallBack() {
     @Override
     public void onFailure(Object response) {
         AbringApiError apiError = (AbringApiError) response;
-        Toast.makeText(mActivity,
+        Toast.makeText(activity,
                 AbringCheck.isEmpty(apiError.getMessage()) ? "متاسفانه خطایی رخ داده است" : apiError.getMessage(),
                 Toast.LENGTH_SHORT).show();
     }
@@ -306,7 +306,7 @@ AbringLogout.logout(activity, new AbringCallBack() {
 
 - Whit abring UI :
 ```java
-AbringLogout.showDialog(mActivity, new AbringCallBack() {
+AbringLogout.showDialog(activity, new AbringCallBack() {
     @Override
     public void onSuccessful(Object response) {
 
@@ -404,7 +404,7 @@ AbringCheckUpdate.showDialog(getSupportFragmentManager(), activity,
         });
 ```
 
-**7. Dynamic Request**
+**8. Dynamic Request**
 > create a request in abring system with dynamic parameters and custom url and get json responce.
 Convert json responce to class with Gson convertor.
 
@@ -434,7 +434,7 @@ AbringDynamicRequest mAbring = new AbringDynamicRequest
 mAbring.request(activity, new AbringCallBack() {
     @Override
     public void onSuccessful(Object response) {
-        Toast.makeText(mActivity,
+        Toast.makeText(activity,
                 "عملیات با موفقیت انجام شد",
                 Toast.LENGTH_SHORT).show();
                 
@@ -486,7 +486,7 @@ AbringDynamicRequest mAbring = new AbringDynamicRequest
 mAbring.request(activity, new AbringCallBack() {
     @Override
     public void onSuccessful(Object response) {
-        Toast.makeText(mActivity,
+        Toast.makeText(activity,
                 "عملیات با موفقیت انجام شد",
                 Toast.LENGTH_SHORT).show();
                 
@@ -564,4 +564,24 @@ mAbring.request(activity, new AbringCallBack() {
                         Toast.LENGTH_SHORT).show();
     }
 });
+```
+
+**9. Public method**
+
+1. Get user data :
+
+```java
+AbringServices.getUser();
+```
+
+2. Get token :
+
+```java
+AbringServices.getToken();
+```
+
+3. set user data :
+
+```java
+AbringServices.setUser();
 ```
