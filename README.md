@@ -383,7 +383,7 @@ AbringCheckUpdate.check(activity, new AbringCallBack() {
 
 - Whit abring UI :
 ```java
-AbringCheckUpdate.showDialog(activity.getSupportFragmentManager(), activity,
+AbringCheckUpdate.showDialog(getSupportFragmentManager(), activity,
         new AbringCallBack() {
             @Override
             public void onSuccessful(Object response) {
@@ -402,4 +402,166 @@ AbringCheckUpdate.showDialog(activity.getSupportFragmentManager(), activity,
                         Toast.LENGTH_SHORT).show();
             }
         });
+```
+
+**7. Dynamic Request**
+> create a request in abring system with dynamic parameters and custom url and get json responce.
+Convert json responce to class with Gson convertor.
+
+This section has two methods : `GET` and `POST`.
+
+> in `GET` method :
+1. set `String` parameters into `HashMap` collection.
+
+```java
+Map<String, String> params = new HashMap<>();
+```
+2. set values into builder pattern : parameters and custom url.
+
+- GET request :
+```java
+URL = "app/check-update"; //send url after ?r= to first &
+
+Map<String, String> params = new HashMap<>();
+params.put("variable", "update");
+
+AbringDynamicRequest mAbring = new AbringDynamicRequest
+        .DynamicRequestGetBuilder()
+        .setUrl(URL)
+        .setStringParamsGet(params)
+        .build();
+        
+mAbring.request(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(mActivity,
+                "عملیات با موفقیت انجام شد",
+                Toast.LENGTH_SHORT).show();
+                
+        if (response != null) {
+            Gson gson = new Gson();
+            AbringCheckUpdateModel m = gson.fromJson(
+                    response.toString(),
+                    AbringCheckUpdateModel.class);
+        }
+    }
+    
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+                Toast.makeText(activity,
+                        AbringCheck.isEmpty(apiError.getMessage()) ? 
+                                "متاسفانه خطایی رخ داده است" : 
+                                apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+>in `POST` method :
+This method consists of two parts `String` request and `String-Image` request.
+
+for `String` request:
+1. set `RequestBody` parameters into `HashMap` collection.
+
+```java
+Map<String, RequestBody> params = new HashMap<>();
+```
+2. set values into builder pattern : parameters and custom url.
+
+- POST request :
+```java
+URL = "player/register"; //send url after ?r= to first &
+
+Map<String, RequestBody> params = new HashMap<>();
+params.put("username", AbringUtils.toRequestBody("Test"));
+params.put("password", AbringUtils.toRequestBody("123456"));
+
+AbringDynamicRequest mAbring = new AbringDynamicRequest
+        .DynamicRequestPostBuilder()
+        .setUrl(URL)
+        .setRequestBodyParamsPost(params)
+        .build();
+        
+mAbring.request(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(mActivity,
+                "عملیات با موفقیت انجام شد",
+                Toast.LENGTH_SHORT).show();
+                
+        if (response != null) {
+            Gson gson = new Gson();
+            AbringRegisterModel m = gson.fromJson(
+                    response.toString(),
+                    AbringRegisterModel.class);
+        }
+    }
+    
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                        AbringCheck.isEmpty(apiError.getMessage()) ? 
+                                "متاسفانه خطایی رخ داده است" : 
+                                apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+    }
+});
+```
+
+for `String-Image` request:
+1. set `RequestBody` parameters into `HashMap` for `String` request.
+2. set `MultipartBody.Part` parameters into `ArrayList` for `Image` request.
+
+```java
+Map<String, RequestBody> params = new HashMap<>();
+List<MultipartBody.Part> imageParams = new ArrayList<>();
+```
+3. set values into builder pattern : parameters and custom url.
+
+- POST request :
+```java
+
+URL = "player/register"; //send url after ?r= to first &
+
+Map<String, RequestBody> params = new HashMap<>();
+params.put("username", AbringUtils.toRequestBody("Test"));
+params.put("password", AbringUtils.toRequestBody("123456"));
+
+List<MultipartBody.Part> imageParams = new ArrayList<>();
+imageParams.add(AbringUtils.toMultipartBody("avatar", file));
+
+AbringDynamicRequest mAbring = new AbringDynamicRequest
+        .DynamicRequestPostBuilder()
+        .setUrl(URL)
+        .setRequestBodyParamsPost(params)
+        .setImageParamsPost(imageParams)
+        .build();
+        
+mAbring.request(activity, new AbringCallBack() {
+    @Override
+    public void onSuccessful(Object response) {
+        Toast.makeText(activity,
+                "عملیات با موفقیت انجام شد",
+                Toast.LENGTH_SHORT).show();
+                
+        if (response != null) {
+            Gson gson = new Gson();
+            AbringRegisterModel m = gson.fromJson(
+                    response.toString(),
+                    AbringRegisterModel.class);
+        }
+    }
+    
+    @Override
+    public void onFailure(Object response) {
+        AbringApiError apiError = (AbringApiError) response;
+        Toast.makeText(activity,
+                        AbringCheck.isEmpty(apiError.getMessage()) ? 
+                                "متاسفانه خطایی رخ داده است" : 
+                                apiError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+    }
+});
 ```
